@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@theme {
+  --font-display: "Sora", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", monospace;
+
+  --color-pale: #eef1f4;
+  --color-slate-deep: #1c2530;
+  --color-azure: #2563ab;
+  --color-azure-light: #3b82f6;
+  --color-copper: #b87545;
+  --color-navy: #16243a;
+  --color-glass-text: #dce6f2;
+
+  --radius-glass: 1.25rem;
+}
+
+/* Reset & base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #eef1f4;
+  color: #1c2530;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global focus-visible — azure ring for keyboard users across all interactive elements */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #2563ab;
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+/* Glass utility — NO background set here. Apply bg per-instance via Tailwind. */
+.glass {
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 40px rgba(20, 30, 50, 0.08);
+}
+
+.glass-dark {
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 40px rgba(20, 30, 50, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #eef1f4;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 171, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 171, 0.5);
+}
+
+/* Azure glow button */
+.btn-azure {
+  background: #2563ab;
+  color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.75rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  box-shadow: 0 4px 20px rgba(37, 99, 171, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-azure:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37, 99, 171, 0.55);
+  background: #1d52a0;
+}
+
+.btn-azure:active {
+  transform: translateY(0);
+}
+
+.btn-azure:focus-visible {
+  outline: 2px solid #2563ab;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 4px 20px rgba(37, 99, 171, 0.35);
+}
+
+/* Outline button */
+.btn-outline {
+  background: rgba(255, 255, 255, 0.6);
+  color: #2563ab;
+  border: 1.5px solid rgba(37, 99, 171, 0.5);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.75rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(37, 99, 171, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.btn-outline:focus-visible {
+  outline: 2px solid #2563ab;
+  outline-offset: 3px;
+}
+
+/* Section spacing */
+.section-pad {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section-pad {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Copper accent border */
+.copper-border-l {
+  border-left: 3px solid #b87545;
+}
+
+/* Architectural blueprint motif — faint vertical column gridlines + ruled baseline.
+   Subtle, decorative, reduced-motion-safe (static). Use as an aria-hidden backdrop. */
+.blueprint-grid {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(37, 99, 171, 0.05) 0,
+    rgba(37, 99, 171, 0.05) 1px,
+    transparent 1px,
+    transparent 5.5rem
+  );
+}
+
+.blueprint-rule {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(100% - 1px),
+    rgba(37, 99, 171, 0.12) calc(100% - 1px)
+  );
+}
+
+/* Rotating ring animation */
+@keyframes ring-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ring-rotate {
+  animation: ring-rotate 8s linear infinite;
+}
+
+/* Bob animations for stat chips */
+@keyframes bob-a {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes bob-b {
+  0%, 100% { transform: translateY(-4px); }
+  50% { transform: translateY(4px); }
+}
+@keyframes bob-c {
+  0%, 100% { transform: translateY(-2px); }
+  50% { transform: translateY(6px); }
+}
+
+.bob-a { animation: bob-a 3.5s ease-in-out infinite; }
+.bob-b { animation: bob-b 4.2s ease-in-out infinite; }
+.bob-c { animation: bob-c 3.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bob-a, .bob-b, .bob-c { animation: none; }
+  .ring-rotate { animation: none; }
+}

@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #101418;
+  --color-ink-deep: #0a0d10;
+  --color-paper: #f6f1e7;
+  --color-paper-deep: #efe9dc;
+  --color-cream: #efe9dc;
+  --color-inktext: #16191d;
+  --color-vermilion: #c8472b;
+  --color-sec-ink: #b8ae98;
+  --color-sec-paper: #6e6a60;
+
+  --font-serif: "Libre Caslon Text", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "Spline Sans Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #f6f1e7;
+  color: #16191d;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Global keyboard focus baseline — single editorial-red accent */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #f6f1e7,
+    0 0 0 4px #c8472b;
+  border-radius: 1px;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+}
+
+::selection {
+  background-color: #c8472b;
+  color: #f6f1e7;
+}

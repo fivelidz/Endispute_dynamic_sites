@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap");
+
+@theme {
+  --color-paper: #f4f2ed;
+  --color-ink: #0a0a0a;
+  --color-signal: #d92b1c;
+  --color-grey: #8a877f;
+  --color-hairline: #d6d2c8;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-heavy: "Archivo Black", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f4f2ed;
+  color: #0a0a0a;
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+main {
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #d92b1c;
+  color: #f4f2ed;
+}
+
+/* Baseline keyboard focus affordance — visible signal-red ring on all
+   interactive elements. Per-component overrides may refine the offset colour
+   (e.g. on the dark footer/CTA surfaces). */
+a:focus-visible,
+button:focus-visible {
+  outline: none;
+  border-radius: 1px;
+  box-shadow:
+    0 0 0 2px #f4f2ed,
+    0 0 0 4px #d92b1c;
+}
+
+/* Outline text utility for the marquee */
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px #0a0a0a;
+}
+
+.outline-text-signal {
+  color: transparent;
+  -webkit-text-stroke: 2px #d92b1c;
+}
+
+/* Marquee scroll keyframes */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap");
+
+@theme {
+  /* Dark courtroom palette */
+  --color-ink: #0a0a0a;
+  --color-graphite: #1c1c1c;
+  --color-graphite-light: #2a2a2a;
+  --color-cream: #f4eedf;
+  --color-cream-muted: #c8bfa8;
+  --color-gold: #d4a14a;
+  --color-gold-light: #e0b660;
+  --color-gold-dark: #b8882e;
+  --color-oxblood: #8b2e2e;
+  --color-oxblood-light: #a83535;
+  --color-oxblood-dark: #6b2020;
+  --color-border: #2e2e2e;
+  --color-border-light: #3a3a3a;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: var(--color-gold);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Courtroom rule lines */
+.rule-line {
+  border-top: 1px solid var(--color-border);
+}
+
+/* Gold underline animation */
+.gold-underline {
+  position: relative;
+}
+
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-gold);
+  transition: width 0.3s ease;
+}
+
+.gold-underline:hover::after {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .cursor-blink {
+    animation: none;
+    opacity: 1;
+  }
+}
