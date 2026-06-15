@@ -31,7 +31,7 @@ function Marquee({ items }: { items: readonly string[] }) {
             className="inline-flex items-center gap-3 text-sm font-medium text-white/70 px-4 py-2 rounded-full border border-white/15 bg-white/5 flex-shrink-0"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c9a14a] flex-shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ec652b] flex-shrink-0" />
             {item}
           </span>
         ))}
@@ -44,28 +44,28 @@ export default function Panels() {
   const shouldReduce = useReducedMotion();
 
   return (
-    <section id="panels" className="py-24 lg:py-36 bg-[#0e4a4a]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="panels" className="py-16 lg:py-24 bg-[#111a4a]">
+      <div className="container-x">
         {/* Header */}
         <motion.div
           initial={shouldReduce ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="mb-14 max-w-3xl"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12 max-w-3xl"
         >
           <p
-            className="text-xs font-medium tracking-widest uppercase text-[#c9a14a] mb-4"
+            className="text-xs font-medium tracking-widest uppercase text-[#ec652b] mb-4"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             Expert Panels
           </p>
           <h2
-            className="text-4xl lg:text-5xl font-semibold text-[#fbf7f0] leading-tight mb-6"
+            className="text-3xl lg:text-[40px] font-medium text-[#f6f6f8] leading-tight mb-6"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Specialists across every{' '}
-            <em className="text-[#c9a14a]" style={{ fontStyle: 'italic' }}>
+            <em className="text-[#ec652b]" style={{ fontStyle: 'italic' }}>
               industry sector
             </em>
           </h2>
@@ -78,7 +78,7 @@ export default function Panels() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-12"
         >
           <Marquee items={panels.expertise} />
         </motion.div>
@@ -94,16 +94,16 @@ export default function Panels() {
           {/* NBN featured client */}
           <motion.div
             variants={fadeUpItem}
-            className="rounded-2xl border border-[#c9a14a]/30 bg-[#c9a14a]/10 p-8"
+            className="rounded-lg border border-[#ec652b]/30 bg-[#ec652b]/10 p-8"
           >
             <p
-              className="text-xs font-medium tracking-widest uppercase text-[#c9a14a] mb-3"
+              className="text-xs font-medium tracking-widest uppercase text-[#ec652b] mb-3"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
               Featured Appointment
             </p>
             <h3
-              className="text-2xl font-semibold text-[#fbf7f0] mb-2"
+              className="text-2xl font-medium text-[#f6f6f8] mb-2"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               {clients.featured.name}
@@ -115,17 +115,17 @@ export default function Panels() {
           {/* Confidentiality card */}
           <motion.div
             variants={fadeUpItem}
-            className="rounded-2xl border border-white/10 bg-white/5 p-8 flex flex-col justify-between"
+            className="rounded-lg border border-white/10 bg-white/5 p-8 flex flex-col justify-between"
           >
             <div>
               <p
-                className="text-xs font-medium tracking-widest uppercase text-[#c9a14a] mb-3"
+                className="text-xs font-medium tracking-widest uppercase text-[#ec652b] mb-3"
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
                 Client Confidentiality
               </p>
               <h3
-                className="text-2xl font-semibold text-[#fbf7f0] mb-4"
+                className="text-2xl font-medium text-[#f6f6f8] mb-4"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 Our client list is private
@@ -138,7 +138,7 @@ export default function Panels() {
           {/* Expert note — full width */}
           <motion.div
             variants={fadeUpItem}
-            className="sm:col-span-2 rounded-2xl border border-white/10 bg-white/5 p-8"
+            className="sm:col-span-2 rounded-lg border border-white/10 bg-white/5 p-8"
           >
             <p className="text-white/75 leading-relaxed text-lg">{panels.expertNote}</p>
           </motion.div>

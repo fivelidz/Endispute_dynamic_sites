@@ -5,30 +5,31 @@ import { useInView, useReducedMotion } from "motion/react";
 
 /**
  * Eased count-up for the numeric portion of a stat value.
- * Preserves prefix/suffix (e.g. "$2B+", "48hr"). Non-numeric values render as-is.
+ * Preserves prefix/suffix. Non-numeric values render as-is.
+ *
+ * Guarded: only animates when the parsed target is a real, finite, > 0 number.
+ * Never renders a placeholder zero (the old code showed "$0B+" before scroll).
+ * If there is no valid number it renders the original string verbatim.
  */
 export default function CountUp({ value }: { value: string }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [display, setDisplay] = useState<string>(value);
 
   const match = value.match(/^(\D*)(\d[\d,.]*)(.*)$/);
+  const target = match ? parseFloat(match[2].replace(/,/g, "")) : NaN;
+  const animatable = !!match && Number.isFinite(target) && target > 0;
+
+  // Start on the final string so 0/NaN can never flash before scroll.
+  const [display, setDisplay] = useState<string>(value);
 
   useEffect(() => {
-    if (!match) {
+    if (!animatable || reduce || !inView) {
       setDisplay(value);
       return;
     }
-    const [, prefix, numStr, suffix] = match;
-    const target = parseFloat(numStr.replace(/,/g, ""));
+    const [, prefix, numStr, suffix] = match!;
     const decimals = numStr.includes(".") ? (numStr.split(".")[1]?.length ?? 0) : 0;
-
-    if (reduce || !inView) {
-      if (reduce) setDisplay(value);
-      else setDisplay(`${prefix}0${suffix}`);
-      return;
-    }
 
     let raf = 0;
     const duration = 1400;
@@ -44,14 +45,7 @@ export default function CountUp({ value }: { value: string }) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, reduce, value, match]);
+  }, [inView, reduce, value, animatable]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
-    <span
-      ref={ref}
-      style={{ textShadow: "0 0 18px rgba(212,168,67,0.45)" }}
-    >
-      {display}
-    </span>
-  );
+  return <span ref={ref}>{display}</span>;
 }

@@ -7,7 +7,7 @@ import {
   useTransform,
   useReducedMotion,
 } from 'motion/react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { company, stats } from '@/lib/content';
 import { heroContainer, heroItem } from '@/lib/variants';
 import CounterStat from './CounterStat';
@@ -23,11 +23,12 @@ interface BlobConfig {
   offset: number;
 }
 
+// Signature aurora blobs — kept, but very subtle/soft so the hero stays calm & premium.
 const blobs: BlobConfig[] = [
-  { color: 'rgba(14,74,74,0.18)', size: 700, baseX: 10, baseY: 5, rangeX: 18, rangeY: 12, speed: 12000, offset: 0 },
-  { color: 'rgba(194,91,74,0.13)', size: 600, baseX: 65, baseY: 60, rangeX: 14, rangeY: 16, speed: 16000, offset: 3000 },
-  { color: 'rgba(201,161,74,0.12)', size: 500, baseX: 80, baseY: 10, rangeX: 12, rangeY: 20, speed: 20000, offset: 6000 },
-  { color: 'rgba(14,74,74,0.10)', size: 450, baseX: 30, baseY: 75, rangeX: 16, rangeY: 10, speed: 14000, offset: 9000 },
+  { color: 'rgba(17,26,74,0.06)',  size: 620, baseX: 12, baseY: 8,  rangeX: 14, rangeY: 10, speed: 16000, offset: 0 },
+  { color: 'rgba(236,101,43,0.045)', size: 520, baseX: 70, baseY: 58, rangeX: 12, rangeY: 14, speed: 20000, offset: 3000 },
+  { color: 'rgba(17,26,74,0.045)', size: 460, baseX: 82, baseY: 12, rangeX: 10, rangeY: 16, speed: 24000, offset: 6000 },
+  { color: 'rgba(17,26,74,0.035)', size: 420, baseX: 30, baseY: 78, rangeX: 14, rangeY: 9,  speed: 18000, offset: 9000 },
 ];
 
 function AuroraBlob({ blob }: { blob: BlobConfig }) {
@@ -58,13 +59,13 @@ function AuroraBlob({ blob }: { blob: BlobConfig }) {
         borderRadius: '50%',
         position: 'absolute',
         pointerEvents: 'none',
-        filter: 'blur(1px)',
+        filter: 'blur(8px)',
       }}
     />
   );
 }
 
-// Magnetic button
+// Button — primary is deep-indigo fill, ghost is hairline outline.
 interface MagneticButtonProps {
   href: string;
   variant: 'primary' | 'ghost';
@@ -73,45 +74,15 @@ interface MagneticButtonProps {
 }
 
 function MagneticButton({ href, variant, children, onClick }: MagneticButtonProps) {
-  const shouldReduce = useReducedMotion();
-  const btnRef = useRef<HTMLAnchorElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (shouldReduce || !btnRef.current) return;
-    const rect = btnRef.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) * 0.25;
-    const dy = (e.clientY - cy) * 0.25;
-    btnRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
-  };
-
-  const handleMouseLeave = () => {
-    if (!btnRef.current) return;
-    btnRef.current.style.transform = 'translate(0,0)';
-    btnRef.current.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
-  };
-
   const base =
-    'inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold select-none cursor-pointer';
+    'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium select-none cursor-pointer transition-colors duration-200';
   const styles = {
-    primary: `${base} bg-[#c25b4a] text-white hover:bg-[#a84a3a] shadow-lg shadow-[#c25b4a]/20`,
-    ghost: `${base} border-2 border-[#0e4a4a] text-[#0e4a4a] hover:bg-[#0e4a4a] hover:text-[#fbf7f0]`,
+    primary: `${base} bg-[#111a4a] text-white hover:bg-[#1c2a6e]`,
+    ghost: `${base} border border-[#e3e4e8] text-[#011821] hover:border-[#111a4a] hover:text-[#111a4a] bg-white`,
   };
 
   return (
-    <a
-      ref={btnRef}
-      href={href}
-      onClick={onClick}
-      className={styles[variant]}
-      style={{
-        willChange: 'transform',
-        transition: 'transform 0.1s, background-color 0.2s, color 0.2s, border-color 0.2s',
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
+    <a href={href} onClick={onClick} className={styles[variant]}>
       {children}
     </a>
   );
@@ -120,25 +91,21 @@ function MagneticButton({ href, variant, children, onClick }: MagneticButtonProp
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const scrollToAbout = () => {
-    document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const firstSentence = company.about.split('.')[0] + '.';
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#fbf7f0]"
+      className="relative flex flex-col justify-center overflow-hidden bg-[#f6f6f8]"
       id="hero"
     >
-      {/* Aurora blobs */}
+      {/* Aurora blobs — subtle, behind content */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         {blobs.map((blob, i) => (
           <AuroraBlob key={i} blob={blob} />
         ))}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.015]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat',
@@ -151,42 +118,45 @@ export default function Hero() {
         variants={heroContainer}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-28 pb-16 lg:pt-36 lg:pb-24"
+        className="container-x relative z-10 pt-28 pb-16 lg:pt-32 lg:pb-20"
       >
-        {/* Pill badge */}
-        <motion.div variants={heroItem} className="mb-8">
+        {/* Pill badge — single rationed ember accent */}
+        <motion.div variants={heroItem} className="mb-7">
           <span
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#0e4a4a]/25 bg-[#0e4a4a]/6 text-[#0e4a4a] text-xs font-medium tracking-widest uppercase"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ec652b]/30 bg-[#ec652b]/8 text-[#d2531f] text-xs font-medium tracking-widest uppercase"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             Dispute Resolution · Advisory · Management
           </span>
         </motion.div>
 
-        {/* Heading */}
+        {/* Heading — engineered, ~48–60px max */}
         <motion.h1
           variants={heroItem}
-          className="max-w-4xl text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold text-[#161614] leading-[1.05] tracking-tight mb-8"
-          style={{ fontFamily: 'var(--font-display)' }}
+          className="max-w-3xl font-light text-[#011821] mb-6"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            lineHeight: 1.08,
+            letterSpacing: '-0.02em',
+          }}
         >
           End Your Dispute{' '}
           <br className="hidden sm:block" />
           With{' '}
-          <em className="text-[#0e4a4a]" style={{ fontStyle: 'italic' }}>
-            Endispute
-          </em>
+          <span className="text-[#111a4a] font-normal">Endispute</span>
         </motion.h1>
 
         {/* Sub-paragraph */}
         <motion.p
           variants={heroItem}
-          className="max-w-2xl text-lg lg:text-xl text-[#6b6560] leading-relaxed mb-10"
+          className="max-w-xl text-base text-[#7c7f88] leading-relaxed mb-8"
         >
           {company.shortPitch} — {firstSentence}
         </motion.p>
 
         {/* CTAs */}
-        <motion.div variants={heroItem} className="flex flex-wrap gap-4 mb-20">
+        <motion.div variants={heroItem} className="flex flex-wrap gap-3 mb-16">
           <MagneticButton
             href="#contact"
             variant="primary"
@@ -213,36 +183,13 @@ export default function Hero() {
         {/* Stats row */}
         <motion.div
           variants={heroItem}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-10 border-t border-[#e8e0d4]"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-10 border-t border-[#e3e4e8]"
         >
           {stats.map((stat, i) => (
             <CounterStat key={i} stat={stat} index={i} />
           ))}
         </motion.div>
       </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        onClick={scrollToAbout}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[#6b6560] hover:text-[#0e4a4a] transition-colors"
-        aria-label="Scroll to about"
-      >
-        <span
-          className="text-xs tracking-widest uppercase"
-          style={{ fontFamily: 'var(--font-mono)' }}
-        >
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ChevronDown className="w-4 h-4" />
-        </motion.div>
-      </motion.button>
     </section>
   );
 }

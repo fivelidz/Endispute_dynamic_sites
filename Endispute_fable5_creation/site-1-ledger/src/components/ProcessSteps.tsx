@@ -2,68 +2,60 @@
 
 import { motion } from "motion/react";
 import { processSteps } from "@/lib/content";
-import { MaskReveal, Coord } from "./primitives";
+import { MaskReveal, SectionHead } from "./primitives";
 
 export default function ProcessSteps() {
   return (
     <section
       id="process"
-      className="relative border-t border-[#d6d2c8] px-5 py-20 md:px-10 md:py-28"
+      className="relative border-t border-[#e3e0d8] px-5 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[1600px]">
-        <div className="mb-10 flex items-start justify-between">
-          <Coord label="A4 / 03 — Process" />
-          <Coord label="§ Four Stages" />
-        </div>
+      <div className="mx-auto max-w-[1240px]">
+        <SectionHead label="Process — Four Stages" />
 
-        <h2 className="mb-12 font-display font-semibold text-[clamp(2.2rem,6vw,5rem)] uppercase leading-[0.88] tracking-[-0.02em] text-[#0a0a0a]">
-          <MaskReveal>The Process</MaskReveal>
-          <MaskReveal delay={0.08}>
-            Ledger<span className="text-[#d92b1c]">.</span>
-          </MaskReveal>
+        <h2 className="mb-16 font-display text-[clamp(2.6rem,6vw,5rem)] font-light leading-[0.95] tracking-[-0.02em] text-[#0a0a0a]">
+          <MaskReveal>How a dispute</MaskReveal>
+          <MaskReveal delay={0.08}>is managed.</MaskReveal>
         </h2>
 
-        {/* 2x2 grid with visible grid lines */}
-        <div className="grid grid-cols-1 border-l border-t border-[#d6d2c8] md:grid-cols-2">
-          {processSteps.map((step, i) => (
+        {/* Stacked stages with hairline separation */}
+        <div className="border-t border-[#0a0a0a]">
+          {processSteps.map((step) => (
             <motion.div
               key={step.number}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 2) * 0.08 }}
-              className="group relative border-b border-r border-[#d6d2c8] p-7 transition-colors hover:bg-[#0a0a0a] md:p-10"
+              transition={{ duration: 0.55, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-1 gap-6 border-b border-[#e3e0d8] py-10 md:grid-cols-12 md:gap-10 md:py-14"
             >
-              {/* Massive index */}
-              <div className="mb-5 flex items-baseline justify-between">
-                <span className="font-heavy text-[clamp(3rem,7vw,6rem)] leading-none text-[#d6d2c8] transition-colors group-hover:text-[#d92b1c]">
+              {/* Number + title */}
+              <div className="md:col-span-4">
+                <span className="font-display text-[1.6rem] font-light leading-none text-[#6b6b6b]">
                   {step.number}
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8a877f] transition-colors group-hover:text-[#f4f2ed]">
-                  Stage {step.number}
-                </span>
+                <h3 className="mt-3 font-display text-[1.75rem] font-medium leading-[1.1] tracking-[-0.01em] text-[#0a0a0a]">
+                  {step.title}
+                </h3>
               </div>
 
-              <h3 className="mb-3 font-display text-2xl font-semibold leading-tight text-[#0a0a0a] transition-colors group-hover:text-[#f4f2ed]">
-                {step.title}
-              </h3>
-              <p className="mb-6 max-w-md font-display text-base leading-snug text-[#8a877f] transition-colors group-hover:text-[#c9c6bd]">
-                {step.summary}
-              </p>
-
-              <ul className="space-y-2">
-                {step.details.map((d, di) => (
-                  <li
-                    key={di}
-                    className="flex gap-3 font-mono text-[12px] leading-snug text-[#0a0a0a] transition-colors group-hover:text-[#c9c6bd]"
-                  >
-                    <span className="shrink-0 text-[#d92b1c]">
-                      {String(di + 1).padStart(2, "0")}
-                    </span>
-                    <span>{d}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Summary + key points */}
+              <div className="md:col-span-8">
+                <p className="measure text-[16px] leading-[1.7] text-[#444444]">
+                  {step.summary}
+                </p>
+                <ul className="mt-6 space-y-3">
+                  {step.details.map((d, di) => (
+                    <li
+                      key={di}
+                      className="flex gap-3 text-[14px] leading-[1.6] text-[#6b6b6b]"
+                    >
+                      <span aria-hidden className="mt-[0.55em] h-px w-3 shrink-0 bg-[#c4c0b6]" />
+                      <span className="measure">{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>

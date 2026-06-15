@@ -44,56 +44,53 @@ export default function Nav() {
       <motion.header
         initial={false}
         animate={{
-          backgroundColor: scrolled ? 'rgba(251,247,240,0.92)' : 'transparent',
+          backgroundColor: scrolled ? 'rgba(246,246,248,0.85)' : 'rgba(246,246,248,0)',
           boxShadow: scrolled
-            ? '0 1px 24px 0 rgba(14,74,74,0.08)'
+            ? '0 1px 2px rgba(17,26,74,0.04), 0 8px 24px rgba(17,26,74,0.08)'
             : '0 0 0 0 transparent',
+          borderColor: scrolled ? 'rgba(227,228,232,1)' : 'rgba(227,228,232,0)',
         }}
         transition={{ duration: 0.3 }}
         style={{ backdropFilter: scrolled ? 'blur(12px)' : 'blur(0px)' }}
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-0 right-0 z-50 border-b"
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
+        <div className="container-x flex items-center justify-between h-14 lg:h-16">
+          {/* Logo — placed on a dark indigo chip so the light logo always reads */}
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 inline-flex items-center rounded-lg bg-[#111a4a] px-3 py-2 shadow-sm"
+            aria-label="Endispute — home"
           >
             <Image
               src="/Endispute-Logo2.png"
               alt="Endispute"
-              width={160}
-              height={48}
-              className="h-10 w-auto object-contain"
+              width={150}
+              height={44}
+              className="h-7 w-auto object-contain brightness-0 invert"
               priority
             />
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); handleLinkClick(link.href); }}
-                className={cn(
-                  'text-sm font-medium tracking-wide transition-colors duration-200',
-                  scrolled
-                    ? 'text-[#161614] hover:text-[#0e4a4a]'
-                    : 'text-[#161614] hover:text-[#0e4a4a]'
-                )}
+                className="text-sm font-medium tracking-tight text-[#011821] hover:text-[#111a4a] transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Phone CTA */}
+          {/* Phone CTA — deep indigo primary */}
           <div className="hidden lg:flex items-center gap-3">
             <a
               href={`tel:${contact.phone}`}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#c25b4a] text-white text-sm font-medium hover:bg-[#a84a3a] transition-colors duration-200"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#111a4a] text-white text-sm font-medium hover:bg-[#1c2a6e] transition-colors duration-200"
             >
               <Phone className="w-3.5 h-3.5" />
               {contact.phone}
@@ -102,7 +99,7 @@ export default function Nav() {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden p-2 rounded-lg text-[#161614]"
+            className="lg:hidden p-2 rounded-lg text-[#011821]"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
@@ -119,8 +116,8 @@ export default function Nav() {
             initial={shouldReduce ? { opacity: 1 } : { opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={shouldReduce ? { opacity: 0 } : { opacity: 0, y: -16 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed inset-x-0 top-16 z-40 bg-[#fbf7f0] border-b border-[#e8e0d4] shadow-xl px-6 py-6 lg:hidden"
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 top-14 z-40 bg-[#f6f6f8] border-b border-[#e3e4e8] shadow-xl px-6 py-6 lg:hidden"
           >
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -128,14 +125,14 @@ export default function Nav() {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => { e.preventDefault(); handleLinkClick(link.href); }}
-                  className="text-lg font-medium text-[#161614] hover:text-[#0e4a4a] transition-colors py-1"
+                  className="text-base font-medium text-[#011821] hover:text-[#111a4a] transition-colors py-1"
                 >
                   {link.label}
                 </a>
               ))}
               <a
                 href={`tel:${contact.phone}`}
-                className="mt-2 flex items-center gap-2 px-4 py-3 rounded-full bg-[#c25b4a] text-white font-medium justify-center hover:bg-[#a84a3a] transition-colors"
+                className="mt-2 flex items-center gap-2 px-4 py-3 rounded-lg bg-[#111a4a] text-white font-medium justify-center hover:bg-[#1c2a6e] transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 {contact.phone}

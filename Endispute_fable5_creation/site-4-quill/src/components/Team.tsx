@@ -38,10 +38,10 @@ export default function Team() {
         className="mb-12 text-center"
       >
         <p className="smallcaps text-[15px] text-[#a8842c]">The director</p>
-        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl">
+        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl">
           {t.name}
         </h2>
-        <p className="mt-1 font-garamond text-lg italic text-[#7a6a55]">
+        <p className="mt-1 font-garamond text-lg italic text-[#6b6b6b]">
           {t.role}
         </p>
       </motion.div>
@@ -55,7 +55,7 @@ export default function Team() {
           transition={{ duration: 0.7 }}
           className="relative mx-auto"
         >
-          <div className="relative border border-[#2b2118]/50 p-2 outline outline-1 outline-offset-[4px] outline-[#a8842c]/45">
+          <div className="relative border border-[#1f1c1b]/50 p-2 outline outline-1 outline-offset-[4px] outline-[#a8842c]/45">
             <Image
               src={t.photo}
               alt={t.name}
@@ -90,7 +90,7 @@ export default function Team() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7 }}
-            className="dropcap font-garamond text-lg leading-relaxed text-[#2b2118]"
+            className="dropcap font-garamond text-lg leading-relaxed text-[#1f1c1b]"
           >
             {t.bio}
           </motion.p>
@@ -109,7 +109,7 @@ export default function Team() {
               {t.credentials.map((c, i) => (
                 <li
                   key={i}
-                  className="flex gap-3 font-garamond text-base leading-relaxed text-[#7a6a55]"
+                  className="flex gap-3 font-garamond text-base leading-relaxed text-[#6b6b6b]"
                 >
                   <span className="w-8 shrink-0 text-right font-mono-quill text-sm text-[#a8842c]">
                     {romanLower[i]}.
@@ -128,16 +128,16 @@ export default function Team() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7 }}
-        className="mx-auto mt-16 max-w-2xl border border-[#7a6a55]/30 bg-[#efe6d2]/50 p-8 text-center"
+        className="mx-auto mt-16 max-w-2xl border border-[#6b6b6b]/30 bg-[#efe6d2]/50 p-8 text-center"
       >
         <p className="smallcaps text-[13px] text-[#a8842c]">In memoriam</p>
-        <h3 className="mt-2 font-garamond text-2xl font-600 text-[#2b2118]">
+        <h3 className="mt-2 font-garamond text-2xl font-600 text-[#1f1c1b]">
           {inMemoriam.name}
         </h3>
-        <p className="font-mono-quill text-sm text-[#7a6a55]">
+        <p className="font-mono-quill text-sm text-[#6b6b6b]">
           {inMemoriam.years}
         </p>
-        <p className="mt-4 font-garamond text-base italic leading-relaxed text-[#2b2118]">
+        <p className="mt-4 font-garamond text-base italic leading-relaxed text-[#1f1c1b]">
           {inMemoriam.note}
         </p>
       </motion.div>

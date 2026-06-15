@@ -1,81 +1,51 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "motion/react";
 import { benefits } from "@/lib/content";
-import { MaskReveal, DrawRule, Coord } from "./primitives";
+import { MaskReveal, SectionHead } from "./primitives";
 
 export default function Benefits() {
-  const [hover, setHover] = useState<number | null>(null);
-
   return (
     <section
       id="benefits"
-      className="relative border-t border-[#d6d2c8] bg-[#f4f2ed] px-5 py-20 md:px-10 md:py-28"
+      className="relative border-t border-[#e3e0d8] px-5 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[1600px]">
-        <div className="mb-10 flex items-start justify-between">
-          <Coord label="A3 / 02 — Benefits" />
-          <Coord label="§ Why Endispute" />
-        </div>
+      <div className="mx-auto max-w-[1240px]">
+        <SectionHead label="Benefits — Why Endispute" />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="font-display font-semibold text-[clamp(2.2rem,5vw,4rem)] uppercase leading-[0.9] tracking-[-0.02em] text-[#0a0a0a]">
+            <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] font-light leading-[0.98] tracking-[-0.02em] text-[#0a0a0a]">
               <MaskReveal>Why</MaskReveal>
-              <MaskReveal delay={0.08}>
-                Resolve<span className="text-[#d92b1c]">.</span>
-              </MaskReveal>
+              <MaskReveal delay={0.08}>resolve.</MaskReveal>
             </h2>
-            <p className="mt-5 max-w-xs font-mono text-[12px] uppercase leading-relaxed tracking-[0.08em] text-[#8a877f]">
+            <p className="measure-tight mt-6 text-[15px] leading-[1.65] text-[#6b6b6b]">
               Five reasons complex disputes belong in a managed process — not in
               public litigation.
             </p>
           </div>
 
-          {/* Table-like list */}
+          {/* List */}
           <div className="md:col-span-8">
-            {benefits.map((b, i) => {
-              const active = hover === i;
-              return (
-                <div
+            <div className="border-t border-[#e3e0d8]">
+              {benefits.map((b, i) => (
+                <motion.div
                   key={b.title}
-                  onMouseEnter={() => setHover(i)}
-                  onMouseLeave={() => setHover(null)}
-                  className="group relative"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  className="grid grid-cols-1 gap-2 border-b border-[#e3e0d8] py-7 md:grid-cols-12 md:gap-6"
                 >
-                  <DrawRule
-                    color={active ? "#d92b1c" : "#d6d2c8"}
-                    thickness={active ? 2 : 1}
-                    delay={i * 0.05}
-                  />
-                  <div className="grid grid-cols-12 items-baseline gap-3 py-6 transition-colors">
-                    <span
-                      className="col-span-2 font-mono text-sm tabular-nums tracking-[0.1em] text-[#d92b1c] md:col-span-1"
-                    >
-                      0{i + 1}
-                    </span>
-                    <h3
-                      className={`col-span-10 font-display text-xl font-medium leading-snug transition-colors md:col-span-5 ${
-                        active ? "text-[#d92b1c]" : "text-[#0a0a0a]"
-                      }`}
-                    >
-                      {b.title}
-                    </h3>
-                    <p className="col-span-12 font-display text-base leading-snug text-[#8a877f] md:col-span-6">
-                      {b.detail}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="h-px w-full origin-left bg-[#d6d2c8]"
-            />
+                  <h3 className="font-display text-[1.45rem] font-medium leading-[1.15] tracking-[-0.01em] text-[#0a0a0a] md:col-span-5">
+                    {b.title}
+                  </h3>
+                  <p className="text-[15px] leading-[1.65] text-[#6b6b6b] md:col-span-7">
+                    {b.detail}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

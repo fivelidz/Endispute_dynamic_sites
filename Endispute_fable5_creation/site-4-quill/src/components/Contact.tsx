@@ -25,7 +25,7 @@ export default function Contact() {
         className="mb-12 text-center"
       >
         <p className="smallcaps text-[15px] text-[#a8842c]">By correspondence</p>
-        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl">
+        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl">
           Begin a confidential conversation
         </h2>
       </motion.div>
@@ -46,11 +46,11 @@ export default function Contact() {
                   className="mb-5 h-6 w-[260px]"
                   color="#a8842c"
                 />
-                <p className="font-garamond text-2xl italic text-[#2b2118]">
+                <p className="font-garamond text-2xl italic text-[#1f1c1b]">
                   Your correspondence has been received.
                 </p>
-                <p className="mt-2 font-garamond text-base text-[#7a6a55]">
-                  We respond within {contact.responseWindow}.
+                <p className="mt-2 font-garamond text-base text-[#6b6b6b]">
+                  We respond promptly and in confidence.
                 </p>
               </motion.div>
             ) : (
@@ -62,24 +62,30 @@ export default function Contact() {
                 className="space-y-8"
               >
                 {[
-                  { id: "name", label: "Your name", type: "text", required: true },
-                  { id: "org", label: "Organisation", type: "text", required: false },
-                  { id: "email", label: "Email address", type: "email", required: true },
-                  { id: "phone", label: "Telephone", type: "tel", required: false },
+                  { id: "name", label: "Your name", type: "text", required: true, placeholder: "e.g. Jordan Avery" },
+                  { id: "org", label: "Organisation", type: "text", required: false, placeholder: "Company or firm (optional)" },
+                  { id: "email", label: "Email address", type: "email", required: true, placeholder: "name@example.com" },
+                  { id: "phone", label: "Telephone", type: "tel", required: false, placeholder: "Optional" },
                 ].map((field) => (
                   <div key={field.id}>
                     <label
                       htmlFor={field.id}
-                      className="smallcaps block text-[13px] text-[#7a6a55]"
+                      className="smallcaps mb-1.5 block text-[14px] font-600 text-[#1f1c1b]"
                     >
                       {field.label}
+                      {field.required && (
+                        <span className="ml-1 text-[#9e3b2b]" aria-hidden>
+                          *
+                        </span>
+                      )}
                     </label>
                     <input
                       id={field.id}
                       name={field.id}
                       type={field.type}
                       required={field.required}
-                      className="w-full rounded-sm border-b border-[#2b2118]/35 bg-transparent py-2 font-garamond text-lg text-[#2b2118] transition-colors placeholder:text-[#7a6a55]/50 focus:border-[#9e3b2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9e3b2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1e3]"
+                      placeholder={field.placeholder}
+                      className="w-full rounded-[2px] border border-[#1f1c1b]/45 bg-[#fefefc] px-3 py-2.5 font-garamond text-lg text-[#1f1c1b] transition-colors placeholder:text-[#6b6b6b] hover:border-[#1f1c1b]/70 focus:border-[#9e3b2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9e3b2b]/40 focus-visible:ring-offset-1 focus-visible:ring-offset-[#ebe9e1]"
                     />
                   </div>
                 ))}
@@ -87,22 +93,26 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="smallcaps block text-[13px] text-[#7a6a55]"
+                    className="smallcaps mb-1.5 block text-[14px] font-600 text-[#1f1c1b]"
                   >
                     Message — the nature of the matter
+                    <span className="ml-1 text-[#9e3b2b]" aria-hidden>
+                      *
+                    </span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    rows={3}
+                    rows={4}
                     required
-                    className="w-full resize-none rounded-sm border-b border-[#2b2118]/35 bg-transparent py-2 font-garamond text-lg text-[#2b2118] transition-colors focus:border-[#9e3b2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9e3b2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1e3]"
+                    placeholder="A brief outline of the matter…"
+                    className="w-full resize-none rounded-[2px] border border-[#1f1c1b]/45 bg-[#fefefc] px-3 py-2.5 font-garamond text-lg text-[#1f1c1b] transition-colors placeholder:text-[#6b6b6b] hover:border-[#1f1c1b]/70 focus:border-[#9e3b2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9e3b2b]/40 focus-visible:ring-offset-1 focus-visible:ring-offset-[#ebe9e1]"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="smallcaps rounded-sm bg-[#9e3b2b] px-8 py-3 text-[16px] text-[#f7f1e3] transition-colors hover:bg-[#86311f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9e3b2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1e3]"
+                  className="btn-ink smallcaps px-8 py-3 text-[16px]"
                 >
                   Send correspondence
                 </button>
@@ -117,19 +127,19 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
-          className="space-y-6 md:border-l md:border-[#7a6a55]/30 md:pl-12"
+          className="space-y-6 md:border-l md:border-[#1f1c1b]/20 md:pl-12"
         >
           {[
             { icon: Phone, label: "By telephone", value: contact.phone },
             { icon: Mail, label: "By email", value: contact.email },
-            { icon: Clock, label: "Response window", value: contact.responseWindow },
+            { icon: Clock, label: "Response window", value: "Prompt & in confidence" },
             { icon: Globe, label: "Where we operate", value: contact.reach },
           ].map((d) => (
             <div key={d.label} className="flex items-start gap-3">
               <d.icon size={18} className="mt-1 shrink-0 text-[#a8842c]" />
               <div>
-                <p className="smallcaps text-[13px] text-[#7a6a55]">{d.label}</p>
-                <p className="font-garamond text-lg text-[#2b2118]">{d.value}</p>
+                <p className="smallcaps text-[13px] text-[#6b6b6b]">{d.label}</p>
+                <p className="font-garamond text-lg text-[#1f1c1b]">{d.value}</p>
               </div>
             </div>
           ))}

@@ -21,7 +21,7 @@ export default function StarField() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 80% at 50% -10%, rgba(212,168,67,0.06), transparent 60%), radial-gradient(100% 60% at 80% 110%, rgba(58,166,160,0.05), transparent 60%)",
+            "radial-gradient(120% 80% at 50% -10%, rgba(128,82,255,0.06), transparent 60%), radial-gradient(100% 60% at 80% 110%, rgba(21,132,110,0.05), transparent 60%)",
         }}
       />
       <motion.div

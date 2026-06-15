@@ -9,8 +9,46 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 /* ------------------------------------------------------------------ */
-/* MaskReveal — wraps a line in overflow-hidden and slides it up       */
+/* Reveal — subtle opacity + small translateY on scroll into view      */
+/* ------------------------------------------------------------------ */
+
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  as = "div",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  as?: "div" | "p" | "span" | "li";
+}) {
+  const reduce = useReducedMotion();
+  const MotionTag = motion[as];
+
+  if (reduce) {
+    const Tag = as;
+    return <Tag className={className}>{children}</Tag>;
+  }
+
+  return (
+    <MotionTag
+      className={className}
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+    >
+      {children}
+    </MotionTag>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* MaskReveal — wraps a display line and slides it up under a mask     */
 /* ------------------------------------------------------------------ */
 
 export function MaskReveal({
@@ -35,14 +73,10 @@ export function MaskReveal({
     <span className={cn("block overflow-hidden", as === "span" && "inline-block")}>
       <motion.span
         className={cn("block", className)}
-        initial={{ y: "110%" }}
+        initial={{ y: "108%" }}
         whileInView={{ y: "0%" }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{
-          duration: 0.7,
-          delay,
-          ease: [0.22, 1, 0.36, 1],
-        }}
+        transition={{ duration: 0.7, delay, ease: EASE }}
       >
         {children}
       </motion.span>
@@ -56,7 +90,7 @@ export function MaskReveal({
 
 export function DrawRule({
   className,
-  color = "#d6d2c8",
+  color = "#e3e0d8",
   thickness = 1,
   delay = 0,
   vertical = false,
@@ -91,13 +125,13 @@ export function DrawRule({
       initial={vertical ? { scaleY: 0 } : { scaleX: 0 }}
       whileInView={vertical ? { scaleY: 1 } : { scaleX: 1 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.9, delay, ease: EASE }}
     />
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* CountUp — rapidly counts to a target when in view                   */
+/* CountUp — quietly counts to a target when in view                   */
 /* ------------------------------------------------------------------ */
 
 export function CountUp({
@@ -125,7 +159,7 @@ export function CountUp({
     }
     const controls = animate(0, value, {
       duration,
-      ease: [0.22, 1, 0.36, 1],
+      ease: EASE,
       onUpdate: (v) => setDisplay(Math.round(v)),
     });
     return () => controls.stop();
@@ -141,7 +175,7 @@ export function CountUp({
 }
 
 /* ------------------------------------------------------------------ */
-/* SnapIn — sharp spring entrance for red accent elements              */
+/* SnapIn — gentle reveal for callout cards                            */
 /* ------------------------------------------------------------------ */
 
 export function SnapIn({
@@ -162,10 +196,10 @@ export function SnapIn({
   return (
     <motion.div
       className={className}
-      initial={{ scale: 0.8, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 1 }}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ type: "spring" as const, stiffness: 400, damping: 30, delay }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -173,10 +207,11 @@ export function SnapIn({
 }
 
 /* ------------------------------------------------------------------ */
-/* Coord — tiny mono grid-coordinate label                             */
+/* SectionHead — restrained eyebrow label + thin hairline              */
+/* Replaces the cluttered coordinate-marker row.                       */
 /* ------------------------------------------------------------------ */
 
-export function Coord({
+export function SectionHead({
   label,
   className,
 }: {
@@ -184,17 +219,17 @@ export function Coord({
   className?: string;
 }) {
   return (
-    <motion.span
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay: 0.3 }}
-      className={cn(
-        "font-mono text-[10px] uppercase tracking-[0.25em] text-[#8a877f]",
-        className
-      )}
-    >
-      {label}
-    </motion.span>
+    <div className={cn("mb-10 md:mb-14", className)}>
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6 }}
+        className="eyebrow block"
+      >
+        {label}
+      </motion.span>
+      <DrawRule className="mt-4" color="#e3e0d8" thickness={1} />
+    </div>
   );
 }

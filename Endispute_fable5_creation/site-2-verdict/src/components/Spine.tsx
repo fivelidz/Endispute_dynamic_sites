@@ -41,11 +41,11 @@ function SpineRow({ index, total, title, detail, progress, reduce }: RowProps) {
     <div
       className={cn(
         "relative grid grid-cols-1 items-center gap-6 md:grid-cols-2",
-        "py-8"
+        "py-5"
       )}
     >
       {/* spine node */}
-      <div className="absolute left-1/2 top-1/2 z-20 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#c8472b] md:block" />
+      <div className="absolute left-1/2 top-1/2 z-20 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#fc1c46] md:block" />
 
       <motion.div
         style={{ opacity, x }}
@@ -54,10 +54,12 @@ function SpineRow({ index, total, title, detail, progress, reduce }: RowProps) {
           left ? "md:pr-12" : "md:order-2 md:col-start-2 md:pl-12"
         )}
       >
-        <div className="border border-[#16191d]/15 bg-[#efe9dc] p-7 text-[#16191d] shadow-sm">
-          <span className="mono-label text-[#c8472b]">0{index + 1}</span>
-          <h3 className="mt-3 font-serif text-2xl leading-snug">{title}</h3>
-          <p className="mt-3 text-[14px] leading-relaxed text-[#6e6a60]">
+        <div className="border border-[#4c4c4c] bg-[#1a1a1a] p-7 text-[#cccccc]">
+          <span className="mono-label text-[#cccccc]">0{index + 1}</span>
+          <h3 className="mt-3 font-serif text-2xl leading-snug text-white">
+            {title}
+          </h3>
+          <p className="mt-3 text-[15px] leading-[1.5] text-[#cccccc]">
             {detail}
           </p>
         </div>
@@ -87,18 +89,18 @@ export default function Spine() {
     <section
       id="benefits"
       ref={ref}
-      className="relative bg-[#f6f1e7] px-6 py-28 text-[#16191d] md:py-36"
+      className="relative bg-[#0a0a0a] px-6 py-20 text-[#cccccc] md:py-24"
     >
-      <div className="mx-auto max-w-5xl">
-        <p className="mono-label mb-5 text-[#6e6a60]">03 — Why Endispute</p>
-        <h2 className="max-w-2xl font-serif text-4xl leading-tight text-[#16191d] sm:text-5xl">
-          The balance of <span className="italic text-[#c8472b]">advantage</span>.
+      <div className="measure max-w-5xl">
+        <p className="mono-label mb-5 text-[#cccccc]">03 — Why Endispute</p>
+        <h2 className="display max-w-2xl text-[clamp(2rem,4.5vw,3.25rem)]">
+          The balance of <span className="text-[#fc1c46]">advantage</span>.
         </h2>
 
-        <div className="relative mt-16">
+        <div className="relative mt-12">
           {/* central spine line */}
           <motion.div
-            className="absolute left-1/2 top-0 hidden h-full w-[2px] origin-top -translate-x-1/2 bg-[#c8472b] md:block"
+            className="absolute left-1/2 top-0 hidden h-full w-[2px] origin-top -translate-x-1/2 bg-[#fc1c46] md:block"
             style={{ scaleY: spineScale }}
           />
 

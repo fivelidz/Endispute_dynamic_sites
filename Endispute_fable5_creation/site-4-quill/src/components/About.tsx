@@ -22,7 +22,7 @@ export default function About() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7 }}
-        className="mb-12 text-center font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl"
+        className="mb-12 text-center font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl"
       >
         <span className="smallcaps mr-3 text-[15px] align-middle text-[#a8842c]">
           On the record
@@ -38,7 +38,7 @@ export default function About() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
         >
-          <p className="dropcap font-garamond text-lg leading-relaxed text-[#2b2118]">
+          <p className="dropcap font-garamond text-lg leading-relaxed text-[#1f1c1b]">
             {company.about}
           </p>
         </motion.div>
@@ -49,7 +49,7 @@ export default function About() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7, delay: 0.12 }}
         >
-          <p className="dropcap font-garamond text-lg leading-relaxed text-[#2b2118]">
+          <p className="dropcap font-garamond text-lg leading-relaxed text-[#1f1c1b]">
             {company.whoWeAre}
           </p>
         </motion.div>
@@ -64,7 +64,7 @@ export default function About() {
         className="mx-auto mt-16 max-w-3xl text-center"
       >
         <span className="mb-4 block text-2xl text-[#a8842c]">✦</span>
-        <p className="font-garamond text-2xl italic leading-relaxed text-[#2b2118] md:text-[28px]">
+        <p className="font-garamond text-2xl italic leading-relaxed text-[#1f1c1b] md:text-[28px]">
           {company.mission}
         </p>
         <span className="mt-4 block text-2xl text-[#a8842c]">✦</span>

@@ -24,33 +24,33 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative bg-[#f6f1e7] px-6 py-28 text-[#16191d] md:py-36"
+      className="relative bg-[#0a0a0a] px-6 py-20 text-[#cccccc] md:py-24"
     >
-      <div className="mx-auto max-w-5xl">
-        <p className="mono-label mb-8 text-[#6e6a60]">01 — Who we are</p>
+      <div className="measure max-w-5xl">
+        <p className="mono-label mb-8 text-[#cccccc]">01 — Who we are</p>
 
-        <h2 className="font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        <h2 className="display text-[clamp(2.25rem,5vw,3.75rem)]">
           <MaskReveal lines={["A leading provider of", "dispute resolution."]} />
         </h2>
 
-        {/* Big serif pull-quote from mission */}
+        {/* Pull-quote from mission — red seam on the left edge */}
         <motion.blockquote
           {...reveal()}
-          className="mt-14 border-l-2 border-[#c8472b] pl-7 font-serif text-2xl italic leading-snug sm:text-3xl lg:text-[2.1rem]"
+          className="mt-12 border-l-2 border-[#fc1c46] pl-7 font-serif text-2xl italic leading-snug text-white sm:text-3xl"
         >
           {company.mission}
         </motion.blockquote>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-2">
+        <div className="mt-12 grid gap-10 md:grid-cols-2">
           <motion.p
             {...reveal()}
-            className="text-[15px] leading-relaxed text-[#6e6a60]"
+            className="text-[16px] leading-[1.5] text-[#cccccc]"
           >
             {company.about}
           </motion.p>
           <motion.p
             {...reveal(0.1)}
-            className="text-[15px] leading-relaxed text-[#6e6a60]"
+            className="text-[16px] leading-[1.5] text-[#cccccc]"
           >
             {company.whoWeAre}
           </motion.p>

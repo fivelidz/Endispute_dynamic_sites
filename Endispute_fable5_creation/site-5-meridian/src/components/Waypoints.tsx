@@ -25,7 +25,7 @@ function Waypoint({ step, index }: { step: Step; index: number }) {
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`absolute top-10 hidden h-px w-[8%] bg-gradient-to-r from-[#8a93a8] to-transparent lg:block ${
+        className={`absolute top-10 hidden h-px w-[8%] bg-gradient-to-r from-[#9a9a9a] to-transparent lg:block ${
           isLeft
             ? "right-1/2 origin-right"
             : "left-1/2 origin-left bg-gradient-to-l"
@@ -39,26 +39,26 @@ function Waypoint({ step, index }: { step: Step; index: number }) {
         transition={{ duration: 0.6 }}
         className="lg:w-[46%]"
       >
-        <MouseGlow className="h-full rounded-2xl border border-[#232c48] bg-[#141b30]">
+        <MouseGlow className="h-full rounded-2xl border border-[#26262e] bg-[#0c0c12]">
           <div className="p-8">
             <div className="flex items-center gap-4">
-              <span className="font-mono text-3xl font-semibold text-[#b8c0d4]">
+              <span className="font-mono text-3xl font-semibold text-[#bdbdbd]">
                 {step.number}
               </span>
-              <span className="h-px flex-1 bg-[#232c48]" />
+              <span className="h-px flex-1 bg-[#26262e]" />
             </div>
-            <h3 className="mt-4 font-serif text-2xl font-light leading-snug text-[#e8ecf4]">
+            <h3 className="mt-4 font-serif text-2xl font-light leading-snug text-[#ffffff]">
               {step.title}
             </h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-[#b8c0d4]">
+            <p className="mt-3 text-[15px] leading-relaxed text-[#bdbdbd]">
               {step.summary}
             </p>
             <ul className="mt-5 space-y-2.5">
               {step.details.map((d) => (
-                <li key={d} className="flex gap-3 text-sm leading-relaxed text-[#8a93a8]">
+                <li key={d} className="flex gap-3 text-sm leading-relaxed text-[#9a9a9a]">
                   <Check
                     size={16}
-                    className="mt-0.5 shrink-0 text-[#8a93a8]"
+                    className="mt-0.5 shrink-0 text-[#9a9a9a]"
                   />
                   <span>{d}</span>
                 </li>
@@ -73,17 +73,17 @@ function Waypoint({ step, index }: { step: Step; index: number }) {
 
 export default function Waypoints() {
   return (
-    <section id="process" className="relative px-6 py-28">
-      <div className="mx-auto max-w-7xl lg:pl-[8%]">
+    <section id="process" className="relative px-6 py-20">
+      <div className="mx-auto max-w-[1200px] lg:pl-[8%]">
         <Node label="02 — The Journey" className="mb-8" />
-        <h2 className="max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight text-[#e8ecf4] sm:text-5xl">
-          Four waypoints from <span className="italic text-[#d4a843]">intake to resolution.</span>
+        <h2 className="max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight text-[#ffffff] sm:text-5xl">
+          Four waypoints from <span className="italic text-[#8052ff]">intake to resolution.</span>
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-[#b8c0d4]">
+        <p className="mt-4 max-w-2xl text-lg text-[#bdbdbd]">
           Every dispute follows a charted course. We manage each stage so the process stays efficient, transparent and effective.
         </p>
 
-        <div className="mt-16 space-y-14">
+        <div className="mt-12 space-y-14">
           {processSteps.map((step, i) => (
             <Waypoint key={step.number} step={step} index={i} />
           ))}

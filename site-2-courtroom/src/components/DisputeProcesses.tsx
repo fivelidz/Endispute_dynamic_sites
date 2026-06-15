@@ -135,6 +135,42 @@ export default function DisputeProcesses() {
             );
           })}
         </div>
+
+        {/* The Endispute range of processes — reference figure.
+            Uses the shipped diagram asset (white background) framed on a
+            cream card so it reads correctly against the dark courtroom theme. */}
+        <motion.figure
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-16 border border-[#2e2e2e]"
+        >
+          <div className="flex items-center justify-between border-b border-[#2e2e2e] px-6 py-4">
+            <span
+              className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#d4a14a]"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              Figure — The range of processes
+            </span>
+            <span
+              className="text-[10px] font-mono uppercase tracking-widest text-[#c8bfa8]/40"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              Facilitative → Advisory → Determinative
+            </span>
+          </div>
+          <div className="bg-[#f4eedf] p-4 sm:p-8">
+            <img
+              src="/The-Endispute-range-of-processes-5.png"
+              alt="The Endispute range of processes, spanning facilitative, advisory and determinative approaches — from informal negotiation and mediation through to arbitration and expert determination."
+              width={869}
+              height={869}
+              loading="lazy"
+              decoding="async"
+              className="mx-auto block h-auto w-full max-w-2xl"
+            />
+          </div>
+        </motion.figure>
       </div>
     </section>
   );

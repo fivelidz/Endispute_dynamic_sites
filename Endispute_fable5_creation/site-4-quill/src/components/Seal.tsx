@@ -26,7 +26,7 @@ export default function Seal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.05 }}
-            className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl"
+            className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl"
           >
             Specialist experts &amp; appointed advisors
           </motion.h2>
@@ -36,7 +36,7 @@ export default function Seal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-5 font-garamond text-lg leading-relaxed text-[#2b2118]"
+            className="mt-5 font-garamond text-lg leading-relaxed text-[#1f1c1b]"
           >
             {panels.intro}
           </motion.p>
@@ -51,7 +51,7 @@ export default function Seal() {
           >
             {panels.expertise.map((e, i) => (
               <Fragment key={e}>
-                <span className="smallcaps text-[14px] text-[#7a6a55]">{e}</span>
+                <span className="smallcaps text-[14px] text-[#6b6b6b]">{e}</span>
                 {i < panels.expertise.length - 1 && (
                   <span className="mx-2 text-[#a8842c]">✦</span>
                 )}
@@ -64,7 +64,7 @@ export default function Seal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-6 font-garamond text-base italic leading-relaxed text-[#7a6a55]"
+            className="mt-6 font-garamond text-base italic leading-relaxed text-[#6b6b6b]"
           >
             {panels.expertNote}
           </motion.p>
@@ -78,9 +78,9 @@ export default function Seal() {
           transition={{ type: "spring", stiffness: 130, damping: 12, delay: 0.2 }}
           className="mx-auto"
         >
-          <div className="relative flex h-[160px] w-[160px] items-center justify-center rounded-full bg-[#9e3b2b] text-[#f7f1e3] shadow-[0_4px_14px_rgba(43,33,24,0.35)] outline outline-2 outline-offset-[5px] outline-[#9e3b2b]/45">
-            <div className="flex h-[140px] w-[140px] flex-col items-center justify-center rounded-full border border-[#f7f1e3]/55 text-center">
-              <span className="smallcaps text-[13px] leading-tight tracking-[0.18em] text-[#f7f1e3]/85">
+          <div className="relative flex h-[160px] w-[160px] items-center justify-center rounded-full bg-[#9e3b2b] text-[#ebe9e1] shadow-[0_2px_8px_rgba(31,28,27,0.22)] outline outline-2 outline-offset-[5px] outline-[#9e3b2b]/40">
+            <div className="flex h-[140px] w-[140px] flex-col items-center justify-center rounded-full border border-[#ebe9e1]/55 text-center">
+              <span className="smallcaps text-[13px] leading-tight tracking-[0.18em] text-[#ebe9e1]/85">
                 NBN
               </span>
               <span className="my-1 font-garamond text-base font-600 leading-tight">
@@ -88,7 +88,7 @@ export default function Seal() {
                 <br />
                 Advisor
               </span>
-              <span className="smallcaps text-[12px] tracking-[0.2em] text-[#f7f1e3]/80">
+              <span className="smallcaps text-[12px] tracking-[0.2em] text-[#ebe9e1]/80">
                 Est. 2014
               </span>
             </div>
@@ -102,15 +102,15 @@ export default function Seal() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7 }}
-        className="mt-14 border-t border-[#7a6a55]/30 pt-8 text-center"
+        className="mt-14 border-t border-[#6b6b6b]/30 pt-8 text-center"
       >
         <p className="smallcaps text-[14px] text-[#a8842c]">
           {clients.featured.relation}
         </p>
-        <p className="mx-auto mt-2 max-w-2xl font-garamond text-lg leading-relaxed text-[#2b2118]">
+        <p className="mx-auto mt-2 max-w-2xl font-garamond text-lg leading-relaxed text-[#1f1c1b]">
           {clients.featured.detail}
         </p>
-        <p className="mt-3 font-garamond text-base italic text-[#7a6a55]">
+        <p className="mt-3 font-garamond text-base italic text-[#6b6b6b]">
           {clients.privacy}
         </p>
       </motion.div>

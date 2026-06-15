@@ -13,17 +13,17 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#2b2118]/20 px-5 py-16 text-center">
+    <footer className="border-t border-[#1f1c1b]/20 px-5 py-16 text-center">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 flex justify-center">
           <RuleFlourish className="h-8 w-[360px] max-w-full" />
         </div>
 
-        <p className="font-garamond text-3xl font-600 text-[#2b2118]">
+        <p className="font-garamond text-3xl font-600 text-[#1f1c1b]">
           {company.name}
           <span className="text-[#9e3b2b]">.</span>
         </p>
-        <p className="mt-2 font-garamond text-lg italic text-[#7a6a55]">
+        <p className="mt-2 font-garamond text-lg italic text-[#6b6b6b]">
           {company.tagline}
         </p>
 
@@ -32,7 +32,7 @@ export default function Footer() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="smallcaps text-[14px] text-[#2b2118] transition-colors hover:text-[#9e3b2b]"
+                className="smallcaps text-[14px] text-[#1f1c1b] transition-colors hover:text-[#9e3b2b]"
               >
                 {l.label}
               </a>
@@ -40,11 +40,11 @@ export default function Footer() {
           ))}
         </ul>
 
-        <p className="mt-8 font-mono-quill text-sm text-[#7a6a55]">
+        <p className="mt-8 font-mono-quill text-sm text-[#6b6b6b]">
           {contact.phone} · {contact.email}
         </p>
 
-        <p className="mt-6 font-mono-quill text-xs text-[#7a6a55]">
+        <p className="mt-6 font-mono-quill text-xs text-[#6b6b6b]">
           © 2026 Endispute Pty Ltd
         </p>
       </div>

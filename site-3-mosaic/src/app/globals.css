@@ -1,38 +1,41 @@
 @import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap");
-
 @theme {
-  /* Mosaic palette */
-  --color-paper: #fafaf7;
-  --color-navy: #0c1f3d;
-  --color-terracotta: #c46442;
-  --color-sage: #5a7a5b;
-  --color-ink: #1a1a1a;
-  --color-navy-light: #1a3560;
-  --color-terracotta-light: #d4825e;
-  --color-terracotta-pale: #f5e8e3;
-  --color-sage-light: #7a9a7b;
-  --color-sage-pale: #e8f0e8;
-  --color-navy-pale: #e8edf5;
-  --color-muted: #6b7280;
-  --color-border: #e5e7eb;
+  /* ── Atlas Card — dark sapphire palette ─────────────────────────── */
+  /* Canvas / surfaces (grey-stepped depth, never shadows) */
+  --color-canvas: #000000;
+  --color-canvas-2: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1e1e1e;
+  --color-surface-3: #272727;
+
+  /* Text */
+  --color-fg: #f8f8f8;        /* primary (never pure white) */
+  --color-fg-2: #cccccc;      /* secondary */
+  --color-muted: #808080;     /* muted */
+
+  /* Single accent — sapphire (brightened for legibility on black) */
+  --color-sapphire: #2b3bd4;
+  --color-sapphire-deep: #001391;
+  --color-sapphire-soft: rgba(43, 59, 212, 0.14);
+
+  /* Hairlines */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
 
   /* Typography */
-  --font-display: "Manrope", sans-serif;
-  --font-body: "Manrope", sans-serif;
-  --font-serif: "Instrument Serif", serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
 
-  /* Spacing */
-  --radius-bento: 1.25rem;
-  --radius-pill: 9999px;
+  /* Radius */
+  --radius-card: 12px;
+  --radius-input: 8px;
+  --radius-btn: 24px;
+  --radius-pill: 128px;
 
   /* Motion */
-  --duration-fast: 150ms;
-  --duration-base: 300ms;
-  --duration-slow: 600ms;
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-base: 500ms;
+  --ease-atlas: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Base resets */
@@ -47,123 +50,146 @@ html {
 }
 
 body {
-  background-color: #fafaf7;
-  color: #1a1a1a;
-  font-family: "Manrope", sans-serif;
-  cursor: none;
+  background-color: #000000;
+  color: #f8f8f8;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
   overflow-x: hidden;
 }
 
-/* Hide native cursor on non-touch devices */
-@media (pointer: coarse) {
-  body {
-    cursor: auto;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #fafaf7;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
 ::-webkit-scrollbar-thumb {
-  background: #0c1f3d;
-  border-radius: 3px;
+  background: #272727;
+  border-radius: 4px;
 }
+::-webkit-scrollbar-thumb:hover { background: #333333; }
 
-/* Gradient mesh background */
-.mesh-bg {
-  background-image:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(90, 122, 91, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(196, 100, 66, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 50% 50%, rgba(12, 31, 61, 0.03) 0%, transparent 70%);
-}
-
-/* Bento grid utilities */
-/* NOTE: do NOT set background here — each cell sets its own bg via Tailwind
-   so that bg-navy, bg-terracotta-pale, etc. all show correctly. */
-.bento-cell {
-  border-radius: 1.25rem;
-  border: 1px solid rgba(12, 31, 61, 0.08);
-  overflow: hidden;
-  transition: box-shadow 300ms ease;
-  will-change: transform;
-}
-
-.bento-cell:hover {
-  box-shadow: 0 20px 60px rgba(12, 31, 61, 0.12);
-}
-
-/* Ensure bg-navy bento cells always have readable text */
-.bento-cell.bg-navy { border-color: rgba(255, 255, 255, 0.08); }
-
-/* Selection colour */
+/* Selection */
 ::selection {
-  background: #c46442;
-  color: white;
+  background: #2b3bd4;
+  color: #f8f8f8;
 }
 
-/* Focus styles */
+/* Focus */
 :focus-visible {
-  outline: 2px solid #c46442;
+  outline: 2px solid #2b3bd4;
   outline-offset: 2px;
 }
 
-/* Instrument Serif italic utility */
-.font-serif-italic {
-  font-family: "Instrument Serif", serif;
-  font-style: italic;
+/* ── Bento / card surface ───────────────────────────────────────────
+   Depth via grey-stepping + hairline borders. No box-shadow. */
+.bento-cell {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-line);
+  background-color: #141414;
+  overflow: hidden;
+  transition: border-color 300ms var(--ease-atlas),
+              background-color 300ms var(--ease-atlas);
 }
 
-/* JetBrains Mono utility */
-.font-mono-jb {
-  font-family: "JetBrains Mono", monospace;
+.bento-cell:hover {
+  border-color: var(--color-line-strong);
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #0c1f3d 0%, #c46442 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Subtle, cheap hover lift for interactive cards (GPU transform only) */
+.hover-lift {
+  transition: transform 350ms var(--ease-atlas),
+              border-color 350ms var(--ease-atlas);
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-line-strong);
 }
 
-/* Pulse animation for badge */
-@keyframes mosaic-pulse {
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift:hover { transform: none; }
+}
+
+/* Atmospheric radial glow (very restrained, sapphire only) */
+.atlas-glow {
+  background-image:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(43, 59, 212, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 85% 90%, rgba(43, 59, 212, 0.05) 0%, transparent 60%);
+}
+
+/* Primary CTA — the only place sapphire fills a surface */
+.btn-primary {
+  background-color: #2b3bd4;
+  color: #f8f8f8;
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  transition: background-color 250ms var(--ease-atlas),
+              transform 250ms var(--ease-atlas);
+}
+.btn-primary:hover { background-color: #3647e0; }
+.btn-primary:active { transform: scale(0.98); }
+
+/* Secondary / ghost button */
+.btn-ghost {
+  background-color: transparent;
+  color: #f8f8f8;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  transition: background-color 250ms var(--ease-atlas),
+              border-color 250ms var(--ease-atlas);
+}
+.btn-ghost:hover {
+  background-color: var(--color-surface-2);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #808080;
+}
+
+/* Pulse dot */
+@keyframes atlas-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
+.pulse-dot { animation: atlas-pulse 2s ease-in-out infinite; }
 
-.pulse-dot {
-  animation: mosaic-pulse 2s ease-in-out infinite;
-}
-
-/* Ripple keyframes for Tania photo */
-@keyframes ripple-out {
-  0% { transform: scale(1); opacity: 0.4; }
-  100% { transform: scale(1.4); opacity: 0; }
-}
-
-.ripple-ring {
-  animation: ripple-out 1.5s ease-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; }
 }
 
 /* Draggable timeline cursor */
-.drag-cursor {
-  cursor: grab;
-}
-.drag-cursor:active {
-  cursor: grabbing;
-}
+.drag-cursor { cursor: grab; }
+.drag-cursor:active { cursor: grabbing; }
 
-/* Noise texture overlay */
-.noise-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  opacity: 0.4;
+/* Input fields */
+.atlas-input {
+  width: 100%;
+  background-color: #1e1e1e;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-input);
+  color: #f8f8f8;
+  font-size: 0.9375rem;
+  padding: 0.75rem 0.875rem;
+  transition: border-color 200ms var(--ease-atlas);
+}
+.atlas-input::placeholder { color: #5a5a5a; }
+.atlas-input:focus {
+  outline: none;
+  border-color: #2b3bd4;
 }

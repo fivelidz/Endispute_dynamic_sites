@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { team, inMemoriam } from "@/lib/content";
-import { MaskReveal, Coord, DrawRule } from "./primitives";
+import { MaskReveal, Reveal, SectionHead } from "./primitives";
 
 export default function Team() {
   const tania = team[0];
@@ -11,23 +11,20 @@ export default function Team() {
   return (
     <section
       id="director"
-      className="relative border-t border-[#d6d2c8] bg-[#f4f2ed] px-5 py-20 md:px-10 md:py-28"
+      className="relative border-t border-[#e3e0d8] px-5 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[1600px]">
-        <div className="mb-10 flex items-start justify-between">
-          <Coord label="A7 / 06 — Director" />
-          <Coord label="§ Leadership" />
-        </div>
+      <div className="mx-auto max-w-[1240px]">
+        <SectionHead label="Director — Leadership" />
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12">
-          {/* Photo in hairline frame */}
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
+          {/* Photo */}
           <div className="md:col-span-5">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7 }}
-              className="group border border-[#d6d2c8] bg-[#f4f2ed] p-3"
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden rounded-[8px] border border-[#e3e0d8]"
             >
               <Image
                 src={tania.photo}
@@ -35,83 +32,65 @@ export default function Team() {
                 width={940}
                 height={673}
                 loading="lazy"
-                className="h-auto w-full grayscale transition-all duration-500 group-hover:grayscale-0"
+                className="h-auto w-full"
               />
-              <div className="flex items-center justify-between border-t border-[#d6d2c8] px-1 pt-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8a877f]">
-                  Fig. 02 — Director
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#d92b1c]">
-                  Greyscale → Colour
-                </span>
-              </div>
             </motion.div>
           </div>
 
           {/* Bio + credentials */}
           <div className="md:col-span-7">
-            <span className="mb-3 block font-mono text-[11px] uppercase tracking-[0.2em] text-[#d92b1c]">
-              ▪ {tania.role}
-            </span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4.5vw,3.6rem)] uppercase leading-[0.9] tracking-[-0.02em] text-[#0a0a0a]">
+            <span className="eyebrow block">{tania.role}</span>
+            <h2 className="mt-3 font-display text-[clamp(2rem,4.5vw,3.4rem)] font-light leading-[1.0] tracking-[-0.02em] text-[#0a0a0a]">
               <MaskReveal>{tania.name}</MaskReveal>
             </h2>
-            <p className="mt-5 max-w-2xl font-display text-lg leading-snug text-[#0a0a0a]">
+            <Reveal as="p" className="measure mt-6 text-[17px] leading-[1.65] text-[#0a0a0a]">
               {tania.short}
-            </p>
-            <p className="mt-4 max-w-2xl font-display text-base leading-relaxed text-[#8a877f]">
+            </Reveal>
+            <Reveal
+              as="p"
+              delay={0.1}
+              className="measure mt-5 text-[15px] leading-[1.7] text-[#444444]"
+            >
               {tania.bio}
-            </p>
+            </Reveal>
 
-            <DrawRule className="my-8" color="#0a0a0a" thickness={2} />
-
-            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a877f]">
-              / Credentials — {tania.credentials.length} entries
-            </span>
-            <div>
+            <span className="eyebrow mt-10 block">Credentials</span>
+            <div className="mt-4 border-t border-[#e3e0d8]">
               {tania.credentials.map((c, i) => (
-                <div key={i}>
-                  <DrawRule delay={i * 0.03} />
-                  <div className="flex gap-4 py-3.5">
-                    <span className="shrink-0 font-mono text-[12px] tabular-nums tracking-[0.1em] text-[#d92b1c]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="font-display text-[15px] leading-snug text-[#0a0a0a]">
-                      {c}
-                    </span>
-                  </div>
-                </div>
+                <Reveal
+                  key={i}
+                  as="div"
+                  delay={i * 0.02}
+                  className="border-b border-[#e3e0d8] py-3.5 text-[15px] leading-[1.55] text-[#444444]"
+                >
+                  {c}
+                </Reveal>
               ))}
-              <DrawRule delay={0.2} />
             </div>
           </div>
         </div>
 
-        {/* In memoriam block */}
+        {/* In memoriam */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mt-16 border border-[#d6d2c8] bg-[#f4f2ed] p-7 md:p-10"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-20 rounded-[8px] border border-[#e3e0d8] bg-[#fcfbf7] p-8 md:p-12"
         >
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
-            <div className="md:col-span-3">
-              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#d92b1c]">
-                ▪ In Memoriam
-              </span>
-            </div>
-            <div className="md:col-span-9">
-              <h3 className="font-heavy text-xl uppercase leading-tight text-[#0a0a0a] md:text-2xl">
+            <div className="md:col-span-4">
+              <span className="eyebrow block">In Memoriam</span>
+              <h3 className="mt-3 font-display text-[1.5rem] font-medium leading-[1.15] tracking-[-0.01em] text-[#0a0a0a] md:text-[1.75rem]">
                 {inMemoriam.name}
               </h3>
-              <span className="mt-1 block font-mono text-[12px] tracking-[0.15em] text-[#8a877f]">
+              <span className="mt-1 block text-[13px] text-[#6b6b6b]">
                 {inMemoriam.years}
               </span>
-              <p className="mt-4 max-w-2xl font-display text-base leading-relaxed text-[#8a877f]">
-                {inMemoriam.note}
-              </p>
             </div>
+            <p className="measure text-[15px] leading-[1.7] text-[#444444] md:col-span-8">
+              {inMemoriam.note}
+            </p>
           </div>
         </motion.div>
       </div>

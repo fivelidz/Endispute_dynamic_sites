@@ -19,22 +19,22 @@ export default function FAQ() {
         className="mb-12 text-center"
       >
         <p className="smallcaps text-[15px] text-[#a8842c]">Points of inquiry</p>
-        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl">
+        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl">
           Questions answered
         </h2>
       </motion.div>
 
-      <div className="border-t border-[#7a6a55]/30">
+      <div className="border-t border-[#6b6b6b]/30">
         {faqs.map((f, i) => {
           const isOpen = open === i;
           return (
-            <div key={i} className="border-b border-[#7a6a55]/30">
+            <div key={i} className="border-b border-[#6b6b6b]/30">
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 className="flex w-full items-center justify-between gap-4 py-5 text-left"
                 aria-expanded={isOpen}
               >
-                <span className="font-garamond text-xl italic text-[#2b2118]">
+                <span className="font-garamond text-xl italic text-[#1f1c1b]">
                   {f.q}
                 </span>
                 <motion.span
@@ -57,7 +57,7 @@ export default function FAQ() {
                       style={{ transformOrigin: "top" }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-6 font-garamond text-lg leading-relaxed text-[#7a6a55]">
+                      <p className="pb-6 font-garamond text-lg leading-relaxed text-[#6b6b6b]">
                         {f.a}
                       </p>
                     </motion.div>

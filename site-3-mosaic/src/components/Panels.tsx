@@ -4,59 +4,42 @@ import { motion } from 'motion/react';
 import { panels, clients } from '@/lib/content';
 import { Award, Globe } from 'lucide-react';
 
-const tagColors = [
-  'bg-navy text-paper hover:bg-navy-light',
-  'bg-terracotta-pale text-terracotta hover:bg-terracotta hover:text-white',
-  'bg-sage-pale text-sage hover:bg-sage hover:text-white',
-  'bg-navy-pale text-navy hover:bg-navy hover:text-paper',
-  'bg-terracotta-pale text-terracotta hover:bg-terracotta hover:text-white',
-  'bg-sage-pale text-sage hover:bg-sage hover:text-white',
-  'bg-navy text-paper hover:bg-navy-light',
-  'bg-navy-pale text-navy hover:bg-navy hover:text-paper',
-];
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function Panels() {
   return (
-    <section id="panels" className="py-24 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+    <section id="panels" className="py-24 px-6 md:px-8 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
         {/* Left: Panel info */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-mono-jb text-xs text-terracotta uppercase tracking-widest mb-4"
-          >
-            Expert Panel
-          </motion.div>
+          <div className="eyebrow text-sapphire mb-4">Expert Panel</div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-ink leading-[1.15] mb-6"
+            transition={{ duration: 0.5, ease: EASE }}
+            className="text-3xl md:text-4xl font-bold text-fg leading-[1.12] tracking-[-0.02em] mb-6"
           >
-            Specialists across{' '}
-            <span className="font-serif-italic text-sage">every domain</span>
+            Specialists across every domain
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted leading-relaxed mb-8"
+            transition={{ delay: 0.1, duration: 0.5, ease: EASE }}
+            className="text-fg-2 leading-relaxed mb-8 text-[15px]"
           >
             {panels.intro}
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.18, duration: 0.5, ease: EASE }}
             className="text-muted leading-relaxed text-sm"
           >
             {panels.expertNote}
@@ -64,26 +47,25 @@ export default function Panels() {
 
           {/* NBN Callout */}
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.97 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4, type: 'spring', stiffness: 200, damping: 24 }}
-            className="mt-8 bento-cell p-6 bg-navy text-paper"
-            data-cursor="grow"
+            transition={{ delay: 0.26, duration: 0.5, ease: EASE }}
+            className="mt-8 bento-cell p-6 bg-surface-2"
           >
             <div className="flex items-start gap-4">
-              <div className="p-2.5 bg-terracotta/20 rounded-xl flex-shrink-0">
-                <Award size={22} className="text-terracotta" />
+              <div className="p-2.5 bg-sapphire-soft rounded-xl flex-shrink-0">
+                <Award size={22} className="text-sapphire" />
               </div>
               <div>
-                <div className="font-mono-jb text-xs text-[#c9a87a] uppercase tracking-widest mb-2">
-                  Featured Client
-                </div>
-                <h3 className="font-bold text-lg mb-2 text-[#f0e8d8]">{clients.featured.name}</h3>
-                <p className="text-[#d4c9b4] text-sm leading-relaxed">
+                <div className="eyebrow mb-2">Featured Client</div>
+                <h3 className="font-semibold text-lg mb-2 text-fg">
+                  {clients.featured.name}
+                </h3>
+                <p className="text-fg-2 text-sm leading-relaxed">
                   {clients.featured.detail}
                 </p>
-                <div className="mt-3 text-xs text-[#a89880] font-mono-jb">
+                <div className="mt-3 text-xs text-muted">
                   {clients.featured.relation}
                 </div>
               </div>
@@ -91,77 +73,50 @@ export default function Panels() {
           </motion.div>
 
           {/* Privacy note */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mt-4 flex items-center gap-2 text-xs text-muted"
-          >
+          <div className="mt-4 flex items-center gap-2 text-xs text-muted">
             <Globe size={12} />
             {clients.privacy}
-          </motion.div>
+          </div>
         </div>
 
         {/* Right: Expertise tag cloud */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-mono-jb text-xs text-sage uppercase tracking-widest mb-6"
-          >
-            Areas of expertise
-          </motion.div>
+          <div className="eyebrow mb-6">Areas of expertise</div>
 
           <div className="flex flex-wrap gap-3">
             {panels.expertise.map((area, i) => (
               <motion.span
                 key={area}
-                initial={{ opacity: 0, scale: 0.85 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  delay: i * 0.07,
-                  type: 'spring',
-                  stiffness: 280,
-                  damping: 22,
-                }}
-                whileHover={{
-                  scale: 1.08,
-                  boxShadow: '0 8px 24px rgba(12,31,61,0.15)',
-                }}
-                data-cursor="grow"
-                className={`
-                  px-5 py-2.5 rounded-full font-semibold text-sm cursor-default
-                  transition-colors duration-200
-                  ${tagColors[i % tagColors.length]}
-                `}
+                transition={{ delay: i * 0.04, duration: 0.4, ease: EASE }}
+                className="px-5 py-2.5 rounded-full font-medium text-sm cursor-default
+                  bg-surface border border-line text-fg-2
+                  hover:border-line-strong hover:text-fg transition-colors duration-200"
               >
                 {area}
               </motion.span>
             ))}
           </div>
 
-          {/* Decorative grid of features */}
+          {/* Feature grid */}
           <div className="grid grid-cols-2 gap-3 mt-10">
             {[
-              { label: 'High Court alumni', val: '✓' },
-              { label: 'Supreme Court retired judiciary', val: '✓' },
-              { label: 'Federal Court advisors', val: '✓' },
-              { label: 'Commercial experts', val: '✓' },
+              { label: 'High Court alumni' },
+              { label: 'Supreme Court retired judiciary' },
+              { label: 'Federal Court advisors' },
+              { label: 'Commercial experts' },
             ].map((item, i) => (
               <motion.div
                 key={item.label}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.6 + i * 0.07 }}
-                className="bento-cell p-4 bg-paper"
+                transition={{ delay: 0.3 + i * 0.06, duration: 0.45, ease: EASE }}
+                className="bento-cell hover-lift p-4 bg-surface"
               >
-                <div className="text-sage font-mono-jb font-bold text-lg mb-1">
-                  {item.val}
-                </div>
+                <div className="text-sapphire font-bold text-lg mb-1">✓</div>
                 <div className="text-xs text-muted">{item.label}</div>
               </motion.div>
             ))}

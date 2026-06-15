@@ -2,79 +2,67 @@
 
 import { motion } from "motion/react";
 import { panels, clients } from "@/lib/content";
-import { MaskReveal, Coord, DrawRule, SnapIn } from "./primitives";
+import { MaskReveal, Reveal, SectionHead, SnapIn } from "./primitives";
 
 export default function Panels() {
   return (
     <section
       id="panel"
-      className="relative border-t border-[#d6d2c8] px-5 py-20 md:px-10 md:py-28"
+      className="relative border-t border-[#e3e0d8] px-5 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[1600px]">
-        <div className="mb-10 flex items-start justify-between">
-          <Coord label="A6 / 05 — Panel" />
-          <Coord label="§ Expertise" />
-        </div>
+      <div className="mx-auto max-w-[1240px]">
+        <SectionHead label="Panel — Expertise" />
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
           {/* Heading + intro */}
           <div className="md:col-span-5">
-            <h2 className="font-display font-semibold text-[clamp(2.2rem,5vw,4rem)] uppercase leading-[0.9] tracking-[-0.02em] text-[#0a0a0a]">
+            <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] font-light leading-[0.98] tracking-[-0.02em] text-[#0a0a0a]">
               <MaskReveal>Specialist</MaskReveal>
-              <MaskReveal delay={0.08}>
-                Panel<span className="text-[#d92b1c]">.</span>
-              </MaskReveal>
+              <MaskReveal delay={0.08}>panel.</MaskReveal>
             </h2>
-            <DrawRule className="my-7" color="#0a0a0a" thickness={2} />
-            <p className="font-display text-lg leading-snug text-[#0a0a0a]">
+            <Reveal as="p" className="measure mt-8 text-[16px] leading-[1.7] text-[#0a0a0a]">
               {panels.intro}
-            </p>
-            <p className="mt-5 font-display text-base leading-relaxed text-[#8a877f]">
+            </Reveal>
+            <Reveal
+              as="p"
+              delay={0.1}
+              className="measure mt-6 text-[15px] leading-[1.7] text-[#6b6b6b]"
+            >
               {panels.expertNote}
-            </p>
+            </Reveal>
           </div>
 
           {/* Expertise tags + NBN card */}
           <div className="md:col-span-7">
-            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a877f]">
-              / Areas of expertise — {panels.expertise.length} fields
-            </span>
-            <div className="grid grid-cols-2 border-l border-t border-[#d6d2c8] sm:grid-cols-3">
+            <span className="eyebrow mb-5 block">Areas of expertise</span>
+            <div className="flex flex-wrap gap-2.5">
               {panels.expertise.map((e, i) => (
-                <motion.div
+                <motion.span
                   key={e}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.4, delay: i * 0.04 }}
-                  className="group flex flex-col gap-2 border-b border-r border-[#d6d2c8] p-5 transition-colors hover:bg-[#0a0a0a]"
+                  transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-[2px] border border-[#e3e0d8] px-4 py-2 text-[13px] leading-none text-[#444444]"
                 >
-                  <span className="font-mono text-[10px] tracking-[0.2em] text-[#d92b1c]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="font-mono text-[13px] uppercase leading-tight tracking-[0.06em] text-[#0a0a0a] transition-colors group-hover:text-[#f4f2ed]">
-                    {e}
-                  </span>
-                </motion.div>
+                  {e}
+                </motion.span>
               ))}
             </div>
 
             {/* NBN callout — black card */}
-            <SnapIn className="mt-8">
-              <div className="relative bg-[#0a0a0a] p-7 md:p-9">
-                <span className="absolute right-6 top-6 font-heavy text-5xl leading-none text-[#d92b1c]">
-                  ▪
+            <SnapIn className="mt-10">
+              <div className="rounded-[8px] bg-[#0a0a0a] p-8 md:p-10">
+                <span className="block text-[12px] font-medium uppercase tracking-[0.14em] text-[#9a9a9a]">
+                  Featured Appointment — {clients.featured.relation}
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#d92b1c]">
-                  ▪ Featured Appointment — {clients.featured.relation}
-                </span>
-                <h3 className="mt-4 font-heavy text-2xl uppercase leading-tight text-[#f4f2ed] md:text-3xl">
+                <h3 className="mt-4 font-display text-[1.75rem] font-medium leading-[1.15] tracking-[-0.01em] text-[#fefefc] md:text-[2.1rem]">
                   {clients.featured.name}
                 </h3>
-                <p className="mt-4 max-w-xl font-display text-base leading-snug text-[#c9c6bd]">
+                <p className="measure mt-4 text-[15px] leading-[1.7] text-[#c9c6bd]">
                   {clients.featured.detail}
                 </p>
-                <p className="mt-6 border-t border-[#3a3a37] pt-4 font-mono text-[11px] uppercase leading-relaxed tracking-[0.08em] text-[#8a877f]">
+                <p className="mt-7 border-t border-[#2a2a28] pt-5 text-[13px] leading-[1.6] text-[#9a9a9a]">
                   {clients.privacy}
                 </p>
               </div>

@@ -1,20 +1,16 @@
 'use client';
 
-import { useRef, useCallback, useEffect, useState } from 'react';
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  useSpring,
-  useInView,
-} from 'motion/react';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
 import MagneticButton from './MagneticButton';
 import { contact, stats } from '@/lib/content';
 import { Phone, Mail, Clock, Award } from 'lucide-react';
 
-/* ── 3D Tilt Cell ─────────────────────────────────────────────────── */
-function TiltCell({
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/* ── Reveal cell ─ scroll-in fade, no per-frame pointer work ───────── */
+function Cell({
   children,
   className,
   delay = 0,
@@ -23,59 +19,20 @@ function TiltCell({
   className?: string;
   delay?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const rotateY = useTransform(rawX, [-50, 50], [-8, 8]);
-  const rotateX = useTransform(rawY, [-50, 50], [8, -8]);
-  const springY = useSpring(rotateY, { stiffness: 180, damping: 22 });
-  const springX = useSpring(rotateX, { stiffness: 180, damping: 22 });
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      rawX.set(e.clientX - rect.left - cx);
-      rawY.set(e.clientY - rect.top - cy);
-    },
-    [rawX, rawY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    rawX.set(0);
-    rawY.set(0);
-  }, [rawX, rawY]);
-
+  const reduce = useReducedMotion();
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        delay,
-        type: 'spring',
-        stiffness: 200,
-        damping: 22,
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX: springX,
-        rotateY: springY,
-        transformStyle: 'preserve-3d',
-        perspective: '800px',
-      }}
-      className={className}
-      data-cursor="grow"
+      initial={reduce ? false : { opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.55, ease: EASE }}
+      className={`bento-cell hover-lift ${className ?? ''}`}
     >
       {children}
     </motion.div>
   );
 }
 
-/* ── Animated Counter ─────────────────────────────────────────────── */
+/* ── Animated counter ─────────────────────────────────────────────── */
 function AnimatedStat({
   value,
   label,
@@ -87,37 +44,32 @@ function AnimatedStat({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
+  const reduce = useReducedMotion();
   const [displayed, setDisplayed] = useState('0');
 
   useEffect(() => {
     if (!inView) return;
-    // Animate numbers if numeric, otherwise just reveal
     const num = parseInt(value.replace(/\D/g, ''), 10);
-    if (!isNaN(num) && num > 0) {
-      let start = 0;
-      const step = Math.ceil(num / 40);
-      const timer = setInterval(() => {
-        start = Math.min(start + step, num);
-        setDisplayed(value.replace(/\d+/, String(start)));
-        if (start >= num) clearInterval(timer);
-      }, 40);
-      return () => clearInterval(timer);
-    } else {
+    if (reduce || isNaN(num) || num <= 0) {
       setDisplayed(value);
+      return;
     }
-  }, [inView, value]);
+    let start = 0;
+    const step = Math.ceil(num / 40);
+    const timer = setInterval(() => {
+      start = Math.min(start + step, num);
+      setDisplayed(value.replace(/\d+/, String(start)));
+      if (start >= num) clearInterval(timer);
+    }, 40);
+    return () => clearInterval(timer);
+  }, [inView, value, reduce]);
 
   return (
     <div ref={ref} className="text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ delay, duration: 0.5 }}
-        className="text-2xl font-bold text-[#0c1f3d] font-mono-jb"
-      >
+      <div className="text-2xl font-bold text-fg tabular-nums">
         {inView ? displayed : '0'}
-      </motion.div>
-      <div className="text-xs text-[#6b7280] mt-0.5 leading-tight">{label}</div>
+      </div>
+      <div className="text-xs text-muted mt-1 leading-tight">{label}</div>
     </div>
   );
 }
@@ -125,52 +77,45 @@ function AnimatedStat({
 /* ── Hero ─────────────────────────────────────────────────────────── */
 export default function Hero() {
   const scrollToContact = () => {
-    const el = document.querySelector('#contact');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
   };
   const scrollToServices = () => {
-    const el = document.querySelector('#services');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section
       id="hero"
-      className="min-h-screen pt-28 pb-16 px-4 md:px-8 flex flex-col justify-center max-w-7xl mx-auto"
+      className="min-h-screen pt-32 pb-20 px-6 md:px-8 flex flex-col justify-center max-w-6xl mx-auto"
     >
-      {/* Top label */}
+      {/* Eyebrow */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
+        initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-6 flex items-center gap-2"
+        transition={{ duration: 0.5, ease: EASE }}
+        className="mb-7 flex items-center gap-3"
       >
-        <span className="font-mono-jb text-xs text-terracotta tracking-widest uppercase">
-          Leaders in Conflict Resolution
-        </span>
-        <span className="h-px flex-1 max-w-[80px] bg-terracotta/30" />
+        <span className="eyebrow text-sapphire">Leaders in Conflict Resolution</span>
+        <span className="h-px flex-1 max-w-[80px] bg-line-strong" />
       </motion.div>
 
-      {/* Bento grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-auto">
+      {/* Strict bento grid: 6 columns, equal gaps, consistent cell padding */}
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 auto-rows-[minmax(0,1fr)]">
 
-        {/* Cell 1: Main hero — 2×2 */}
-        <TiltCell
-          delay={0.15}
-          className="bento-cell col-span-2 md:col-span-2 row-span-2 bg-navy p-8 md:p-10 flex flex-col justify-between min-h-[340px]"
+        {/* Main hero — spans 4 cols, 2 rows */}
+        <Cell
+          delay={0.05}
+          className="col-span-2 lg:col-span-4 lg:row-span-2 bg-surface p-8 md:p-10 flex flex-col justify-between min-h-[360px]"
         >
           <div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-paper leading-[1.1] mb-6">
-              End Your{' '}
-              <span className="font-serif-italic text-terracotta-light">
-                Dispute
-              </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-fg leading-[1.08] tracking-[-0.02em] mb-6">
+              End Your Dispute
               <br />
-              <span className="text-paper/70 text-3xl md:text-4xl font-light">
+              <span className="text-fg-2 text-3xl md:text-4xl font-semibold">
                 with Endispute
               </span>
             </h1>
-            <p className="text-paper/60 text-sm md:text-base leading-relaxed max-w-lg">
+            <p className="text-fg-2 text-[15px] md:text-base leading-relaxed max-w-lg">
               Dispute resolution, advisory and management services for complex
               commercial matters — across Australia and internationally.
             </p>
@@ -178,120 +123,108 @@ export default function Hero() {
           <div className="flex flex-wrap gap-3 mt-8">
             <MagneticButton
               onClick={scrollToContact}
-              className="px-6 py-3 bg-terracotta text-white font-semibold rounded-full text-sm hover:bg-terracotta-light transition-colors shadow-lg shadow-terracotta/30"
+              className="btn-primary px-6 py-3 text-sm"
             >
               Start a Conversation
             </MagneticButton>
             <MagneticButton
               onClick={scrollToServices}
-              className="px-6 py-3 bg-paper/10 text-paper font-semibold rounded-full text-sm hover:bg-paper/20 transition-colors border border-paper/20"
+              className="btn-ghost px-6 py-3 text-sm"
             >
               Our Services
             </MagneticButton>
           </div>
-        </TiltCell>
+        </Cell>
 
-        {/* Cell 2: Stats */}
-        <TiltCell
-          delay={0.25}
-          className="bento-cell p-5 flex flex-col justify-between bg-[#fafaf7] min-h-[160px]"
+        {/* Stats — spans 2 cols */}
+        <Cell
+          delay={0.12}
+          className="col-span-2 bg-surface p-5 flex flex-col justify-between min-h-[170px]"
         >
-          <div className="font-mono-jb text-xs text-[#c46442] uppercase tracking-widest mb-4">
-            By the numbers
-          </div>
+          <div className="eyebrow mb-4">By the numbers</div>
           <div className="grid grid-cols-2 gap-3">
             {stats.slice(0, 2).map((s, i) => (
               <AnimatedStat
                 key={s.value}
                 value={s.value}
                 label={s.label}
-                delay={0.4 + i * 0.1}
+                delay={0.2 + i * 0.1}
               />
             ))}
           </div>
-        </TiltCell>
+        </Cell>
 
-        {/* Cell 3: Contact card */}
-        <TiltCell
-          delay={0.3}
-          className="bento-cell p-5 bg-sage-pale flex flex-col gap-3 min-h-[160px]"
+        {/* Contact card */}
+        <Cell
+          delay={0.18}
+          className="col-span-1 bg-surface p-5 flex flex-col gap-3 min-h-[170px]"
         >
-          <div className="font-mono-jb text-xs text-sage uppercase tracking-widest">
-            Contact
-          </div>
+          <div className="eyebrow">Contact</div>
           <a
             href={`tel:${contact.phone}`}
-            className="flex items-center gap-2 text-sm font-medium text-ink hover:text-sage transition-colors"
-            data-cursor="grow"
+            className="flex items-center gap-2 text-sm font-medium text-fg-2 hover:text-fg transition-colors"
           >
-            <Phone size={14} className="text-sage flex-shrink-0" />
+            <Phone size={14} className="text-sapphire flex-shrink-0" />
             {contact.phone}
           </a>
           <a
             href={`mailto:${contact.email}`}
-            className="flex items-center gap-2 text-sm font-medium text-ink hover:text-sage transition-colors break-all"
-            data-cursor="grow"
+            className="flex items-start gap-2 text-sm font-medium text-fg-2 hover:text-fg transition-colors break-all"
           >
-            <Mail size={14} className="text-sage flex-shrink-0" />
+            <Mail size={14} className="text-sapphire flex-shrink-0 mt-0.5" />
             {contact.email}
           </a>
-        </TiltCell>
+        </Cell>
 
-        {/* Cell 4: Tania photo */}
-        <TiltCell
-          delay={0.35}
-          className="bento-cell overflow-hidden relative min-h-[200px] bg-navy-pale"
+        {/* Tania photo */}
+        <Cell
+          delay={0.24}
+          className="col-span-1 relative min-h-[170px] bg-surface-2"
         >
-          <div className="absolute inset-0">
-            <Image
-              src="/Endispute-V1Taniafinal.jpg"
-              alt="Professor Tania Sourdin"
-              fill
-              className="object-cover object-top"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
-          </div>
+          <Image
+            src="/Endispute-V1Taniafinal.jpg"
+            alt="Professor Tania Sourdin"
+            fill
+            className="object-cover object-top opacity-90"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
           <div className="absolute bottom-3 left-3 right-3">
-            <div className="text-paper text-xs font-semibold">
-              Prof. Tania Sourdin
-            </div>
-            <div className="text-paper/60 text-xs">Director & Co-Founder</div>
+            <div className="text-fg text-xs font-semibold">Prof. Tania Sourdin</div>
+            <div className="text-muted text-xs">Director &amp; Co-Founder</div>
           </div>
-        </TiltCell>
+        </Cell>
 
-        {/* Cell 5: 48hr badge */}
-        <TiltCell
-          delay={0.4}
-          className="bento-cell p-5 bg-terracotta-pale flex flex-col items-center justify-center gap-2 min-h-[120px]"
+        {/* Confidential badge — spans 3 cols */}
+        <Cell
+          delay={0.3}
+          className="col-span-2 lg:col-span-3 bg-surface p-5 flex items-center gap-4 min-h-[120px]"
         >
           <div className="flex items-center gap-2">
-            <Clock size={16} className="text-terracotta" />
-            <span className="text-3xl font-bold text-terracotta font-mono-jb">
-              48hr
+            <Clock size={18} className="text-sapphire" />
+            <span className="text-2xl font-bold text-fg">Confidential</span>
+          </div>
+          <div className="text-xs text-muted leading-relaxed">
+            Without prejudice, out of court.
+            <span className="flex items-center gap-1.5 mt-1.5 text-fg-2">
+              <span className="pulse-dot w-1.5 h-1.5 rounded-full bg-sapphire inline-block" />
+              We respond promptly, in confidence
             </span>
           </div>
-          <div className="text-xs text-terracotta/70 text-center font-medium">
-            Response window guaranteed
-          </div>
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className="pulse-dot w-2 h-2 rounded-full bg-terracotta inline-block" />
-            <span className="text-xs text-terracotta/60">Always responding</span>
-          </div>
-        </TiltCell>
+        </Cell>
 
-        {/* Cell 6: NBN highlight */}
-        <TiltCell
-          delay={0.45}
-          className="bento-cell p-5 bg-[#e8edf5] flex flex-col justify-between min-h-[120px]"
+        {/* NBN highlight — spans 3 cols */}
+        <Cell
+          delay={0.36}
+          className="col-span-2 lg:col-span-3 bg-surface p-5 flex items-center gap-4 min-h-[120px]"
         >
-          <Award size={18} className="text-[#0c1f3d] mb-2" />
+          <Award size={20} className="text-sapphire flex-shrink-0" />
           <div>
-            <div className="font-semibold text-[#0c1f3d] text-sm">NBN Appointed</div>
-            <div className="text-xs text-[#4a5568] mt-1">
-              Resolution Advisor for NBN industry disputes since 2014
+            <div className="font-semibold text-fg text-sm">NBN Appointed</div>
+            <div className="text-xs text-muted mt-1 leading-relaxed">
+              Resolution Advisor for NBN industry disputes since 2014.
             </div>
           </div>
-        </TiltCell>
+        </Cell>
       </div>
     </section>
   );

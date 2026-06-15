@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Plus } from "lucide-react";
 import { faqs } from "@/lib/content";
-import { MaskReveal, Coord } from "./primitives";
+import { MaskReveal, SectionHead } from "./primitives";
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
@@ -12,24 +12,19 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="relative border-t border-[#d6d2c8] px-5 py-20 md:px-10 md:py-28"
+      className="relative border-t border-[#e3e0d8] px-5 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[1600px]">
-        <div className="mb-10 flex items-start justify-between">
-          <Coord label="A8 / 07 — FAQ" />
-          <Coord label="§ Questions" />
-        </div>
+      <div className="mx-auto max-w-[1240px]">
+        <SectionHead label="FAQ — Questions" />
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="font-display font-semibold text-[clamp(2.2rem,5vw,4rem)] uppercase leading-[0.9] tracking-[-0.02em] text-[#0a0a0a]">
+            <h2 className="font-display text-[clamp(2.4rem,5vw,4rem)] font-light leading-[0.98] tracking-[-0.02em] text-[#0a0a0a]">
               <MaskReveal>Common</MaskReveal>
-              <MaskReveal delay={0.08}>
-                Questions<span className="text-[#d92b1c]">.</span>
-              </MaskReveal>
+              <MaskReveal delay={0.08}>questions.</MaskReveal>
             </h2>
-            <p className="mt-5 max-w-xs font-mono text-[12px] uppercase leading-relaxed tracking-[0.08em] text-[#8a877f]">
-              {faqs.length} entries on process, cost, confidentiality and reach.
+            <p className="measure-tight mt-6 text-[15px] leading-[1.65] text-[#6b6b6b]">
+              On process, cost, confidentiality and reach.
             </p>
           </div>
 
@@ -38,36 +33,23 @@ export default function FAQ() {
               {faqs.map((f, i) => {
                 const isOpen = open === i;
                 return (
-                  <div key={i} className="border-b border-[#d6d2c8]">
+                  <div key={i} className="border-b border-[#e3e0d8]">
                     <button
                       type="button"
                       onClick={() => setOpen(isOpen ? null : i)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-panel-${i}`}
-                      className="group flex w-full items-start gap-4 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d92b1c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4f2ed] md:gap-6"
+                      className="group flex w-full items-start gap-5 py-6 text-left"
                     >
-                      <span className="shrink-0 pt-1 font-mono text-[12px] tabular-nums tracking-[0.1em] text-[#d92b1c]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <h3
-                        className={`flex-1 font-display text-lg font-medium leading-snug transition-colors md:text-xl ${
-                          isOpen
-                            ? "text-[#d92b1c]"
-                            : "text-[#0a0a0a] group-hover:text-[#d92b1c]"
-                        }`}
-                      >
+                      <h3 className="flex-1 font-display text-[1.3rem] font-medium leading-[1.25] tracking-[-0.01em] text-[#0a0a0a] md:text-[1.5rem]">
                         {f.q}
                       </h3>
                       <motion.span
                         animate={{ rotate: isOpen ? 45 : 0 }}
-                        transition={{
-                          type: "spring" as const,
-                          stiffness: 400,
-                          damping: 30,
-                        }}
-                        className="shrink-0 text-[#d92b1c]"
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-1 shrink-0 text-[#444444]"
                       >
-                        <Plus size={24} strokeWidth={1.5} />
+                        <Plus size={20} strokeWidth={1.5} />
                       </motion.span>
                     </button>
 
@@ -81,7 +63,7 @@ export default function FAQ() {
                           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden"
                         >
-                          <p className="max-w-3xl pb-7 pl-8 font-display text-base leading-relaxed text-[#8a877f] md:pl-10">
+                          <p className="measure pb-7 text-[15px] leading-[1.75] text-[#444444]">
                             {f.a}
                           </p>
                         </motion.div>

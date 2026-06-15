@@ -15,22 +15,22 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="relative bg-[#101418] px-6 py-28 text-[#efe9dc] md:py-36"
+      className="relative bg-[#1a1a1a] px-6 py-20 text-[#cccccc] md:py-24"
     >
-      <div className="mx-auto max-w-6xl">
-        <p className="mono-label mb-5 text-[#b8ae98]">07 — Leadership</p>
-        <h2 className="max-w-2xl font-serif text-4xl leading-tight sm:text-5xl">
-          The mind behind <span className="italic text-[#c8472b]">Endispute</span>.
+      <div className="measure">
+        <p className="mono-label mb-5 text-[#cccccc]">07 — Leadership</p>
+        <h2 className="display max-w-2xl text-[clamp(2rem,4.5vw,3.25rem)]">
+          The mind behind <span className="text-[#fc1c46]">Endispute</span>.
         </h2>
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="mt-12 grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           {/* Duotone portrait */}
           <motion.div
             initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={reduce ? { duration: 0 } : { duration: 0.8, ease }}
-            className="relative aspect-[4/5] w-full overflow-hidden border border-[#efe9dc]/15"
+            className="relative aspect-[4/5] w-full overflow-hidden border border-[#4c4c4c]"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
@@ -44,22 +44,22 @@ export default function Team() {
             {/* vermilion multiply overlay fading out on hover */}
             <motion.div
               className="pointer-events-none absolute inset-0 mix-blend-multiply"
-              style={{ backgroundColor: "#c8472b" }}
-              animate={{ opacity: hover ? 0 : 0.55 }}
+              style={{ backgroundColor: "#fc1c46" }}
+              animate={{ opacity: hover ? 0 : 0.45 }}
               transition={{ duration: reduce ? 0 : 0.6 }}
             />
           </motion.div>
 
           {/* Details */}
           <div>
-            <h3 className="font-serif text-3xl text-[#efe9dc]">{member.name}</h3>
-            <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-[#c8472b]">
+            <h3 className="font-serif text-3xl text-white">{member.name}</h3>
+            <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-[#fc1c46]">
               {member.role}
             </p>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#b8ae98]">
+            <p className="mt-5 max-w-xl text-[16px] leading-[1.5] text-[#cccccc]">
               {member.short}
             </p>
-            <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-[#b8ae98]">
+            <p className="mt-4 max-w-xl text-[15px] leading-[1.5] text-[#cccccc]">
               {member.bio}
             </p>
 
@@ -67,9 +67,9 @@ export default function Team() {
               {member.credentials.map((c) => (
                 <li
                   key={c}
-                  className="flex gap-3 font-mono text-[12px] leading-relaxed text-[#b8ae98]"
+                  className="flex gap-3 font-mono text-[12px] leading-[1.5] text-[#cccccc]"
                 >
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#c8472b]" />
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#fc1c46]" />
                   {c}
                 </li>
               ))}
@@ -83,16 +83,16 @@ export default function Team() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={reduce ? { duration: 0 } : { duration: 0.8, ease }}
-          className="mt-16 border border-[#b8ae98]/40 p-9"
+          className="mt-12 border border-[#4c4c4c] p-9"
         >
-          <p className="mono-label text-[#c8472b]">In memoriam</p>
-          <h4 className="mt-4 font-serif text-2xl italic text-[#efe9dc]">
+          <p className="mono-label text-[#cccccc]">In memoriam</p>
+          <h4 className="mt-4 font-serif text-2xl italic text-white">
             {inMemoriam.name}
           </h4>
-          <p className="mt-1 font-mono text-xs tracking-[0.14em] text-[#b8ae98]">
+          <p className="mt-1 font-mono text-xs tracking-[0.14em] text-[#cccccc]">
             {inMemoriam.years}
           </p>
-          <p className="mt-5 max-w-3xl text-[14px] leading-relaxed text-[#b8ae98]">
+          <p className="mt-5 max-w-3xl text-[15px] leading-[1.5] text-[#cccccc]">
             {inMemoriam.note}
           </p>
         </motion.div>

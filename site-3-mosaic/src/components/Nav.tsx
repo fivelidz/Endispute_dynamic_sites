@@ -37,17 +37,16 @@ export default function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, type: 'spring', stiffness: 200, damping: 25 }}
         className={cn(
-          'flex items-center justify-between gap-6 px-4 py-2.5 rounded-full transition-all duration-300 max-w-5xl w-full',
+          'flex items-center justify-between gap-6 px-4 py-2.5 rounded-full transition-colors duration-300 max-w-5xl w-full',
           scrolled
-            ? 'bg-white/90 backdrop-blur-md shadow-lg shadow-navy/10 border border-white/60'
-            : 'bg-white/70 backdrop-blur-sm border border-white/40'
+            ? 'bg-[#0a0a0a]/90 backdrop-blur-md border border-line-strong'
+            : 'bg-[#0a0a0a]/60 backdrop-blur-sm border border-line'
         )}
       >
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="flex items-center gap-2 flex-shrink-0"
-          data-cursor="grow"
         >
           <div className="relative w-28 h-8">
             <Image
@@ -65,8 +64,7 @@ export default function Nav() {
             <button
               key={link.label}
               onClick={() => handleLinkClick(link.href)}
-              data-cursor="grow"
-              className="px-3 py-1.5 text-sm font-medium text-ink/70 hover:text-navy rounded-full hover:bg-navy/5 transition-colors duration-200"
+              className="px-3 py-1.5 text-sm font-medium text-fg-2 hover:text-fg rounded-full hover:bg-surface-2 transition-colors duration-200"
             >
               {link.label}
             </button>
@@ -77,7 +75,7 @@ export default function Nav() {
         <div className="hidden md:block">
           <MagneticButton
             onClick={() => handleLinkClick('#contact')}
-            className="px-5 py-2 bg-navy text-paper text-sm font-semibold rounded-full hover:bg-terracotta transition-colors duration-300"
+            className="btn-primary px-5 py-2 text-sm rounded-full"
           >
             Get in Touch
           </MagneticButton>
@@ -91,15 +89,15 @@ export default function Nav() {
         >
           <motion.span
             animate={mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-            className="block h-0.5 w-5 bg-ink rounded-full origin-center transition-transform"
+            className="block h-0.5 w-5 bg-fg rounded-full origin-center transition-transform"
           />
           <motion.span
             animate={{ opacity: mobileOpen ? 0 : 1 }}
-            className="block h-0.5 w-5 bg-ink rounded-full"
+            className="block h-0.5 w-5 bg-fg rounded-full"
           />
           <motion.span
             animate={mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-            className="block h-0.5 w-5 bg-ink rounded-full origin-center"
+            className="block h-0.5 w-5 bg-fg rounded-full origin-center"
           />
         </button>
       </motion.nav>
@@ -112,21 +110,21 @@ export default function Nav() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="absolute top-16 left-4 right-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/60 p-4 flex flex-col gap-1"
+            className="absolute top-16 left-4 right-4 bg-[#0a0a0a]/95 backdrop-blur-md rounded-2xl border border-line-strong p-4 flex flex-col gap-1"
           >
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleLinkClick(link.href)}
-                className="w-full text-left px-4 py-3 text-sm font-medium text-ink/80 hover:text-navy hover:bg-navy/5 rounded-xl transition-colors"
+                className="w-full text-left px-4 py-3 text-sm font-medium text-fg-2 hover:text-fg hover:bg-surface-2 rounded-xl transition-colors"
               >
                 {link.label}
               </button>
             ))}
-            <div className="mt-2 pt-2 border-t border-border">
+            <div className="mt-2 pt-2 border-t border-line">
               <MagneticButton
                 onClick={() => handleLinkClick('#contact')}
-                className="w-full px-4 py-3 bg-navy text-paper text-sm font-semibold rounded-xl hover:bg-terracotta transition-colors"
+                className="btn-primary w-full px-4 py-3 text-sm rounded-xl"
               >
                 Get in Touch
               </MagneticButton>

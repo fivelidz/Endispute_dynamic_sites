@@ -2,15 +2,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #101418;
-  --color-ink-deep: #0a0d10;
-  --color-paper: #f6f1e7;
-  --color-paper-deep: #efe9dc;
-  --color-cream: #efe9dc;
-  --color-inktext: #16191d;
-  --color-vermilion: #c8472b;
-  --color-sec-ink: #b8ae98;
-  --color-sec-paper: #6e6a60;
+  /* Obsidian tonal steps */
+  --color-obsidian: #0a0a0a;
+  --color-surface: #1a1a1a;
+  --color-surface-2: #2a2a2a;
+  --color-hairline: #4c4c4c;
+
+  /* Text */
+  --color-headline: #ffffff;
+  --color-body: #cccccc;
+
+  /* The one signal red */
+  --color-signal: #fc1c46;
 
   --font-serif: "Libre Caslon Text", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -28,13 +31,45 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: #f6f1e7;
-  color: #16191d;
+  background-color: #0a0a0a;
+  color: #cccccc;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Global keyboard focus baseline — single editorial-red accent */
+/*
+ * .measure — the centered readable container.
+ * Caps text width on ultrawide so the two split sides stay close
+ * together instead of being flung to opposite screen edges.
+ */
+.measure {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+/*
+ * Split-side content boxes. The split BACKGROUND can go full-bleed
+ * edge-to-edge, but the TEXT lives inside these capped boxes that
+ * hug the central seam, never spanning the full ultrawide width.
+ */
+.split-measure {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+.split-left-inner {
+  width: 100%;
+  max-width: 36rem;
+  margin-left: auto; /* push toward the centre seam on wide screens */
+}
+.split-right-inner {
+  width: 100%;
+  max-width: 36rem;
+  margin-right: auto; /* push toward the centre seam on wide screens */
+}
+
+/* Global keyboard focus baseline — single signal-red accent */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -43,8 +78,8 @@ select:focus-visible,
 [tabindex]:focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 2px #f6f1e7,
-    0 0 0 4px #c8472b;
+    0 0 0 2px #0a0a0a,
+    0 0 0 4px #fc1c46;
   border-radius: 1px;
 }
 
@@ -62,7 +97,22 @@ select:focus-visible,
   font-size: 0.72rem;
 }
 
+/* Oversized whisper-weight display headline */
+.display {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  color: #ffffff;
+}
+
 ::selection {
-  background-color: #c8472b;
-  color: #f6f1e7;
+  background-color: #fc1c46;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

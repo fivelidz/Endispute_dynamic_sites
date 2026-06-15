@@ -19,13 +19,13 @@ const constellations: { dots: [number, number][]; links: [number, number][] }[] 
 
 function ConstellationSVG({ index, active }: { index: number; active: boolean }) {
   const c = constellations[index % constellations.length];
-  const color = active ? "#d4a843" : "#8a93a8";
+  const color = active ? "#8052ff" : "#9a9a9a";
   return (
     <svg
       viewBox="0 0 104 48"
       className="h-12 w-full"
       style={{
-        filter: active ? "drop-shadow(0 0 6px rgba(212,168,67,0.8))" : "none",
+        filter: active ? "drop-shadow(0 0 6px rgba(128,82,255,0.8))" : "none",
         transition: "filter 0.3s",
       }}
     >
@@ -68,21 +68,21 @@ function ConstellationCard({ process, index }: { process: Process; index: number
       transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="flex flex-col rounded-2xl border border-[#232c48] bg-[#141b30] p-7 transition-colors hover:border-[#d4a843]/40"
+      className="flex flex-col rounded-2xl border border-[#26262e] bg-[#0c0c12] p-7 transition-colors hover:border-[#8052ff]/40"
     >
       <div className="mb-5">
         <ConstellationSVG index={index} active={hover} />
       </div>
-      <h3 className="font-serif text-xl font-light text-[#e8ecf4]">
+      <h3 className="font-serif text-xl font-light text-[#ffffff]">
         {process.name}
       </h3>
-      <p className="mt-2.5 flex-1 text-sm leading-relaxed text-[#b8c0d4]">
+      <p className="mt-2.5 flex-1 text-sm leading-relaxed text-[#bdbdbd]">
         {process.short}
       </p>
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="mt-5 flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#d4a843] transition-colors hover:text-[#e8ecf4]"
+        className="mt-5 flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#8052ff] transition-colors hover:text-[#ffffff]"
       >
         <motion.span animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.3 }}>
           <Plus size={14} />
@@ -99,7 +99,7 @@ function ConstellationCard({ process, index }: { process: Process; index: number
             transition={{ duration: 0.35 }}
             className="overflow-hidden"
           >
-            <p className="mt-4 border-t border-[#232c48] pt-4 text-sm leading-relaxed text-[#8a93a8]">
+            <p className="mt-4 border-t border-[#26262e] pt-4 text-sm leading-relaxed text-[#9a9a9a]">
               {process.description}
             </p>
           </motion.div>
@@ -111,24 +111,24 @@ function ConstellationCard({ process, index }: { process: Process; index: number
 
 export default function Constellations() {
   return (
-    <section id="approaches" className="relative px-6 py-28">
-      <div className="mx-auto max-w-7xl lg:pl-[8%]">
+    <section id="approaches" className="relative px-6 py-20">
+      <div className="mx-auto max-w-[1200px] lg:pl-[8%]">
         <Node label="03 — The Constellation" className="mb-8" />
-        <h2 className="max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight text-[#e8ecf4] sm:text-5xl">
-          A constellation of <span className="italic text-[#d4a843]">resolution processes.</span>
+        <h2 className="max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight text-[#ffffff] sm:text-5xl">
+          A constellation of <span className="italic text-[#8052ff]">resolution processes.</span>
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-[#b8c0d4]">
+        <p className="mt-4 max-w-2xl text-lg text-[#bdbdbd]">
           We offer a multitude of dispute resolution processes, each tailored to the unique shape of your matter.
         </p>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {processes.map((p, i) => (
             <ConstellationCard key={p.name} process={p} index={i} />
           ))}
         </div>
 
         {/* categories framed as a dark diagram strip */}
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {conflictResolutionCategories.map((cat) => (
             <motion.div
               key={cat.type}
@@ -136,12 +136,12 @@ export default function Constellations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl border border-[#232c48] bg-[#0b1020] p-6"
+              className="rounded-2xl border border-[#26262e] bg-[#000000] p-6"
             >
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#8a93a8]">
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#9a9a9a]">
                 {cat.type}
               </span>
-              <p className="mt-3 text-sm leading-relaxed text-[#8a93a8]">
+              <p className="mt-3 text-sm leading-relaxed text-[#9a9a9a]">
                 {cat.description}
               </p>
             </motion.div>

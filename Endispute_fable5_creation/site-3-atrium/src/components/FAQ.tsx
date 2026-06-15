@@ -12,18 +12,18 @@ export default function FAQ() {
     <section id="faq" className="section-pad relative px-4">
       <div className="mx-auto max-w-3xl">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#2563ab]">
+          <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#a69b92]">
             Questions
           </span>
           <h2
-            className="mt-3 font-display text-4xl font-bold tracking-tight text-[#1c2530] sm:text-5xl"
-            style={{ letterSpacing: "-0.02em" }}
+            className="mt-3 font-display text-4xl text-[#1f1c1b] sm:text-5xl"
+            style={{ fontWeight: 350, letterSpacing: "-0.01em", lineHeight: 1.0 }}
           >
             Frequently asked.
           </h2>
@@ -35,7 +35,7 @@ export default function FAQ() {
             return (
               <motion.div
                 key={faq.q}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.04 }}
@@ -48,13 +48,13 @@ export default function FAQ() {
                   id={`faq-trigger-${i}`}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                 >
-                  <span className="font-display text-base font-bold text-[#1c2530]">
+                  <span className="font-display text-base font-medium text-[#1f1c1b]">
                     {faq.q}
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
                     transition={{ duration: 0.25 }}
-                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#2563ab]/12 text-[#2563ab]"
+                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-[#d9d6ce] text-[#ff7714]"
                   >
                     <Plus size={16} strokeWidth={2.4} />
                   </motion.span>
@@ -72,7 +72,7 @@ export default function FAQ() {
                       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-6 text-[15px] leading-relaxed text-[#1c2530]/85">
+                      <p className="px-6 pb-6 text-[15px] leading-relaxed text-[#1f1c1b]/85">
                         {faq.a}
                       </p>
                     </motion.div>

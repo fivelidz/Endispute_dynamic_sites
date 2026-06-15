@@ -34,16 +34,16 @@ export default function Nav() {
         className={cn(
           "fixed inset-x-0 top-0 z-40 transition-colors duration-500",
           scrolled
-            ? "bg-[#101418] shadow-[0_1px_0_#c8472b]"
+            ? "bg-[#0a0a0a] shadow-[0_1px_0_#4c4c4c]"
             : "bg-transparent"
         )}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+        <div className="measure flex items-center justify-between px-6 py-5">
           <a
             href="#top"
-            className="font-serif text-2xl tracking-tight text-[#efe9dc] mix-blend-difference"
+            className="font-serif text-2xl tracking-tight text-white"
           >
-            En<span className="italic text-[#c8472b]">dispute</span>
+            En<span className="italic text-[#fc1c46]">dispute</span>
           </a>
 
           <nav className="hidden items-center gap-7 lg:flex">
@@ -51,7 +51,7 @@ export default function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="mono-label text-[#b8ae98] transition-colors hover:text-[#c8472b]"
+                className="mono-label text-[#cccccc] transition-colors hover:text-white"
               >
                 {l.label}
               </a>
@@ -61,7 +61,7 @@ export default function Nav() {
           <button
             aria-label="Open menu"
             onClick={() => setOpen(true)}
-            className="text-[#efe9dc] mix-blend-difference lg:hidden"
+            className="text-white lg:hidden"
           >
             <Menu size={26} />
           </button>
@@ -81,20 +81,20 @@ export default function Nav() {
               onClick={() => setOpen(false)}
             />
             <motion.aside
-              className="absolute right-0 top-0 flex h-full w-[78%] max-w-sm flex-col bg-[#f6f1e7] px-7 py-7"
+              className="absolute right-0 top-0 flex h-full w-[78%] max-w-sm flex-col bg-[#1a1a1a] px-7 py-7"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="mb-10 flex items-center justify-between">
-                <span className="font-serif text-xl text-[#16191d]">
-                  En<span className="italic text-[#c8472b]">dispute</span>
+                <span className="font-serif text-xl text-white">
+                  En<span className="italic text-[#fc1c46]">dispute</span>
                 </span>
                 <button
                   aria-label="Close menu"
                   onClick={() => setOpen(false)}
-                  className="text-[#16191d]"
+                  className="text-white"
                 >
                   <X size={26} />
                 </button>
@@ -105,7 +105,7 @@ export default function Nav() {
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="font-serif text-2xl text-[#16191d] transition-colors hover:text-[#c8472b]"
+                    className="font-serif text-2xl text-white transition-colors hover:text-[#fc1c46]"
                   >
                     {l.label}
                   </a>

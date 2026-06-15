@@ -31,7 +31,7 @@ export const company = {
 export const contact = {
   phone: "+61 2 8006 0425",
   email: "tsourdin@endispute.com.au",
-  responseWindow: "48 hours",
+  responseWindow: "Prompt, confidential response",
   reach: "Australia & internationally",
 };
 
@@ -241,7 +241,7 @@ export const faqs = [
   },
   {
     q: "Where does Endispute operate?",
-    a: "Endispute operates around Australia and internationally. We arrange meeting venues throughout Australia and through our international network of providers. Please send us a message and we will respond within 48 hours.",
+    a: "Endispute operates around Australia and internationally. We arrange meeting venues throughout Australia and through our international network of providers. Please send us a message and we will respond promptly, in confidence.",
   },
   {
     q: "Is the process confidential?",
@@ -278,8 +278,8 @@ export const news = [
 
 // Convenient stats for hero / number callouts
 export const stats = [
-  { value: "$2B+", label: "in claims handled by panel members" },
-  { value: "48hr", label: "response window" },
+  { value: "Independent", label: "senior panel members" },
+  { value: "Out of court", label: "confidential & without prejudice" },
   { value: "AU + INT'L", label: "venues arranged" },
   { value: "ACJI", label: "Foundation Chair, Monash" },
 ] as const;

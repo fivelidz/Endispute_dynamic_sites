@@ -13,15 +13,15 @@ export default function Processes() {
   return (
     <section
       id="processes"
-      className="relative bg-[#f6f1e7] px-6 py-28 text-[#16191d] md:py-36"
+      className="relative bg-[#0a0a0a] px-6 py-20 text-[#cccccc] md:py-24"
     >
-      <div className="mx-auto max-w-6xl">
-        <p className="mono-label mb-5 text-[#6e6a60]">05 — The range</p>
-        <h2 className="max-w-2xl font-serif text-4xl leading-tight sm:text-5xl">
-          A multitude of <span className="italic text-[#c8472b]">processes</span>.
+      <div className="measure">
+        <p className="mono-label mb-5 text-[#cccccc]">05 — The range</p>
+        <h2 className="display max-w-2xl text-[clamp(2rem,4.5vw,3.25rem)]">
+          A multitude of <span className="text-[#fc1c46]">processes</span>.
         </h2>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-12 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           {/* List */}
           <ul className="flex flex-col">
             {processes.map((p, i) => {
@@ -30,17 +30,17 @@ export default function Processes() {
                 <li key={p.name}>
                   <button
                     onClick={() => setSelected(i)}
-                    className="group relative flex w-full items-baseline gap-4 border-b border-[#16191d]/12 py-5 text-left"
+                    className="group relative flex w-full items-baseline gap-4 border-b border-[#4c4c4c] py-5 text-left"
                   >
-                    <span className="mono-label w-7 shrink-0 text-[#6e6a60]">
+                    <span className="mono-label w-7 shrink-0 text-[#cccccc]">
                       0{i + 1}
                     </span>
                     <span
                       className={cn(
                         "font-serif text-2xl transition-colors sm:text-3xl",
                         isActive
-                          ? "text-[#c8472b]"
-                          : "text-[#16191d] group-hover:text-[#6e6a60]"
+                          ? "text-[#fc1c46]"
+                          : "text-white group-hover:text-[#cccccc]"
                       )}
                     >
                       {p.name}
@@ -48,7 +48,7 @@ export default function Processes() {
                     {isActive && (
                       <motion.span
                         layoutId="proc-marker"
-                        className="absolute left-0 top-1/2 h-7 w-[3px] -translate-y-1/2 bg-[#c8472b]"
+                        className="absolute left-0 top-1/2 h-7 w-[3px] -translate-y-1/2 bg-[#fc1c46]"
                       />
                     )}
                   </button>
@@ -66,21 +66,21 @@ export default function Processes() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -16 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="border-l-2 border-[#c8472b] pl-7"
+                className="border-l-2 border-[#fc1c46] pl-7"
               >
-                <h3 className="font-serif text-3xl italic text-[#c8472b]">
+                <h3 className="font-serif text-3xl italic text-white">
                   {active.name}
                 </h3>
-                <p className="mt-3 text-[15px] font-medium text-[#16191d]">
+                <p className="mt-3 text-[16px] font-medium text-white">
                   {active.short}
                 </p>
-                <p className="mt-5 text-[14px] leading-relaxed text-[#6e6a60]">
+                <p className="mt-5 text-[15px] leading-[1.5] text-[#cccccc]">
                   {active.description}
                 </p>
               </motion.div>
             </AnimatePresence>
 
-            <div className="border border-[#16191d]/15 bg-[#efe9dc] p-4">
+            <div className="border border-[#4c4c4c] bg-[#1a1a1a] p-4">
               <Image
                 src="/The-Endispute-range-of-processes-5.png"
                 alt="The Endispute range of processes"

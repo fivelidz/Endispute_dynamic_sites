@@ -19,7 +19,7 @@ export default function Node({
       <span className="relative flex h-3.5 w-3.5 items-center justify-center">
         {/* one-shot expanding ring */}
         <motion.span
-          className="absolute inset-0 rounded-full border border-[#e8ecf4]"
+          className="absolute inset-0 rounded-full border border-[#ffffff]"
           initial={{ scale: 1, opacity: 0.8 }}
           whileInView={{ scale: 3, opacity: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -28,16 +28,16 @@ export default function Node({
         {/* filling dot */}
         <motion.span
           className="block h-3.5 w-3.5 rounded-full"
-          initial={{ backgroundColor: "#232c48", boxShadow: "0 0 0px rgba(232,236,244,0)" }}
+          initial={{ backgroundColor: "#26262e", boxShadow: "0 0 0px rgba(255,255,255,0)" }}
           whileInView={{
-            backgroundColor: "#e8ecf4",
-            boxShadow: "0 0 14px rgba(232,236,244,0.7)",
+            backgroundColor: "#ffffff",
+            boxShadow: "0 0 14px rgba(255,255,255,0.7)",
           }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         />
       </span>
-      <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#8a93a8]">
+      <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#9a9a9a]">
         {label}
       </span>
     </div>

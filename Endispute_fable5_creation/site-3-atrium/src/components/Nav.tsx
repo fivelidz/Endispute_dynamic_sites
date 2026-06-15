@@ -33,20 +33,19 @@ export default function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
-          "glass w-full max-w-6xl rounded-2xl bg-white/55 transition-shadow duration-300",
-          scrolled
-            ? "shadow-[0_12px_50px_rgba(20,30,50,0.18)]"
-            : "shadow-[0_8px_40px_rgba(20,30,50,0.08)]"
+          "w-full max-w-6xl border border-[#d9d6ce] bg-[#f5f4f0] transition-colors duration-300",
+          scrolled ? "bg-[#f5f4f0]" : "bg-[#f5f4f0]/95"
         )}
+        style={{ borderRadius: 2 }}
       >
         <div className="flex items-center justify-between px-5 py-3">
           {/* Logo */}
           <a href="#top" className="flex items-center gap-2">
             <span
-              className="font-display text-xl font-extrabold tracking-tight text-[#1c2530]"
-              style={{ letterSpacing: "-0.02em" }}
+              className="font-display text-xl tracking-tight text-[#1f1c1b]"
+              style={{ fontWeight: 500, letterSpacing: "-0.01em" }}
             >
-              En<span className="text-[#2563ab]">dispute</span>
+              En<span className="border-b-2 border-[#ff7714]">dispute</span>
             </span>
           </a>
 
@@ -56,7 +55,7 @@ export default function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-sm font-medium text-[#1c2530] transition-colors hover:text-[#2563ab]"
+                className="text-sm font-medium text-[#1f1c1b] transition-colors hover:text-[#ff7714]"
               >
                 {l.label}
               </a>
@@ -72,7 +71,7 @@ export default function Nav() {
             <button
               aria-label="Toggle menu"
               onClick={() => setOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-[#1c2530] transition-colors hover:bg-white/60 md:hidden"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-[#1f1c1b] transition-colors hover:bg-white/60 md:hidden"
             >
               {open ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -95,7 +94,7 @@ export default function Nav() {
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-[#1c2530] transition-colors hover:bg-white/60 hover:text-[#2563ab]"
+                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-[#1f1c1b] transition-colors hover:bg-white/60 hover:text-[#ff7714]"
                   >
                     {l.label}
                   </a>

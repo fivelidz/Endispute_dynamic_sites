@@ -22,7 +22,7 @@ export default function Processes() {
           className="mb-12 text-center"
         >
           <p className="smallcaps text-[15px] text-[#a8842c]">The range of remedies</p>
-          <h2 className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl">
+          <h2 className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl">
             Our dispute resolution processes
           </h2>
         </motion.div>
@@ -35,7 +35,7 @@ export default function Processes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: (i % 2) * 0.08 }}
-              className="group relative border border-[#2b2118]/25 bg-[#f7f1e3] p-7 transition-colors hover:border-[#9e3b2b]/60"
+              className="group relative border border-[#1f1c1b]/25 bg-[#ebe9e1] p-7 transition-colors hover:border-[#9e3b2b]/60"
             >
               {/* Gold corner ticks fade in on hover */}
               {["left-2 top-2", "right-2 top-2", "left-2 bottom-2", "right-2 bottom-2"].map(
@@ -55,13 +55,13 @@ export default function Processes() {
                 )
               )}
 
-              <h3 className="font-garamond text-2xl font-600 text-[#2b2118]">
+              <h3 className="font-garamond text-2xl font-600 text-[#1f1c1b]">
                 {p.name}
               </h3>
               <p className="mt-1 font-garamond text-lg italic text-[#9e3b2b]">
                 {p.short}
               </p>
-              <p className="mt-3 font-garamond text-base leading-relaxed text-[#7a6a55]">
+              <p className="mt-3 font-garamond text-base leading-relaxed text-[#6b6b6b]">
                 {p.description}
               </p>
             </motion.div>
@@ -78,7 +78,7 @@ export default function Processes() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7 }}
-          className="mx-auto max-w-3xl border border-[#2b2118]/30 bg-[#f7f1e3] p-4"
+          className="mx-auto max-w-3xl border border-[#1f1c1b]/30 bg-[#ebe9e1] p-4"
         >
           <Image
             src="/The-Endispute-range-of-processes-5.png"
@@ -87,7 +87,7 @@ export default function Processes() {
             height={800}
             className="h-auto w-full"
           />
-          <figcaption className="smallcaps mt-4 text-center text-[13px] text-[#7a6a55]">
+          <figcaption className="smallcaps mt-4 text-center text-[13px] text-[#6b6b6b]">
             The Endispute range of processes — facilitative to determinative
           </figcaption>
         </motion.figure>

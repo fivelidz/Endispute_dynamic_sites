@@ -19,28 +19,28 @@ export default function Benefits() {
   const shouldReduce = useReducedMotion();
 
   return (
-    <section id="services" className="py-24 lg:py-36 bg-[#0e4a4a]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="services" className="py-16 lg:py-24 bg-[#111a4a]">
+      <div className="container-x">
         {/* Header */}
         <motion.div
           initial={shouldReduce ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="mb-16"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12"
         >
           <p
-            className="text-xs font-medium tracking-widest uppercase text-[#c9a14a] mb-4"
+            className="text-xs font-medium tracking-widest uppercase text-[#ec652b] mb-4"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             Why Choose Endispute
           </p>
           <h2
-            className="text-4xl lg:text-5xl font-semibold text-[#fbf7f0] max-w-2xl leading-tight"
+            className="text-3xl lg:text-[40px] font-medium text-[#f6f6f8] max-w-2xl leading-tight"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Resolution that protects what{' '}
-            <em className="text-[#c9a14a]" style={{ fontStyle: 'italic' }}>
+            <em className="text-[#ec652b]" style={{ fontStyle: 'italic' }}>
               matters most
             </em>
           </h2>
@@ -67,29 +67,29 @@ export default function Benefits() {
                     ? {}
                     : {
                         y: -4,
-                        boxShadow: '0 20px 40px rgba(201,161,74,0.15)',
-                        borderColor: 'rgba(201,161,74,0.4)',
+                        boxShadow: '0 20px 40px rgba(0,0,0,0.18)',
+                        borderColor: 'rgba(236,101,43,0.4)',
                       }
                 }
-                className={`${gridClasses[i]} relative rounded-2xl border border-white/10 bg-white/5 p-8 flex flex-col justify-between overflow-hidden cursor-default`}
+                className={`${gridClasses[i]} relative rounded-lg border border-white/10 bg-white/5 p-8 flex flex-col justify-between overflow-hidden cursor-default`}
                 style={{ transition: 'box-shadow 0.25s, border-color 0.25s, transform 0.25s' }}
               >
                 {isLarge && (
                   <div
                     className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10 pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle, #c9a14a 0%, transparent 70%)',
+                      background: 'radial-gradient(circle, #ec652b 0%, transparent 70%)',
                       transform: 'translate(30%, -30%)',
                     }}
                   />
                 )}
 
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-[#c9a14a]/15 flex items-center justify-center mb-6">
-                    <Icon className="w-6 h-6 text-[#c9a14a]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#ec652b]/15 flex items-center justify-center mb-6">
+                    <Icon className="w-6 h-6 text-[#ec652b]" />
                   </div>
                   <h3
-                    className={`font-semibold text-[#fbf7f0] mb-3 ${isLarge ? 'text-2xl lg:text-3xl' : 'text-xl'}`}
+                    className={`font-medium text-[#f6f6f8] mb-3 ${isLarge ? 'text-xl lg:text-2xl' : 'text-xl'}`}
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
                     {benefit.title}
@@ -97,7 +97,7 @@ export default function Benefits() {
                   <p className="text-white/60 leading-relaxed">{benefit.detail}</p>
                 </div>
 
-                <div className="mt-6 w-2 h-2 rounded-full bg-[#c9a14a]/40" />
+                <div className="mt-6 w-2 h-2 rounded-full bg-[#ec652b]/40" />
               </motion.div>
             );
           })}

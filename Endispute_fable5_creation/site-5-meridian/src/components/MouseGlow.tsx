@@ -26,7 +26,7 @@ export default function MouseGlow({
   const mx = useMotionValue(-200);
   const my = useMotionValue(-200);
 
-  const background = useMotionTemplate`radial-gradient(220px circle at ${mx}px ${my}px, rgba(212,168,67,0.10), transparent 70%)`;
+  const background = useMotionTemplate`radial-gradient(220px circle at ${mx}px ${my}px, rgba(128,82,255,0.10), transparent 70%)`;
 
   function handleMove(e: React.MouseEvent<HTMLDivElement>) {
     if (reduce) return;

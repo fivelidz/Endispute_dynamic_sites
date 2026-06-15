@@ -27,7 +27,7 @@ function FAQItem({ question, answer, index, isOpen, onToggle }: FAQItemProps) {
         stiffness: 200,
         damping: 25,
       }}
-      className="border-b border-[#e8e0d4] last:border-0"
+      className="border-b border-[#e3e4e8] last:border-0"
     >
       <button
         onClick={onToggle}
@@ -35,7 +35,7 @@ function FAQItem({ question, answer, index, isOpen, onToggle }: FAQItemProps) {
         aria-expanded={isOpen}
       >
         <span
-          className="text-lg font-medium text-[#161614] group-hover:text-[#0e4a4a] transition-colors leading-snug"
+          className="text-lg font-medium text-[#011821] group-hover:text-[#111a4a] transition-colors leading-snug"
           style={{ fontFamily: 'var(--font-display)' }}
         >
           {question}
@@ -43,7 +43,7 @@ function FAQItem({ question, answer, index, isOpen, onToggle }: FAQItemProps) {
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0e4a4a]/8 flex items-center justify-center text-[#0e4a4a]"
+          className="flex-shrink-0 w-8 h-8 rounded-full bg-[#111a4a]/8 flex items-center justify-center text-[#111a4a]"
         >
           {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
         </motion.span>
@@ -60,7 +60,7 @@ function FAQItem({ question, answer, index, isOpen, onToggle }: FAQItemProps) {
             style={{ overflow: 'hidden' }}
           >
             <div className="pb-6 pr-12">
-              <p className="text-[#6b6560] leading-relaxed">{answer}</p>
+              <p className="text-[#7c7f88] leading-relaxed">{answer}</p>
             </div>
           </motion.div>
         )}
@@ -77,35 +77,35 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-24 lg:py-36 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24">
+    <section className="py-16 lg:py-24 bg-white">
+      <div className="container-x">
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-12">
           {/* Left: label + heading */}
           <div className="lg:sticky lg:top-24 self-start">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ type: 'spring' as const, stiffness: 200, damping: 25 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <p
-                className="text-xs font-medium tracking-widest uppercase text-[#c25b4a] mb-4"
+                className="text-xs font-medium tracking-widest uppercase text-[#ec652b] mb-4"
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
                 Common Questions
               </p>
               <h2
-                className="text-4xl lg:text-5xl font-semibold text-[#161614] leading-tight mb-6"
+                className="text-3xl lg:text-[40px] font-medium text-[#011821] leading-tight mb-6"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 Everything you need{' '}
-                <em className="text-[#0e4a4a]" style={{ fontStyle: 'italic' }}>
+                <em className="text-[#111a4a]" style={{ fontStyle: 'italic' }}>
                   to know
                 </em>
               </h2>
-              <p className="text-[#6b6560] leading-relaxed">
-                Have more questions? Reach out — we respond within{' '}
-                <span className="text-[#0e4a4a] font-medium">48 hours</span>.
+              <p className="text-[#7c7f88] leading-relaxed">
+                Have more questions? Reach out — we respond{' '}
+                <span className="text-[#111a4a] font-medium">promptly</span>.
               </p>
             </motion.div>
           </div>

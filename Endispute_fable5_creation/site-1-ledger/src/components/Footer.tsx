@@ -15,52 +15,46 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0a0a0a] px-5 py-16 text-[#f4f2ed] md:px-10">
-      <div className="mx-auto max-w-[1600px]">
+    <footer className="bg-[#0a0a0a] px-5 py-20 text-[#fefefc] md:px-10">
+      <div className="mx-auto max-w-[1240px]">
         {/* Top row */}
-        <div className="flex flex-col items-start justify-between gap-8 border-b border-[#3a3a37] pb-10 md:flex-row md:items-end">
+        <div className="flex flex-col items-start justify-between gap-8 border-b border-[#2a2a28] pb-12 md:flex-row md:items-end">
           <div>
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#d92b1c]">
-              ▪ {company.shortPitch}
+            <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-[#9a9a9a]">
+              {company.shortPitch}
             </span>
-            <h2 className="mt-3 font-heavy text-[clamp(2.5rem,8vw,7rem)] uppercase leading-[0.86] tracking-[-0.01em]">
-              Endispute<span className="text-[#d92b1c]">.</span>
+            <h2 className="mt-3 font-display text-[clamp(2.8rem,8vw,6rem)] font-light leading-[0.95] tracking-[-0.02em]">
+              Endispute.
             </h2>
           </div>
           <a
             href="#contact"
-            className="bg-[#d92b1c] px-6 py-4 font-mono text-[13px] uppercase tracking-[0.2em] text-[#f4f2ed] transition-colors hover:bg-[#f4f2ed] hover:text-[#0a0a0a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f2ed] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+            className="rounded-[2px] bg-[#fefefc] px-6 py-4 text-[13px] font-medium tracking-[0.04em] text-[#0a0a0a] transition-opacity hover:opacity-85"
           >
-            End Your Dispute →
+            End Your Dispute
           </a>
         </div>
 
         {/* Columns */}
-        <div className="grid grid-cols-1 gap-10 py-10 md:grid-cols-12">
+        <div className="grid grid-cols-1 gap-10 py-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <span className="mb-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8a877f]">
-              / Index
-            </span>
-            <p className="max-w-md font-display text-base leading-relaxed text-[#c9c6bd]">
+            <p className="measure-tight text-[15px] leading-[1.7] text-[#c9c6bd]">
               {company.tagline}. Dispute resolution, advisory and management for
               complex disputes — {contact.reach}.
             </p>
           </div>
 
           <nav className="md:col-span-4">
-            <span className="mb-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8a877f]">
-              / Navigate
+            <span className="mb-4 block text-[12px] font-medium uppercase tracking-[0.14em] text-[#9a9a9a]">
+              Navigate
             </span>
-            <ul className="grid grid-cols-2 gap-y-2">
-              {NAV.map((n, i) => (
+            <ul className="grid grid-cols-2 gap-y-2.5">
+              {NAV.map((n) => (
                 <li key={n.href}>
                   <a
                     href={n.href}
-                    className="flex items-baseline gap-2 font-mono text-[12px] uppercase tracking-[0.1em] text-[#f4f2ed] transition-colors hover:text-[#d92b1c]"
+                    className="text-[14px] text-[#fefefc] transition-colors hover:text-[#9a9a9a]"
                   >
-                    <span className="text-[10px] text-[#8a877f]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                     {n.label}
                   </a>
                 </li>
@@ -69,14 +63,14 @@ export default function Footer() {
           </nav>
 
           <div className="md:col-span-3">
-            <span className="mb-4 block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8a877f]">
-              / Contact
+            <span className="mb-4 block text-[12px] font-medium uppercase tracking-[0.14em] text-[#9a9a9a]">
+              Contact
             </span>
-            <ul className="space-y-2 font-mono text-[12px] tracking-[0.05em] text-[#c9c6bd]">
+            <ul className="space-y-2.5 text-[14px] text-[#c9c6bd]">
               <li>
                 <a
                   href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-[#d92b1c]"
+                  className="transition-colors hover:text-[#fefefc]"
                 >
                   {contact.phone}
                 </a>
@@ -84,22 +78,19 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="transition-colors hover:text-[#d92b1c]"
+                  className="transition-colors hover:text-[#fefefc]"
                 >
                   {contact.email}
                 </a>
               </li>
-              <li className="text-[#8a877f]">{contact.reach}</li>
+              <li className="text-[#9a9a9a]">{contact.reach}</li>
             </ul>
           </div>
         </div>
 
         {/* Baseline */}
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-[#3a3a37] pt-6 font-mono text-[10px] uppercase tracking-[0.15em] text-[#8a877f] md:flex-row md:items-center">
-          <span>
-            © {new Date().getFullYear()} Endispute — All rights reserved
-          </span>
-          <span className="text-[#d92b1c]">▪ A1 / 09 — End of Ledger</span>
+        <div className="border-t border-[#2a2a28] pt-6 text-[12px] tracking-[0.04em] text-[#9a9a9a]">
+          © {new Date().getFullYear()} Endispute — All rights reserved
         </div>
       </div>
     </footer>

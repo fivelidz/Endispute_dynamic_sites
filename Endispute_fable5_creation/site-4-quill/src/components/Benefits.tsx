@@ -19,12 +19,12 @@ export default function Benefits() {
         className="mb-12 text-center"
       >
         <p className="smallcaps text-[15px] text-[#a8842c]">In your favour</p>
-        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl">
+        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl">
           Why parties choose Endispute
         </h2>
       </motion.div>
 
-      <ul className="border-t border-[#7a6a55]/30">
+      <ul className="border-t border-[#6b6b6b]/30">
         {benefits.map((b, i) => (
           <motion.li
             key={b.title}
@@ -32,7 +32,7 @@ export default function Benefits() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, delay: i * 0.08 }}
-            className="flex gap-5 border-b border-[#7a6a55]/30 py-6"
+            className="flex gap-5 border-b border-[#6b6b6b]/30 py-6"
           >
             <motion.span
               aria-hidden="true"
@@ -45,10 +45,10 @@ export default function Benefits() {
               ✦
             </motion.span>
             <div>
-              <h3 className="font-garamond text-xl font-600 text-[#2b2118]">
+              <h3 className="font-garamond text-xl font-600 text-[#1f1c1b]">
                 {b.title}
               </h3>
-              <p className="mt-1 font-garamond text-lg leading-relaxed text-[#7a6a55]">
+              <p className="mt-1 font-garamond text-lg leading-relaxed text-[#6b6b6b]">
                 {b.detail}
               </p>
             </div>

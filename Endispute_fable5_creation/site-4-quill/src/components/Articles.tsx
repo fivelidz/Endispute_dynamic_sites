@@ -22,7 +22,7 @@ export default function Articles() {
         className="mb-14 text-center"
       >
         <p className="smallcaps text-[15px] text-[#a8842c]">The instrument</p>
-        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#2b2118] md:text-4xl">
+        <h2 className="mt-2 font-garamond text-3xl font-500 text-[#1f1c1b] md:text-4xl">
           How a matter proceeds
         </h2>
       </motion.div>
@@ -50,15 +50,15 @@ export default function Articles() {
                 className="flex w-full items-start justify-between gap-4 text-left"
                 aria-expanded={open}
               >
-                <h3 className="font-garamond text-2xl font-600 text-[#2b2118]">
+                <h3 className="font-garamond text-2xl font-600 text-[#1f1c1b]">
                   {step.title}
                 </h3>
-                <span className="mt-1 shrink-0 text-[#7a6a55]">
+                <span className="mt-1 shrink-0 text-[#6b6b6b]">
                   {open ? <Minus size={20} /> : <Plus size={20} />}
                 </span>
               </button>
 
-              <p className="mt-2 font-garamond text-lg leading-relaxed text-[#7a6a55]">
+              <p className="mt-2 font-garamond text-lg leading-relaxed text-[#6b6b6b]">
                 {step.summary}
               </p>
 
@@ -75,7 +75,7 @@ export default function Articles() {
                       {step.details.map((d, di) => (
                         <li
                           key={di}
-                          className="flex gap-3 font-garamond text-base leading-relaxed text-[#2b2118]"
+                          className="flex gap-3 font-garamond text-base leading-relaxed text-[#1f1c1b]"
                         >
                           <span className="select-none text-[#a8842c]">·</span>
                           <span>{d}</span>

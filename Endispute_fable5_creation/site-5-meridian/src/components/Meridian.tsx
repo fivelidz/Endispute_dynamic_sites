@@ -29,9 +29,9 @@ export default function Meridian() {
       >
         <defs>
           <linearGradient id="meridian-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#d4a843" stopOpacity="0.9" />
-            <stop offset="50%" stopColor="#d4a843" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#3aa6a0" stopOpacity="0.8" />
+            <stop offset="0%" stopColor="#8052ff" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="#8052ff" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#15846e" stopOpacity="0.8" />
           </linearGradient>
           <filter id="meridian-glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -45,7 +45,7 @@ export default function Meridian() {
         {/* faint full guide track */}
         <path
           d="M60 0 C 30 200, 90 350, 60 500 C 30 650, 90 800, 60 1000"
-          stroke="#232c48"
+          stroke="#26262e"
           strokeWidth="2"
           vectorEffect="non-scaling-stroke"
         />

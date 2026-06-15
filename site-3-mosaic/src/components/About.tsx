@@ -1,9 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'motion/react';
+import { motion, useInView } from 'motion/react';
 import { company, benefits } from '@/lib/content';
 import { CheckCircle } from 'lucide-react';
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 function CredentialCard({
   title,
@@ -14,32 +16,18 @@ function CredentialCard({
   detail: string;
   index: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-  const rotate = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [index % 2 === 0 ? -2 : 2, 0, index % 2 === 0 ? 1 : -1]
-  );
-
   return (
     <motion.div
-      ref={ref}
-      style={{ rotate }}
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ delay: index * 0.1, type: 'spring', stiffness: 180, damping: 22 }}
-      className="bento-cell p-5 bg-white"
-      data-cursor="grow"
+      transition={{ delay: index * 0.06, duration: 0.5, ease: EASE }}
+      className="bento-cell hover-lift p-5 bg-surface"
     >
       <div className="flex gap-3">
-        <CheckCircle size={18} className="text-sage flex-shrink-0 mt-0.5" />
+        <CheckCircle size={18} className="text-sapphire flex-shrink-0 mt-0.5" />
         <div>
-          <div className="font-semibold text-navy text-sm mb-1">{title}</div>
+          <div className="font-semibold text-fg text-sm mb-1">{title}</div>
           <div className="text-muted text-xs leading-relaxed">{detail}</div>
         </div>
       </div>
@@ -52,89 +40,73 @@ export default function About() {
   const inView = useInView(headRef, { once: true, margin: '-80px' });
 
   return (
-    <section id="about" className="py-24 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+    <section id="about" className="py-24 px-6 md:px-8 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
         {/* Left column */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-mono-jb text-xs text-terracotta uppercase tracking-widest mb-4"
-          >
-            About Endispute
-          </motion.div>
+          <div className="eyebrow text-sapphire mb-4">About Endispute</div>
 
           <h2
             ref={headRef}
-            className="text-4xl md:text-5xl font-bold text-ink leading-[1.15] mb-8"
+            className="text-3xl md:text-4xl font-bold text-fg leading-[1.12] tracking-[-0.02em] mb-8"
           >
             <motion.span
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: EASE }}
               className="block"
             >
               Leading the way in
             </motion.span>
             <motion.span
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="block font-serif-italic text-terracotta"
+              transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
+              className="block text-fg-2"
             >
               complex dispute resolution
             </motion.span>
           </h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted leading-relaxed mb-6 text-base"
+            transition={{ delay: 0.2, duration: 0.5, ease: EASE }}
+            className="text-fg-2 leading-relaxed mb-6 text-[15px] md:text-base"
           >
             {company.about}
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="text-muted leading-relaxed text-base"
+            transition={{ delay: 0.28, duration: 0.5, ease: EASE }}
+            className="text-fg-2 leading-relaxed text-[15px] md:text-base"
           >
             {company.workingWithUs}
           </motion.p>
 
           {/* Who we work with */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="mt-8 bento-cell p-5 bg-navy text-paper"
+            transition={{ delay: 0.36, duration: 0.5, ease: EASE }}
+            className="mt-8 bento-cell p-5 bg-surface-2"
           >
-            <div className="font-mono-jb text-xs text-[#c9a87a] uppercase tracking-widest mb-3">
-              Who we work with
-            </div>
-            <p className="text-sm text-[#e8e0d0] leading-relaxed">
+            <div className="eyebrow mb-3">Who we work with</div>
+            <p className="text-sm text-fg-2 leading-relaxed">
               {company.whoWeAre}
             </p>
           </motion.div>
         </div>
 
-        {/* Right column — rotating credential cards */}
+        {/* Right column — credential cards */}
         <div className="flex flex-col gap-3">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-mono-jb text-xs text-sage uppercase tracking-widest mb-2"
-          >
-            Why choose Endispute
-          </motion.div>
+          <div className="eyebrow mb-2">Why choose Endispute</div>
           {benefits.map((b, i) => (
             <CredentialCard
               key={b.title}

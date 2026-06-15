@@ -24,7 +24,7 @@ const initialForm: FormState = {
 };
 
 const inputBase =
-  'w-full rounded-xl border border-[#e8e0d4] bg-white px-4 py-3 text-sm text-[#161614] placeholder-[#b0a9a0] focus:outline-none focus:ring-2 focus:ring-[#0e4a4a]/30 focus:border-[#0e4a4a] transition-all duration-200';
+  'w-full rounded-xl border border-[#e3e4e8] bg-white px-4 py-3 text-sm text-[#011821] placeholder-[#a7aab2] focus:outline-none focus:ring-2 focus:ring-[#111a4a]/30 focus:border-[#111a4a] transition-all duration-200';
 
 export default function Contact() {
   const shouldReduce = useReducedMotion();
@@ -61,7 +61,7 @@ export default function Contact() {
     },
     {
       icon: Clock,
-      label: 'Response within',
+      label: 'Response',
       value: contact.responseWindow,
       href: null as string | null,
     },
@@ -74,9 +74,9 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 lg:py-36 bg-[#fbf7f0]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24">
+    <section id="contact" className="py-16 lg:py-24 bg-[#f6f6f8]">
+      <div className="container-x">
+        <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-12">
           {/* Left: contact details */}
           <motion.div
             variants={fadeUpContainer}
@@ -86,22 +86,22 @@ export default function Contact() {
           >
             <motion.p
               variants={fadeUpItem}
-              className="text-xs font-medium tracking-widest uppercase text-[#c25b4a] mb-4"
+              className="text-xs font-medium tracking-widest uppercase text-[#ec652b] mb-4"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
               Get In Touch
             </motion.p>
             <motion.h2
               variants={fadeUpItem}
-              className="text-4xl lg:text-5xl font-semibold text-[#161614] leading-tight mb-6"
+              className="text-3xl lg:text-[40px] font-medium text-[#011821] leading-tight mb-6"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               Start your{' '}
-              <em className="text-[#0e4a4a]" style={{ fontStyle: 'italic' }}>
+              <em className="text-[#111a4a]" style={{ fontStyle: 'italic' }}>
                 resolution journey
               </em>
             </motion.h2>
-            <motion.p variants={fadeUpItem} className="text-[#6b6560] leading-relaxed mb-10">
+            <motion.p variants={fadeUpItem} className="text-[#7c7f88] leading-relaxed mb-10">
               Contact us for a complimentary one-hour consultation. We&apos;ll assess your dispute
               and recommend the most appropriate process.
             </motion.p>
@@ -113,12 +113,12 @@ export default function Contact() {
                   variants={fadeUpItem}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#0e4a4a]/8 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-4 h-4 text-[#0e4a4a]" />
+                  <div className="w-10 h-10 rounded-xl bg-[#111a4a]/8 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-4 h-4 text-[#111a4a]" />
                   </div>
                   <div>
                     <p
-                      className="text-xs text-[#6b6560] mb-0.5"
+                      className="text-xs text-[#7c7f88] mb-0.5"
                       style={{ fontFamily: 'var(--font-mono)' }}
                     >
                       {label}
@@ -126,12 +126,12 @@ export default function Contact() {
                     {href !== null ? (
                       <a
                         href={href}
-                        className="text-sm font-medium text-[#161614] hover:text-[#0e4a4a] transition-colors"
+                        className="text-sm font-medium text-[#011821] hover:text-[#111a4a] transition-colors"
                       >
                         {value}
                       </a>
                     ) : (
-                      <p className="text-sm font-medium text-[#161614]">{value}</p>
+                      <p className="text-sm font-medium text-[#011821]">{value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -141,10 +141,10 @@ export default function Contact() {
             {/* Decorative teal box */}
             <motion.div
               variants={fadeUpItem}
-              className="rounded-2xl bg-[#0e4a4a] p-6 text-white"
+              className="rounded-lg bg-[#111a4a] p-6 text-white"
             >
               <p
-                className="text-xs tracking-widest uppercase text-[#c9a14a] mb-2"
+                className="text-xs tracking-widest uppercase text-[#ec652b] mb-2"
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
                 Complimentary
@@ -167,8 +167,8 @@ export default function Contact() {
             initial={shouldReduce ? false : { opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
-            transition={{ type: 'spring', stiffness: 120, damping: 20, delay: 0.2 }}
-            className="bg-white rounded-3xl border border-[#e8e0d4] shadow-xl shadow-[#0e4a4a]/6 p-8 lg:p-10 relative overflow-hidden"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="bg-white rounded-lg border border-[#e3e4e8] shadow-xl shadow-[#111a4a]/6 p-8 lg:p-10 relative overflow-hidden"
           >
             <AnimatePresence mode="wait">
               {!submitted ? (
@@ -181,7 +181,7 @@ export default function Contact() {
                   className="flex flex-col gap-5"
                 >
                   <h3
-                    className="text-2xl font-semibold text-[#161614] mb-2"
+                    className="text-2xl font-medium text-[#011821] mb-2"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
                     Arrange a consultation
@@ -191,7 +191,7 @@ export default function Contact() {
                     <div className="flex flex-col gap-1.5">
                       <label
                         htmlFor="name"
-                        className="text-xs font-medium text-[#6b6560]"
+                        className="text-xs font-medium text-[#7c7f88]"
                         style={{ fontFamily: 'var(--font-mono)' }}
                       >
                         Full name *
@@ -210,7 +210,7 @@ export default function Contact() {
                     <div className="flex flex-col gap-1.5">
                       <label
                         htmlFor="organisation"
-                        className="text-xs font-medium text-[#6b6560]"
+                        className="text-xs font-medium text-[#7c7f88]"
                         style={{ fontFamily: 'var(--font-mono)' }}
                       >
                         Organisation
@@ -230,7 +230,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-1.5">
                     <label
                       htmlFor="email"
-                      className="text-xs font-medium text-[#6b6560]"
+                      className="text-xs font-medium text-[#7c7f88]"
                       style={{ fontFamily: 'var(--font-mono)' }}
                     >
                       Email address *
@@ -250,7 +250,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-1.5">
                     <label
                       htmlFor="disputeType"
-                      className="text-xs font-medium text-[#6b6560]"
+                      className="text-xs font-medium text-[#7c7f88]"
                       style={{ fontFamily: 'var(--font-mono)' }}
                     >
                       Dispute process of interest
@@ -275,7 +275,7 @@ export default function Contact() {
                   <div className="flex flex-col gap-1.5">
                     <label
                       htmlFor="message"
-                      className="text-xs font-medium text-[#6b6560]"
+                      className="text-xs font-medium text-[#7c7f88]"
                       style={{ fontFamily: 'var(--font-mono)' }}
                     >
                       Brief description *
@@ -298,8 +298,8 @@ export default function Contact() {
                     className={cn(
                       'mt-2 flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-semibold transition-all duration-200',
                       submitting
-                        ? 'bg-[#0e4a4a]/60 cursor-wait text-white'
-                        : 'bg-[#0e4a4a] text-white hover:bg-[#155f5f] shadow-lg shadow-[#0e4a4a]/20'
+                        ? 'bg-[#111a4a]/60 cursor-wait text-white'
+                        : 'bg-[#111a4a] text-white hover:bg-[#1c2a6e] shadow-lg shadow-[#111a4a]/20'
                     )}
                   >
                     {submitting ? (
@@ -319,7 +319,7 @@ export default function Contact() {
                     )}
                   </button>
 
-                  <p className="text-xs text-center text-[#b0a9a0]">
+                  <p className="text-xs text-center text-[#a7aab2]">
                     Your information is kept strictly confidential.
                   </p>
                 </motion.form>
@@ -328,7 +328,7 @@ export default function Contact() {
                   key="success"
                   initial={shouldReduce ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 16 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col items-center justify-center text-center py-16 gap-5"
                 >
                   <motion.div
@@ -336,24 +336,24 @@ export default function Contact() {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.1, type: 'spring', stiffness: 300, damping: 20 }}
                   >
-                    <CheckCircle2 className="w-16 h-16 text-[#0e4a4a]" />
+                    <CheckCircle2 className="w-16 h-16 text-[#111a4a]" />
                   </motion.div>
                   <h3
-                    className="text-3xl font-semibold text-[#161614]"
+                    className="text-3xl font-medium text-[#011821]"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
                     Enquiry received
                   </h3>
-                  <p className="text-[#6b6560] leading-relaxed max-w-sm">
-                    Thank you for reaching out. We&apos;ll review your enquiry and respond within{' '}
-                    <strong className="text-[#0e4a4a]">48 hours</strong>.
+                  <p className="text-[#7c7f88] leading-relaxed max-w-sm">
+                    Thank you for reaching out. We&apos;ll review your enquiry and respond{' '}
+                    <strong className="text-[#111a4a]">promptly, in confidence</strong>.
                   </p>
                   <button
                     onClick={() => {
                       setSubmitted(false);
                       setForm(initialForm);
                     }}
-                    className="mt-4 px-5 py-2.5 rounded-full border-2 border-[#0e4a4a] text-[#0e4a4a] text-sm font-medium hover:bg-[#0e4a4a] hover:text-white transition-colors"
+                    className="mt-4 px-5 py-2.5 rounded-full border-2 border-[#111a4a] text-[#111a4a] text-sm font-medium hover:bg-[#111a4a] hover:text-white transition-colors"
                   >
                     Submit another enquiry
                   </button>

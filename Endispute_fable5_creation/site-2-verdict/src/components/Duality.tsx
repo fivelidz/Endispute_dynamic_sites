@@ -11,15 +11,16 @@ export default function Duality() {
   return (
     <section
       id="duality"
-      className="relative bg-[#f6f1e7] px-6 py-28 text-[#16191d] md:py-36"
+      className="relative bg-[#0a0a0a] px-6 py-20 text-[#cccccc] md:py-24"
     >
-      <div className="mx-auto max-w-6xl">
-        <p className="mono-label mb-5 text-[#6e6a60]">02 — Our approach</p>
-        <h2 className="max-w-3xl font-serif text-4xl leading-tight sm:text-5xl">
-          Three ways a third party can <span className="italic text-[#c8472b]">help</span>.
+      <div className="measure">
+        <p className="mono-label mb-5 text-[#cccccc]">02 — Our approach</p>
+        <h2 className="display max-w-3xl text-[clamp(2rem,4.5vw,3.25rem)]">
+          Three ways a third party can{" "}
+          <span className="text-[#fc1c46]">help</span>.
         </h2>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {conflictResolutionCategories.map((cat, i) => {
             const inverted = i === 1;
             return (
@@ -31,48 +32,24 @@ export default function Duality() {
                 transition={
                   reduce
                     ? { duration: 0 }
-                    : { duration: 0.65, delay: i * 0.12, ease }
+                    : { duration: 0.65, delay: i * 0.1, ease }
                 }
                 whileHover={reduce ? undefined : { y: -4 }}
                 className={cn(
                   "group flex flex-col border p-8 transition-colors duration-300",
                   inverted
-                    ? "border-[#101418] bg-[#101418] text-[#efe9dc] hover:border-[#c8472b]"
-                    : "border-[#16191d]/15 bg-[#efe9dc] text-[#16191d] hover:border-[#c8472b]"
+                    ? "border-[#4c4c4c] bg-[#2a2a2a] hover:border-[#fc1c46]"
+                    : "border-[#4c4c4c] bg-[#1a1a1a] hover:border-[#fc1c46]"
                 )}
               >
-                <span
-                  className={cn(
-                    "mono-label",
-                    inverted ? "text-[#b8ae98]" : "text-[#6e6a60]"
-                  )}
-                >
-                  0{i + 1}
-                </span>
-                <h3 className="mt-6 font-serif text-3xl">
-                  <span
-                    className={cn(
-                      "italic",
-                      inverted ? "text-[#c8472b]" : "text-[#c8472b]"
-                    )}
-                  >
-                    {cat.type}
-                  </span>
+                <span className="mono-label text-[#cccccc]">0{i + 1}</span>
+                <h3 className="mt-6 font-serif text-3xl italic text-white">
+                  {cat.type}
                 </h3>
-                <p
-                  className={cn(
-                    "mt-5 text-[14px] leading-relaxed",
-                    inverted ? "text-[#b8ae98]" : "text-[#6e6a60]"
-                  )}
-                >
+                <p className="mt-5 text-[15px] leading-[1.5] text-[#cccccc]">
                   {cat.description}
                 </p>
-                <div
-                  className={cn(
-                    "mt-auto pt-8",
-                    "h-[2px] w-12 origin-left scale-x-100 bg-[#c8472b]"
-                  )}
-                />
+                <div className="mt-8 h-[2px] w-12 bg-[#fc1c46]" />
               </motion.article>
             );
           })}

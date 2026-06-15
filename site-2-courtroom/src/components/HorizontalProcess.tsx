@@ -140,11 +140,18 @@ export default function HorizontalProcess() {
     offset: ["start start", "end end"],
   });
 
-  // Map scroll 0→1 to translateX 0 → -(100vw × (panels-1))
+  // Map scroll 0→1 to translateX 0 → -(100vw × (panels-1)).
+  //
+  // The outer <section> is (PANEL_COUNT × 100vh) tall and its inner track is
+  // pinned (sticky, 100vh). That gives exactly (PANEL_COUNT − 1) × 100vh of
+  // scroll travel, which we map linearly onto (PANEL_COUNT − 1) × 100vw of
+  // horizontal translation. `clamp` keeps the track from over-scrolling at the
+  // extremes (e.g. during rubber-band / momentum scrolling).
   const translateX = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0vw", `-${(PANEL_COUNT - 1) * 100}vw`]
+    ["0vw", `-${(PANEL_COUNT - 1) * 100}vw`],
+    { clamp: true }
   );
 
   // ─── Vertical fallback ───────────────────────────────────────────────
@@ -196,12 +203,16 @@ export default function HorizontalProcess() {
 
   // ─── Horizontal sticky-scroll layout ────────────────────────────────
   return (
-    // Outer container: tall enough for full scroll travel
-    // overflow-hidden prevents the off-screen panels creating a horizontal scrollbar
+    // Outer container: tall enough for full scroll travel.
+    // `overflow-x: clip` hides the off-screen panels' horizontal overflow
+    // WITHOUT establishing a scroll container or a sticky clipping context —
+    // so the inner `position: sticky` track pins to the viewport correctly and
+    // releases cleanly at the end. (Plain `overflow: hidden` here can stop the
+    // sticky child from releasing in some engines.)
     <section
       id="process"
       ref={containerRef}
-      className="relative overflow-hidden"
+      className="relative [overflow-x:clip]"
       style={{ height: `${PANEL_COUNT * 100}vh` }}
       aria-label="Dispute resolution process — horizontal scroll section"
     >

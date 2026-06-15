@@ -15,18 +15,20 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#161614] text-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
+    <footer className="bg-[#011821] text-white">
+      <div className="container-x py-14 lg:py-16">
         <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-12 lg:gap-16 mb-12">
           {/* Brand column */}
           <div>
-            <Image
-              src="/Endispute-Logo2.png"
-              alt="Endispute"
-              width={160}
-              height={48}
-              className="h-10 w-auto object-contain mb-6 brightness-0 invert"
-            />
+            <span className="inline-flex items-center rounded-lg bg-[#111a4a] px-3 py-2 mb-6">
+              <Image
+                src="/Endispute-Logo2.png"
+                alt="Endispute"
+                width={150}
+                height={44}
+                className="h-7 w-auto object-contain brightness-0 invert"
+              />
+            </span>
             <p className="text-white/55 leading-relaxed text-sm max-w-sm mb-6">
               {company.shortPitch}. Dispute resolution, advisory and management services
               for complex commercial disputes across Australia and internationally.

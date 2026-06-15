@@ -11,15 +11,15 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="relative bg-[#f6f1e7] px-6 py-28 text-[#16191d] md:py-36"
+      className="relative bg-[#0a0a0a] px-6 py-20 text-[#cccccc] md:py-24"
     >
-      <div className="mx-auto max-w-4xl">
-        <p className="mono-label mb-5 text-[#6e6a60]">08 — Questions</p>
-        <h2 className="font-serif text-4xl leading-tight sm:text-5xl">
-          Common <span className="italic text-[#c8472b]">questions</span>.
+      <div className="measure max-w-4xl">
+        <p className="mono-label mb-5 text-[#cccccc]">08 — Questions</p>
+        <h2 className="display text-[clamp(2rem,4.5vw,3.25rem)]">
+          Common <span className="text-[#fc1c46]">questions</span>.
         </h2>
 
-        <div className="mt-12 divide-y divide-[#16191d]/15 border-y border-[#16191d]/15">
+        <div className="mt-10 divide-y divide-[#4c4c4c] border-y border-[#4c4c4c]">
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
@@ -31,11 +31,13 @@ export default function FAQ() {
                   id={`faq-toggle-${i}`}
                   className="flex w-full items-center justify-between gap-6 py-6 text-left"
                 >
-                  <span className="font-serif text-lg sm:text-xl">{f.q}</span>
+                  <span className="font-serif text-lg text-white sm:text-xl">
+                    {f.q}
+                  </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="shrink-0 text-[#c8472b]"
+                    className="shrink-0 text-[#fc1c46]"
                   >
                     <ChevronDown size={22} />
                   </motion.span>
@@ -52,7 +54,7 @@ export default function FAQ() {
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="max-w-2xl pb-7 text-[14px] leading-relaxed text-[#6e6a60]">
+                      <p className="max-w-2xl pb-7 text-[15px] leading-[1.5] text-[#cccccc]">
                         {f.a}
                       </p>
                     </motion.div>

@@ -29,12 +29,12 @@ export default function CounterStat({ stat, index }: CounterStatProps) {
       className="flex flex-col gap-1"
     >
       <span
-        className="text-3xl lg:text-4xl font-semibold text-[#0e4a4a] tracking-tight"
+        className="text-2xl lg:text-3xl font-medium text-[#111a4a] tracking-tight"
         style={{ fontFamily: 'var(--font-display)' }}
       >
         {stat.value}
       </span>
-      <span className="text-sm text-[#6b6560] leading-snug">{stat.label}</span>
+      <span className="text-sm text-[#7c7f88] leading-snug">{stat.label}</span>
     </motion.div>
   );
 }

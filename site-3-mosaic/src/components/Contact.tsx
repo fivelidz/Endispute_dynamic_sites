@@ -6,6 +6,8 @@ import { contact } from '@/lib/content';
 import { Phone, Mail, MapPin, CheckCircle } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 interface FormValues {
   name: string;
   organisation: string;
@@ -14,28 +16,18 @@ interface FormValues {
   message: string;
 }
 
-function FieldCard({
+function Field({
   label,
   children,
-  delay,
 }: {
   label: string;
   children: React.ReactNode;
-  delay: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, type: 'spring', stiffness: 200, damping: 24 }}
-      className="bento-cell p-4 bg-white focus-within:shadow-md focus-within:shadow-navy/10 transition-shadow"
-    >
-      <label className="font-mono-jb text-xs text-muted uppercase tracking-widest block mb-2">
-        {label}
-      </label>
+    <div className="flex flex-col gap-2">
+      <label className="eyebrow">{label}</label>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -64,49 +56,37 @@ export default function Contact() {
     }, 1200);
   };
 
-  const inputClass =
-    'w-full bg-transparent text-ink text-sm font-medium placeholder-muted/50 focus:outline-none';
-
   return (
-    <section id="contact" className="py-24 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+    <section id="contact" className="py-24 px-6 md:px-8 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
         {/* Left: info */}
         <div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-mono-jb text-xs text-terracotta uppercase tracking-widest mb-4"
-          >
-            Contact
-          </motion.div>
+          <div className="eyebrow text-sapphire mb-4">Contact</div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-ink leading-[1.15] mb-6"
+            transition={{ duration: 0.5, ease: EASE }}
+            className="text-3xl md:text-4xl font-bold text-fg leading-[1.12] tracking-[-0.02em] mb-6"
           >
-            Let&apos;s end your{' '}
-            <span className="font-serif-italic text-terracotta">dispute</span>
+            Let&apos;s end your dispute
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-muted leading-relaxed mb-10"
+            transition={{ delay: 0.1, duration: 0.5, ease: EASE }}
+            className="text-fg-2 leading-relaxed mb-10 text-[15px]"
           >
             Contact Endispute to access our professional dispute advisory
-            service. We respond within{' '}
-            <strong className="text-navy">48 hours</strong> and offer a
+            service. We respond{' '}
+            <strong className="text-fg">promptly and in confidence</strong> and offer a
             complimentary one-hour consultation to discuss your options.
           </motion.p>
 
-          {/* Contact details */}
           <div className="flex flex-col gap-4">
             {[
               { icon: Phone, label: 'Phone', value: contact.phone, href: `tel:${contact.phone}` },
@@ -115,27 +95,26 @@ export default function Contact() {
             ].map(({ icon: Icon, label, value, href }, i) => (
               <motion.div
                 key={label}
-                initial={{ opacity: 0, x: -15 }}
+                initial={{ opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.1 }}
+                transition={{ delay: 0.2 + i * 0.08, duration: 0.45, ease: EASE }}
                 className="flex items-center gap-4"
               >
-                <div className="w-10 h-10 rounded-xl bg-navy/5 flex items-center justify-center flex-shrink-0">
-                  <Icon size={16} className="text-navy" />
+                <div className="w-10 h-10 rounded-xl bg-surface-2 border border-line flex items-center justify-center flex-shrink-0">
+                  <Icon size={16} className="text-sapphire" />
                 </div>
                 <div>
-                  <div className="font-mono-jb text-xs text-muted mb-0.5">{label}</div>
+                  <div className="text-xs text-muted mb-0.5">{label}</div>
                   {href ? (
                     <a
                       href={href}
-                      className="text-sm font-medium text-ink hover:text-terracotta transition-colors"
-                      data-cursor="grow"
+                      className="text-sm font-medium text-fg hover:text-sapphire transition-colors"
                     >
                       {value}
                     </a>
                   ) : (
-                    <span className="text-sm font-medium text-ink">{value}</span>
+                    <span className="text-sm font-medium text-fg">{value}</span>
                   )}
                 </div>
               </motion.div>
@@ -143,37 +122,32 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Right: Bento form */}
+        {/* Right: form */}
         <div>
           <AnimatePresence mode="wait">
             {submitted ? (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.94 }}
-                transition={{ type: 'spring', stiffness: 250, damping: 28 }}
-                className="bento-cell p-10 bg-sage-pale flex flex-col items-center text-center gap-5"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: EASE }}
+                className="bento-cell p-10 bg-surface flex flex-col items-center text-center gap-5"
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.1, type: 'spring', stiffness: 260, damping: 22 }}
-                  className="w-16 h-16 rounded-full bg-sage/20 flex items-center justify-center"
-                >
-                  <CheckCircle size={32} className="text-sage" />
-                </motion.div>
-                <h3 className="text-xl font-bold text-navy">Message received</h3>
-                <p className="text-muted text-sm leading-relaxed max-w-xs">
-                  Thank you. We will respond within{' '}
-                  <strong>48 hours</strong> with next steps.
+                <div className="w-16 h-16 rounded-full bg-sapphire-soft flex items-center justify-center">
+                  <CheckCircle size={32} className="text-sapphire" />
+                </div>
+                <h3 className="text-xl font-semibold text-fg">Message received</h3>
+                <p className="text-fg-2 text-sm leading-relaxed max-w-xs">
+                  Thank you. We will respond <strong>promptly and in confidence</strong> with
+                  next steps.
                 </p>
                 <button
                   onClick={() => {
                     setSubmitted(false);
                     setValues({ name: '', organisation: '', email: '', phone: '', message: '' });
                   }}
-                  className="text-xs text-muted hover:text-navy transition-colors underline underline-offset-2"
+                  className="text-xs text-muted hover:text-fg transition-colors underline underline-offset-2"
                 >
                   Send another message
                 </button>
@@ -183,86 +157,81 @@ export default function Contact() {
                 key="form"
                 ref={formRef}
                 onSubmit={handleSubmit}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="flex flex-col gap-3"
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.45, ease: EASE }}
+                className="bento-cell bg-surface p-6 md:p-8 flex flex-col gap-5"
               >
-                <div className="grid grid-cols-2 gap-3">
-                  <FieldCard label="Name *" delay={0.25}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <Field label="Name *">
                     <input
                       required
                       type="text"
                       value={values.name}
                       onChange={set('name')}
                       placeholder="Your name"
-                      className={inputClass}
+                      className="atlas-input"
                     />
-                  </FieldCard>
+                  </Field>
 
-                  <FieldCard label="Organisation" delay={0.3}>
+                  <Field label="Organisation">
                     <input
                       type="text"
                       value={values.organisation}
                       onChange={set('organisation')}
                       placeholder="Company / Firm"
-                      className={inputClass}
+                      className="atlas-input"
                     />
-                  </FieldCard>
+                  </Field>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <FieldCard label="Email *" delay={0.35}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <Field label="Email *">
                     <input
                       required
                       type="email"
                       value={values.email}
                       onChange={set('email')}
                       placeholder="you@company.com"
-                      className={inputClass}
+                      className="atlas-input"
                     />
-                  </FieldCard>
+                  </Field>
 
-                  <FieldCard label="Phone" delay={0.4}>
+                  <Field label="Phone">
                     <input
                       type="tel"
                       value={values.phone}
                       onChange={set('phone')}
                       placeholder="+61 ..."
-                      className={inputClass}
+                      className="atlas-input"
                     />
-                  </FieldCard>
+                  </Field>
                 </div>
 
-                <FieldCard label="Describe your dispute *" delay={0.45}>
+                <Field label="Describe your dispute *">
                   <textarea
                     required
                     value={values.message}
                     onChange={set('message')}
                     placeholder="Briefly describe the nature of your dispute and what outcome you are seeking..."
                     rows={5}
-                    className={`${inputClass} resize-none`}
+                    className="atlas-input resize-none"
                   />
-                </FieldCard>
+                </Field>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
-                  className="flex justify-end pt-2"
-                >
+                <div className="flex justify-end pt-1">
                   <MagneticButton
                     type="submit"
                     disabled={submitting}
-                    className="px-8 py-3.5 bg-navy text-paper font-semibold rounded-full text-sm hover:bg-terracotta disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-lg shadow-navy/20"
+                    className="btn-primary px-8 py-3.5 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {submitting ? 'Sending…' : 'Send Message →'}
                   </MagneticButton>
-                </motion.div>
+                </div>
 
                 <p className="text-xs text-muted text-center">
-                  We respond within 48 hours. Confidential.
+                  We respond promptly. Confidential.
                 </p>
               </motion.form>
             )}

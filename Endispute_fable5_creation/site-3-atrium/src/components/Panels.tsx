@@ -14,18 +14,18 @@ export default function Panels() {
       />
       <div className="mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="mb-12 max-w-2xl"
         >
-          <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#2563ab]">
+          <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#a69b92]">
             Expertise
           </span>
           <h2
-            className="mt-3 font-display text-4xl font-bold tracking-tight text-[#1c2530] sm:text-5xl"
-            style={{ letterSpacing: "-0.02em" }}
+            className="mt-3 font-display text-4xl text-[#1f1c1b] sm:text-5xl"
+            style={{ fontWeight: 350, letterSpacing: "-0.01em", lineHeight: 1.0 }}
           >
             Panels of specialist experts.
           </h2>
@@ -34,13 +34,13 @@ export default function Panels() {
         <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
           {/* Intro + expertise pills */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ type: "spring", stiffness: 70, damping: 18 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="glass rounded-[2rem] bg-white/55 p-8"
           >
-            <p className="text-base leading-relaxed text-[#1c2530]/90">
+            <p className="text-base leading-relaxed text-[#1f1c1b]/90">
               {panels.intro}
             </p>
 
@@ -48,20 +48,20 @@ export default function Panels() {
               {panels.expertise.map((e) => (
                 <span
                   key={e}
-                  className="group glass cursor-default rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-[#1c2530] transition-colors hover:border-[#b87545]/60 hover:text-[#b87545]"
+                  className="group glass cursor-default rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-[#1f1c1b] transition-colors hover:border-[#ff7714]/60 hover:text-[#ff7714]"
                 >
                   {e}
                 </span>
               ))}
             </div>
 
-            <div className="mt-7 flex gap-3 rounded-2xl bg-[#b87545]/8 p-5">
+            <div className="mt-7 flex gap-3 rounded-2xl bg-[#ff7714]/8 p-5">
               <Sparkles
                 size={20}
-                className="mt-0.5 flex-shrink-0 text-[#b87545]"
+                className="mt-0.5 flex-shrink-0 text-[#ff7714]"
                 strokeWidth={2}
               />
-              <p className="text-sm leading-relaxed text-[#1c2530]/85">
+              <p className="text-sm leading-relaxed text-[#1f1c1b]/85">
                 {panels.expertNote}
               </p>
             </div>
@@ -69,26 +69,26 @@ export default function Panels() {
 
           {/* NBN dark slate glass card — explicit high-contrast hex */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ type: "spring", stiffness: 70, damping: 18, delay: 0.1 }}
-            className="glass-dark flex flex-col rounded-[2rem] bg-[#16243a]/90 p-8"
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="glass-dark flex flex-col rounded-[2rem] bg-[#1f1c1b]/90 p-8"
           >
             <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white/12">
-              <Building2 size={22} className="text-[#dce6f2]" strokeWidth={2} />
+              <Building2 size={22} className="text-[#f5f4f0]" strokeWidth={2} />
             </span>
-            <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#b87545]">
+            <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#ff7714]">
               {clients.featured.relation}
             </span>
-            <h3 className="mt-3 font-display text-2xl font-bold text-[#dce6f2]">
+            <h3 className="mt-3 font-display text-2xl font-medium text-[#f5f4f0]">
               {clients.featured.name}
             </h3>
-            <p className="mt-4 text-[15px] leading-relaxed text-[#dce6f2]/85">
+            <p className="mt-4 text-[15px] leading-relaxed text-[#f5f4f0]/85">
               {clients.featured.detail}
             </p>
             <div className="mt-auto pt-6">
-              <p className="border-t border-white/12 pt-5 text-sm leading-relaxed text-[#dce6f2]/70">
+              <p className="border-t border-white/12 pt-5 text-sm leading-relaxed text-[#f5f4f0]/70">
                 {clients.privacy}
               </p>
             </div>

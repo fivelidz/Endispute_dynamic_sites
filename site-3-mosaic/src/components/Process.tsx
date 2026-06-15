@@ -1,15 +1,11 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  useSpring,
-} from 'motion/react';
+import { motion, useMotionValue, useTransform, useSpring } from 'motion/react';
 import { processSteps } from '@/lib/content';
 import { cn } from '@/lib/cn';
 
+const EASE = [0.22, 1, 0.36, 1] as const;
 const CARD_WIDTH = 340;
 const CARD_GAP = 20;
 const TOTAL_WIDTH = processSteps.length * (CARD_WIDTH + CARD_GAP);
@@ -22,9 +18,8 @@ export default function Process() {
 
   const maxDrag = -(TOTAL_WIDTH - (CARD_WIDTH + CARD_GAP * 2));
 
-  // Map x position to active step index
   const activeFromX = useTransform(springX, (val) => {
-    const idx = Math.round((-val) / (CARD_WIDTH + CARD_GAP));
+    const idx = Math.round(-val / (CARD_WIDTH + CARD_GAP));
     return Math.max(0, Math.min(processSteps.length - 1, idx));
   });
 
@@ -37,33 +32,25 @@ export default function Process() {
 
   return (
     <section id="process" className="py-24 overflow-hidden">
-      <div className="px-4 md:px-8 max-w-7xl mx-auto mb-10">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-mono-jb text-xs text-terracotta uppercase tracking-widest mb-4"
-        >
-          How we work
-        </motion.div>
+      <div className="px-6 md:px-8 max-w-6xl mx-auto mb-10">
+        <div className="eyebrow text-sapphire mb-4">How we work</div>
 
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl font-bold text-ink leading-[1.15] mb-4"
+          transition={{ duration: 0.5, ease: EASE }}
+          className="text-3xl md:text-4xl font-bold text-fg leading-[1.12] tracking-[-0.02em] mb-4"
         >
-          The{' '}
-          <span className="font-serif-italic text-terracotta">process</span>
+          The process
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-muted text-sm"
+          transition={{ delay: 0.1, duration: 0.5, ease: EASE }}
+          className="text-fg-2 text-[15px]"
         >
           Drag or click the dots to navigate through our 4-step process.
         </motion.p>
@@ -72,7 +59,7 @@ export default function Process() {
       {/* Draggable timeline */}
       <div
         ref={containerRef}
-        className="relative px-4 md:px-8 overflow-visible select-none"
+        className="relative px-6 md:px-8 overflow-visible select-none"
       >
         <motion.div
           drag="x"
@@ -87,62 +74,51 @@ export default function Process() {
               key={step.number}
               onClick={() => goTo(i)}
               animate={{
-                scale: activeStep === i ? 1 : 0.95,
-                opacity: activeStep === i ? 1 : 0.65,
+                opacity: activeStep === i ? 1 : 0.55,
               }}
-              transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+              transition={{ duration: 0.3, ease: EASE }}
               className={cn(
                 'bento-cell flex-shrink-0 p-7 flex flex-col gap-4',
-                activeStep === i ? 'bg-navy' : 'bg-white'
+                activeStep === i ? 'bg-surface-2' : 'bg-surface'
               )}
               style={{ width: CARD_WIDTH, minHeight: 280 }}
-              data-cursor="grow"
             >
-              {/* Number */}
               <div
                 className={cn(
-                  'font-mono-jb text-5xl font-bold leading-none',
-                  activeStep === i ? 'text-[#c46442]' : 'text-[#c8cdd6]'
+                  'text-5xl font-bold leading-none tabular-nums',
+                  activeStep === i ? 'text-sapphire' : 'text-surface-3'
                 )}
               >
                 {step.number}
               </div>
 
-              {/* Title */}
-              <h3
-                className={cn(
-                  'font-bold text-xl leading-snug',
-                  activeStep === i ? 'text-paper' : 'text-ink'
-                )}
-              >
+              <h3 className="font-semibold text-xl leading-snug text-fg">
                 {step.title}
               </h3>
 
-              {/* Summary */}
               <p
                 className={cn(
                   'text-sm leading-relaxed',
-                  activeStep === i ? 'text-paper/70' : 'text-muted'
+                  activeStep === i ? 'text-fg-2' : 'text-muted'
                 )}
               >
                 {step.summary}
               </p>
 
-              {/* Details list (only active) */}
               <motion.ul
                 animate={{
                   opacity: activeStep === i ? 1 : 0,
                   height: activeStep === i ? 'auto' : 0,
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: EASE }}
                 className="overflow-hidden space-y-2 mt-auto"
               >
                 {step.details.map((d, di) => (
                   <li
                     key={di}
-                    className="text-xs text-[#c8bfb0] leading-relaxed flex gap-2"
+                    className="text-xs text-muted leading-relaxed flex gap-2"
                   >
-                    <span className="text-terracotta mt-0.5 flex-shrink-0">—</span>
+                    <span className="text-sapphire mt-0.5 flex-shrink-0">—</span>
                     {d}
                   </li>
                 ))}
@@ -158,12 +134,11 @@ export default function Process() {
           <button
             key={i}
             onClick={() => goTo(i)}
-            data-cursor="grow"
             className={cn(
               'transition-all duration-300 rounded-full',
               activeStep === i
-                ? 'w-8 h-2.5 bg-navy'
-                : 'w-2.5 h-2.5 bg-border hover:bg-muted'
+                ? 'w-8 h-2.5 bg-sapphire'
+                : 'w-2.5 h-2.5 bg-surface-3 hover:bg-muted'
             )}
             aria-label={`Go to step ${i + 1}`}
           />
@@ -178,7 +153,7 @@ export default function Process() {
             onClick={() => goTo(i)}
             className={cn(
               'text-xs font-medium transition-colors hidden md:block',
-              activeStep === i ? 'text-navy' : 'text-muted hover:text-ink'
+              activeStep === i ? 'text-fg' : 'text-muted hover:text-fg-2'
             )}
           >
             {step.title.split(' ')[0]}

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { Plus } from "lucide-react";
 import { processes } from "@/lib/content";
-import { MaskReveal, Coord, DrawRule } from "./primitives";
+import { MaskReveal, SectionHead } from "./primitives";
 
 export default function Processes() {
   const [open, setOpen] = useState<number | null>(0);
@@ -13,108 +13,92 @@ export default function Processes() {
   return (
     <section
       id="disputes"
-      className="relative border-t border-[#d6d2c8] bg-[#f4f2ed] px-5 py-20 md:px-10 md:py-28"
+      className="relative border-t border-[#e3e0d8] px-5 py-24 md:px-10 md:py-32"
     >
-      <div className="mx-auto max-w-[1600px]">
-        <div className="mb-10 flex items-start justify-between">
-          <Coord label="A5 / 04 — Disputes" />
-          <Coord label="§ Five Processes" />
-        </div>
+      <div className="mx-auto max-w-[1240px]">
+        <SectionHead label="Disputes — Five Processes" />
 
-        <h2 className="mb-12 font-display font-semibold text-[clamp(2.2rem,6vw,5rem)] uppercase leading-[0.88] tracking-[-0.02em] text-[#0a0a0a]">
-          <MaskReveal>Dispute</MaskReveal>
-          <MaskReveal delay={0.08}>
-            Processes<span className="text-[#d92b1c]">.</span>
-          </MaskReveal>
-        </h2>
-
-        {/* Expandable full-width rows */}
-        <div className="border-t border-[#0a0a0a]">
-          {processes.map((p, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={p.name} className="border-b border-[#d6d2c8]">
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  aria-controls={`process-panel-${i}`}
-                  className="group flex w-full items-center gap-4 py-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d92b1c] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4f2ed] md:gap-8"
-                >
-                  <span className="font-mono text-sm tabular-nums tracking-[0.1em] text-[#d92b1c]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3
-                    className={`flex-1 font-heavy text-[clamp(1.3rem,3.5vw,2.6rem)] uppercase leading-none tracking-tight transition-colors ${
-                      isOpen ? "text-[#d92b1c]" : "text-[#0a0a0a] group-hover:text-[#d92b1c]"
-                    }`}
-                  >
-                    {p.name}
-                  </h3>
-                  <span className="hidden max-w-xs shrink-0 font-mono text-[11px] uppercase leading-snug tracking-[0.08em] text-[#8a877f] lg:block">
-                    {p.short}
-                  </span>
-                  <motion.span
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
-                    className="shrink-0 text-[#d92b1c]"
-                  >
-                    <Plus size={28} strokeWidth={1.5} />
-                  </motion.span>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`process-panel-${i}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="grid grid-cols-1 gap-6 pb-8 md:grid-cols-12">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#8a877f] md:col-span-3">
-                          / Detail
-                        </span>
-                        <p className="font-display text-lg leading-relaxed text-[#0a0a0a] md:col-span-9">
-                          {p.description}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Process diagram in a hairline frame */}
-        <div className="mt-16">
-          <div className="mb-4 flex items-center justify-between">
-            <Coord label="Fig. 01 — The Endispute range of processes" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#d92b1c]">
-              ▪ Diagram
-            </span>
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-4">
+            <h2 className="font-display text-[clamp(2.6rem,6vw,4.4rem)] font-light leading-[0.98] tracking-[-0.02em] text-[#0a0a0a]">
+              <MaskReveal>Dispute</MaskReveal>
+              <MaskReveal delay={0.08}>processes.</MaskReveal>
+            </h2>
+            <p className="measure-tight mt-6 text-[15px] leading-[1.65] text-[#6b6b6b]">
+              A range of facilitative, advisory and determinative processes,
+              selected to suit the matter.
+            </p>
           </div>
-          <DrawRule className="mb-6" color="#0a0a0a" thickness={2} />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
-            className="border border-[#d6d2c8] bg-[#f4f2ed] p-4 md:p-8"
-          >
+
+          {/* Expandable rows */}
+          <div className="md:col-span-8">
+            <div className="border-t border-[#0a0a0a]">
+              {processes.map((p, i) => {
+                const isOpen = open === i;
+                return (
+                  <div key={p.name} className="border-b border-[#e3e0d8]">
+                    <button
+                      type="button"
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={`process-panel-${i}`}
+                      className="group flex w-full items-center gap-5 py-6 text-left"
+                    >
+                      <h3 className="flex-1 font-display text-[1.5rem] font-medium leading-[1.15] tracking-[-0.01em] text-[#0a0a0a] md:text-[1.75rem]">
+                        {p.name}
+                      </h3>
+                      <motion.span
+                        animate={{ rotate: isOpen ? 45 : 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="shrink-0 text-[#444444]"
+                      >
+                        <Plus size={22} strokeWidth={1.5} />
+                      </motion.span>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          id={`process-panel-${i}`}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <p className="measure pb-7 text-[16px] leading-[1.7] text-[#444444]">
+                            {p.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Process diagram */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-20"
+        >
+          <span className="eyebrow mb-5 block">The Endispute range of processes</span>
+          <div className="rounded-[8px] border border-[#e3e0d8] bg-[#fefefc] p-6 md:p-10">
             <Image
               src="/The-Endispute-range-of-processes-5.png"
               alt="The Endispute range of dispute resolution processes"
               width={869}
               height={869}
               loading="lazy"
-              className="mx-auto h-auto w-full max-w-4xl"
+              className="mx-auto h-auto w-full max-w-3xl"
             />
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

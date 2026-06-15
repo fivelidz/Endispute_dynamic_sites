@@ -149,7 +149,7 @@ export function CornerOrnament({
 export function InkRule({
   draw = true,
   className,
-  color = "#2b2118",
+  color = "#1f1c1b",
   strokeWidth = 1,
   duration = 1.1,
 }: FlourishProps) {

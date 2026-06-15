@@ -13,22 +13,22 @@ export default function Processes() {
     <section id="processes" className="section-pad relative px-4">
       <div className="mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="mb-12 max-w-2xl"
         >
-          <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#2563ab]">
+          <span className="font-mono text-xs font-medium uppercase tracking-wider text-[#a69b92]">
             Our processes
           </span>
           <h2
-            className="mt-3 font-display text-4xl font-bold tracking-tight text-[#1c2530] sm:text-5xl"
-            style={{ letterSpacing: "-0.02em" }}
+            className="mt-3 font-display text-4xl text-[#1f1c1b] sm:text-5xl"
+            style={{ fontWeight: 350, letterSpacing: "-0.01em", lineHeight: 1.0 }}
           >
             A process for every dispute.
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-[#1c2530]/80">
+          <p className="mt-4 text-lg leading-relaxed text-[#1f1c1b]/80">
             From facilitation to arbitration — we match the right approach to the
             shape of your matter.
           </p>
@@ -44,25 +44,25 @@ export default function Processes() {
                 onClick={() => setActive(i)}
                 aria-expanded={active === i}
                 aria-controls="process-detail-dialog"
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
-                whileHover={{ y: -4 }}
-                className="glass group flex flex-col rounded-2xl bg-white/55 p-6 text-left transition-shadow duration-300 hover:shadow-[0_16px_50px_rgba(37,99,171,0.16)]"
+                
+                className="glass group flex flex-col rounded-2xl bg-white/55 p-6 text-left transition-colors duration-200 hover:border-[#ff7714]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <motion.h3
                     layoutId={`proc-title-${i}`}
-                    className="font-display text-lg font-bold text-[#1c2530]"
+                    className="font-display text-lg font-medium text-[#1f1c1b]"
                   >
                     {p.name}
                   </motion.h3>
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-[#2563ab]/12 text-[#2563ab] transition-colors group-hover:bg-[#2563ab]/20">
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-[#d9d6ce] text-[#ff7714] transition-colors group-hover:border-[#ff7714]">
                     <Plus size={15} strokeWidth={2.4} />
                   </span>
                 </div>
-                <p className="mt-2.5 text-sm leading-relaxed text-[#1c2530]/80">
+                <p className="mt-2.5 text-sm leading-relaxed text-[#1f1c1b]/80">
                   {p.short}
                 </p>
               </motion.button>
@@ -71,13 +71,13 @@ export default function Processes() {
 
           {/* Signature processes diagram — enlarged, in architectural glass frame */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="glass relative rounded-[2rem] bg-white/65 p-6 sm:p-7 lg:sticky lg:top-28"
           >
-            <p className="mb-4 px-1 font-mono text-xs uppercase tracking-wider text-[#2563ab]">
+            <p className="mb-4 px-1 font-mono text-xs uppercase tracking-wider text-[#ff7714]">
               The Endispute range of processes
             </p>
             <Image
@@ -90,11 +90,11 @@ export default function Processes() {
             {/* structural corner brackets — architectural accent */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute left-4 top-4 h-7 w-7 border-l-2 border-t-2 border-[#2563ab]/35"
+              className="pointer-events-none absolute left-4 top-4 h-7 w-7 border-l-2 border-t-2 border-[#ff7714]"
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute bottom-4 right-4 h-7 w-7 border-b-2 border-r-2 border-[#2563ab]/35"
+              className="pointer-events-none absolute bottom-4 right-4 h-7 w-7 border-b-2 border-r-2 border-[#ff7714]"
             />
           </motion.div>
         </div>
@@ -109,7 +109,7 @@ export default function Processes() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActive(null)}
-              className="fixed inset-0 z-50 bg-[#16243a]/40 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-[#1f1c1b]/40 backdrop-blur-sm"
             />
             <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
               <motion.div
@@ -123,14 +123,14 @@ export default function Processes() {
                 <button
                   aria-label="Close"
                   onClick={() => setActive(null)}
-                  className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-lg text-[#1c2530] transition-colors hover:bg-[#1c2530]/8"
+                  className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-lg text-[#1f1c1b] transition-colors hover:bg-[#1f1c1b]/8"
                 >
                   <X size={18} />
                 </button>
                 <motion.h3
                   layoutId={`proc-title-${active}`}
                   id="process-detail-title"
-                  className="font-display text-2xl font-bold text-[#1c2530]"
+                  className="font-display text-2xl font-medium text-[#1f1c1b]"
                 >
                   {processes[active].name}
                 </motion.h3>
@@ -138,7 +138,7 @@ export default function Processes() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15, duration: 0.4 }}
-                  className="mt-4 text-[15px] leading-relaxed text-[#1c2530]/90"
+                  className="mt-4 text-[15px] leading-relaxed text-[#1f1c1b]/90"
                 >
                   {processes[active].description}
                 </motion.p>
