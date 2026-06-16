@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import {
   motion,
   useScroll,
@@ -62,13 +61,17 @@ export default function Team() {
               className="absolute inset-0"
               style={{ scale, y: yImg }}
             >
-              <Image
+              {/* Plain <img> (not next/image) with eager loading so the
+                  portrait is always present — no lazy-load gap, no dependence
+                  on IntersectionObserver firing, robust under static export on
+                  a subpath. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={tania.photo}
                 alt={`Portrait of ${tania.name}`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-top"
-                priority={false}
+                loading="eager"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-top"
               />
               {/* Overlay gradient at bottom */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/80 via-transparent to-transparent" />

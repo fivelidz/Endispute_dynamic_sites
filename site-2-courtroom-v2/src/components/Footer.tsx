@@ -15,7 +15,7 @@ export default function Footer() {
               alt="Endispute"
               width={385}
               height={100}
-              loading="lazy"
+              loading="eager"
               decoding="async"
               className="mb-5 h-9 w-auto opacity-90"
             />
