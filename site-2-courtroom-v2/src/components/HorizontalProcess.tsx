@@ -6,7 +6,6 @@ import {
   useScroll,
   useTransform,
   useReducedMotion,
-  useMotionValueEvent,
 } from "motion/react";
 import { processSteps } from "@/lib/content";
 
@@ -128,169 +127,127 @@ function VerticalProcess() {
   );
 }
 
-// ─── Desktop: compact sticky split-view ──────────────────────────────────
-// A single contained section (~200vh of scroll, not 400vh of full-screen
-// slabs). A sticky left index with a self-drawing progress spine tracks the
-// active step; the right column cross-fades / slides between step details as
-// you scroll. Stays inside the page's editorial column — it never takes the
-// whole screen hostage, so the site keeps flowing.
-function StickyProcess() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-
+// ─── Desktop: continuous flowing timeline ────────────────────────────────
+// No scroll-pinning, no discrete "active step" snapping. The section flows
+// with the page at the SAME pacing as the rest of the site: a gold spine on the
+// left draws itself continuously as you scroll past, and each step reveals with
+// the same whileInView spring used elsewhere. Smooth, not jerky, and it never
+// hijacks the scroll.
+function StepRow({ step, idx }: { step: (typeof processSteps)[number]; idx: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  // Light up this step's node as it reaches the middle of the viewport.
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
+    target: ref,
+    offset: ["start 70%", "start 35%"],
   });
-
-  // Spine fill height tracks scroll progress.
-  const spineScale = useTransform(scrollYProgress, [0.02, 0.95], [0, 1], {
-    clamp: true,
-  });
-
-  // Derive the active step from scroll progress (with a little lead-in so the
-  // first step is active immediately and the last lingers).
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    const idx = Math.min(
-      STEP_COUNT - 1,
-      Math.max(0, Math.floor(p * STEP_COUNT - 0.0001 + 0.15))
-    );
-    setActive((prev) => (prev === idx ? prev : idx));
-  });
-
-  const step = processSteps[active];
+  const nodeColor = useTransform(scrollYProgress, [0, 1], ["#3a3a3a", "#d4a14a"]);
+  const nodeShadow = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0 0 0 4px #0a0a0a", "0 0 0 4px rgba(212,161,74,0.18)"]
+  );
+  const nodeScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
-    <section
-      id="process"
-      ref={containerRef}
-      className="relative bg-[#0a0a0a]"
-      style={{ height: `${STEP_COUNT * 62}vh` }} // ~248vh for 4 steps — far less dominant than 400vh
-      aria-label="Dispute resolution process"
-    >
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <div className="w-full max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
-          <div className="border-t border-[#2e2e2e] pt-4 mb-10 lg:mb-14">
-            <SectionHeader subtitle="how a matter moves" />
+    <div ref={ref} className="relative pl-16 lg:pl-24">
+      {/* node on the spine */}
+      <motion.span
+        aria-hidden="true"
+        className="absolute left-[1px] top-2 w-3.5 h-3.5 rounded-full -translate-x-1/2"
+        style={{ background: nodeColor, boxShadow: nodeShadow, scale: nodeScale }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-90px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="grid lg:grid-cols-[1fr_1.1fr] gap-6 lg:gap-16 items-start"
+      >
+        {/* left: number + title */}
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-8 -left-2 text-[7rem] lg:text-[9rem] font-light leading-none text-[#f4eedf]/[0.035] tabular-nums select-none"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {step.number}
           </div>
+          <span
+            className="relative text-[10px] font-mono uppercase tracking-[0.3em] text-[#d4a14a] block mb-3"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
+            Step {step.number} / {String(STEP_COUNT).padStart(2, "0")}
+          </span>
+          <h3
+            className="relative text-[clamp(1.7rem,2.8vw,2.6rem)] font-light text-[#f4eedf] leading-[1.12] max-w-md"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {step.title}
+          </h3>
+        </div>
 
-          <div className="grid lg:grid-cols-[20rem_1fr] gap-10 lg:gap-20 items-start">
-            {/* ── Left: sticky index with progress spine ── */}
-            <div className="relative">
-              {/* track */}
-              <div
-                aria-hidden="true"
-                className="absolute left-[6px] top-3 bottom-3 w-px bg-[#2e2e2e]"
-              />
-              {/* fill */}
-              <motion.div
-                aria-hidden="true"
-                className="absolute left-[6px] top-3 w-px bg-[#d4a14a] origin-top"
-                style={{ bottom: 12, scaleY: spineScale }}
-              />
-
-              <ul className="flex flex-col gap-6 lg:gap-8 pl-8">
-                {processSteps.map((s, i) => {
-                  const isActive = i === active;
-                  const isDone = i < active;
-                  return (
-                    <li key={s.number} className="relative">
-                      {/* node */}
-                      <span
-                        aria-hidden="true"
-                        className="absolute -left-8 top-1.5 w-3 h-3 rounded-full transition-all duration-500"
-                        style={{
-                          background: isActive || isDone ? "#d4a14a" : "#3a3a3a",
-                          boxShadow: isActive
-                            ? "0 0 0 4px rgba(212,161,74,0.18)"
-                            : "0 0 0 4px #0a0a0a",
-                          transform: isActive ? "scale(1.15)" : "scale(1)",
-                        }}
-                      />
-                      <button
-                        type="button"
-                        className="text-left w-full group"
-                        aria-current={isActive ? "step" : undefined}
-                      >
-                        <span
-                          className="block text-[10px] font-mono uppercase tracking-[0.25em] mb-1 transition-colors duration-300"
-                          style={{
-                            fontFamily: "var(--font-mono)",
-                            color: isActive ? "#d4a14a" : "#6f6a5c",
-                          }}
-                        >
-                          Step {s.number}
-                        </span>
-                        <span
-                          className="block font-light leading-snug transition-all duration-500"
-                          style={{
-                            fontFamily: "var(--font-display)",
-                            fontSize: isActive ? "1.35rem" : "1.1rem",
-                            color: isActive
-                              ? "#f4eedf"
-                              : isDone
-                              ? "#9a917c"
-                              : "#6f6a5c",
-                          }}
-                        >
-                          {s.title}
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* ── Right: active step detail, cross-faded ── */}
-            <div className="relative min-h-[24rem] lg:min-h-[22rem]">
-              {/* giant ghost numeral */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-6 right-0 text-[12rem] xl:text-[15rem] font-light leading-none text-[#f4eedf]/[0.04] tabular-nums select-none"
-                style={{ fontFamily: "var(--font-display)" }}
+        {/* right: summary + details */}
+        <div>
+          <p className="text-[#c8bfa8] text-base lg:text-lg mb-6 leading-relaxed">
+            {step.summary}
+          </p>
+          <ul className="space-y-2.5">
+            {step.details.map((d) => (
+              <li
+                key={d}
+                className="flex gap-4 items-start text-sm text-[#c8bfa8]/80 leading-snug"
               >
-                {step.number}
-              </div>
-
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="relative max-w-2xl"
-              >
-                <div className="w-12 h-px bg-[#d4a14a] mb-6" />
-                <h3
-                  className="text-[clamp(1.8rem,3.2vw,2.9rem)] font-light text-[#f4eedf] mb-5 leading-[1.1]"
-                  style={{ fontFamily: "var(--font-display)" }}
+                <span
+                  className="text-[#d4a14a] shrink-0 mt-0.5 font-mono"
+                  style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  {step.title}
-                </h3>
-                <p className="text-[#c8bfa8] text-base lg:text-lg mb-7 leading-relaxed">
-                  {step.summary}
-                </p>
-                <ul className="space-y-2.5">
-                  {step.details.map((d, i) => (
-                    <motion.li
-                      key={d}
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.06 * i + 0.1 }}
-                      className="flex gap-4 items-start text-sm text-[#c8bfa8]/80 leading-snug"
-                    >
-                      <span
-                        className="text-[#d4a14a] shrink-0 mt-0.5 font-mono"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                      >
-                        —
-                      </span>
-                      {d}
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
+                  —
+                </span>
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function FlowProcess() {
+  const railRef = useRef<HTMLDivElement>(null);
+  // The spine fill is driven by the section's own scroll position — continuous,
+  // so it tracks the page exactly (no stepwise snapping).
+  const { scrollYProgress } = useScroll({
+    target: railRef,
+    offset: ["start 80%", "end 60%"],
+  });
+  const spineScale = useTransform(scrollYProgress, [0, 1], [0, 1], { clamp: true });
+
+  return (
+    <section id="process" className="py-24 lg:py-32 bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-16">
+        <div className="border-t border-[#2e2e2e] pt-4 mb-14 lg:mb-20 flex items-center gap-6 flex-wrap">
+          <SectionHeader subtitle="how a matter moves" />
+        </div>
+
+        <div ref={railRef} className="relative">
+          {/* spine track */}
+          <div
+            aria-hidden="true"
+            className="absolute left-0 top-3 bottom-3 w-px bg-[#2e2e2e]"
+          />
+          {/* spine fill (scroll-linked, smooth) */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute left-0 top-3 w-px bg-[#d4a14a] origin-top"
+            style={{ bottom: 12, scaleY: spineScale }}
+          />
+
+          <div className="flex flex-col gap-16 lg:gap-24">
+            {processSteps.map((step, idx) => (
+              <StepRow key={step.number} step={step} idx={idx} />
+            ))}
           </div>
         </div>
       </div>
@@ -306,5 +263,5 @@ export default function HorizontalProcess() {
   if (isNarrow || reducedMotion) {
     return <VerticalProcess />;
   }
-  return <StickyProcess />;
+  return <FlowProcess />;
 }

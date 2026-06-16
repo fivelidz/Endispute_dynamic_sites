@@ -50,32 +50,36 @@ export default function Team() {
 
         <div className="grid lg:grid-cols-[1fr_1fr] gap-16 lg:gap-20 items-start">
           {/* Left: Photo with parallax */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.9 }}
+          <div
             ref={imgRef}
             className="relative overflow-hidden aspect-[3/4] bg-[#0a0a0a]"
           >
+            {/* The portrait itself is ALWAYS visible — never gated behind an
+                opacity:0 / useInView wrapper (that could leave it invisible if
+                the observer didn't fire). Only the gentle parallax scale/shift
+                is applied. Eager <img> for instant, reliable rendering under
+                static export on a subpath. */}
             <motion.div
               className="absolute inset-0"
               style={{ scale, y: yImg }}
             >
-              {/* Plain <img> (not next/image) with eager loading so the
-                  portrait is always present — no lazy-load gap, no dependence
-                  on IntersectionObserver firing, robust under static export on
-                  a subpath. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={tania.photo}
                 alt={`Portrait of ${tania.name}`}
                 loading="eager"
                 decoding="async"
+                data-darkreader-ignore=""
                 className="absolute inset-0 h-full w-full object-cover object-top"
               />
-              {/* Overlay gradient at bottom */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/80 via-transparent to-transparent" />
             </motion.div>
+
+            {/* Overlay gradient at bottom — purely decorative, never covers
+                the face, and can't intercept the image. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0a]/85 to-transparent"
+            />
 
             {/* Role label on image */}
             <div className="absolute bottom-8 left-8 right-8">
@@ -92,7 +96,7 @@ export default function Team() {
                 {tania.name}
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right: Bio and credentials */}
           <motion.div
