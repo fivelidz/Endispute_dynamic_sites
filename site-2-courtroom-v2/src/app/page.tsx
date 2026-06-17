@@ -3,7 +3,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import MarqueeBand from "@/components/MarqueeBand";
 import About from "@/components/About";
-import HorizontalProcess from "@/components/HorizontalProcess";
+import ProcessSection from "@/components/ProcessSection";
 import DisputeProcesses from "@/components/DisputeProcesses";
 import Panels from "@/components/Panels";
 import Team from "@/components/Team";
@@ -30,8 +30,8 @@ export default function Page() {
         {/* 03 — About editorial layout */}
         <About />
 
-        {/* 04 — Horizontal scroll process (THE STAR) */}
-        <HorizontalProcess />
+        {/* 04 — Process section (selectable scroll-animation variants) */}
+        <ProcessSection />
 
         {/* 05 — Dispute process services grid */}
         <DisputeProcesses />
