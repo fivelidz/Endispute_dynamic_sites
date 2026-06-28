@@ -14,7 +14,7 @@
 
 export const company = {
   name: "Endispute",
-  tagline: "End Your Dispute With Endispute",
+  tagline: "End your dispute with Endispute",
   shortPitch: "Leaders in Conflict Resolution",
   about:
     "Endispute is a leading provider of dispute resolution, dispute advisory and dispute management services in respect of complex disputes. The dispute processes are tailored to meet the needs of various industry, commercial corporations and all who do business with them, within Australia and internationally.",
@@ -249,19 +249,18 @@ export const team = [
     role: "Director & Co-Founder",
     photo: "/Endispute-V1Taniafinal.jpg",
     short:
-      "Internationally-renowned scholar, researcher and practitioner in the conflict resolution field.",
+      "Internationally-renowned scholar, researcher and practitioner in the justice reform and conflict resolution field.",
     credentials: [
-      "Foundation Chair & Director, Australian Centre for Justice Innovation (ACJI), Monash University",
-      "Advanced Accredited Mediator (Australia)",
-      "NBN Dispute Advisor (appointed 2014)",
-      "Winner, LEADR Practitioner Excellence Award 2014",
-      "Author, Alternative Dispute Resolution (Thomson Reuters, 4th ed., 2012)",
-      "Author, The Multi-Tasking Judge (Thomson Reuters, 2013)",
-      "General Editor, Thomson's Looseleaf Service on Alternative Dispute Resolution",
-      "Wrote the Australian National Mediator Accreditation Standards (in use since 2008)",
-      "Two Australian Research Council Research Projects on Technology, AI and Dispute Resolution",
+      "Emeritus Professor, University of Newcastle",
+      "Visiting Professor, University of Sydney (since 2014)",
+      "NBN Industry Dispute Resolution Advisor (since 2014)",
+      "Author of more than 160 publications on justice reform issues",
+      "Author, Judges, Technology and AI (2021)",
+      "Expert advisor, Victorian Law Reform Commission — AI in Victorian Courts and Tribunals (report released February 2026)",
+      "Contributor, Australian Human Rights Commission project on Neurotechnology and Human Rights",
+      "Mediator and adjudicator for the Commonwealth and State governments",
     ],
-    bio: "Professor Sourdin has practised across Australia, New Zealand, Hong Kong, Canada, the United States, the UK, the United Arab Emirates and the Pacific. She has worked throughout the Pacific for the IMF and World Bank, and was previously Director of the Conflict Resolution Research Centre at La Trobe University. Her conflict resolution practice focuses on complex dispute resolution and management — including executive, workplace, commercial, intergovernmental, interpersonal and complex conflict situations.",
+    bio: "Professor Sourdin is an Emeritus Professor at the University of Newcastle and the author of more than 160 publications — including books, articles and papers — focused on justice reform issues. She has presented internationally on justice innovation, AI, technology and law, and has led projects exploring the use of AI in the justice system and the role of the human judge since 2003. Her recent work focuses on the regulation and governance of AI, including risk assessment, and she is retained by a number of professional organisations and presents to judges and lawyers in Australia and internationally. She maintains a busy practice, undertaking work for both the Commonwealth and State governments as a mediator and adjudicator.",
   },
 ] as const;
 

@@ -140,12 +140,12 @@ export default function Hero() {
         >
           <div className="text-[clamp(3rem,8vw,7rem)] font-light leading-[1.0] text-[#f4eedf] overflow-hidden">
             {reducedMotion ? (
-              <span>End Your Dispute.</span>
+              <span>End your dispute with Endispute.</span>
             ) : (
               <>
-                <KineticHeading text="End Your" />
+                <KineticHeading text="End your dispute" />
                 <br />
-                {/* "Endispute" — gold italic, larger */}
+                {/* "with Endispute" — gold italic, larger */}
                 <motion.span
                   initial={{ y: 70, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -155,9 +155,10 @@ export default function Hero() {
                     damping: 20,
                     delay: 0.45,
                   }}
-                  className="inline-block italic text-[#d4a14a] text-[clamp(3.5rem,9.5vw,8.5rem)]"
+                  className="inline-block text-[clamp(3.5rem,9.5vw,8.5rem)]"
                 >
-                  Endispute.
+                  <span className="text-[#f4eedf]">with </span>
+                  <span className="italic text-[#d4a14a]">Endispute.</span>
                 </motion.span>
               </>
             )}
