@@ -1,5 +1,12 @@
 # Endispute — Dynamic Website Concepts
 
+> ℹ️ **The site is LIVE.** The finalised design (Courtroom / Spotlight, from
+> `site-2-courtroom-v3`) was extracted into its own private repo
+> **`fivelidz/endispute-live`** and is deployed at **https://www.endispute.com.au**
+> (Cloudflare Pages). For the LIVE site, infrastructure, DNS/domain, or email
+> migration, see that repo's `AGENT_HANDOVER.md`. **This** repo remains the
+> design-exploration / concept gallery.
+
 Production-grade website design concepts for **[Endispute.com.au](https://endispute.com.au)**,
 a dispute resolution, advisory & management practice.
 
